@@ -1,0 +1,105 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "SD-.#####",
+ "creation": "2024-02-01 09:53:27.320329",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "service_details_section",
+  "service_provider_name",
+  "short_description",
+  "column_break_jddl",
+  "service_headline",
+  "attach_image",
+  "redeem_code",
+  "feature_service",
+  "popular_service",
+  "section_break_psdh",
+  "service_providing"
+ ],
+ "fields": [
+  {
+   "fieldname": "service_provider_name",
+   "fieldtype": "Data",
+   "label": "Service Provider Name"
+  },
+  {
+   "fieldname": "attach_image",
+   "fieldtype": "Attach",
+   "label": "Attach Image"
+  },
+  {
+   "fieldname": "column_break_jddl",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "service_headline",
+   "fieldtype": "Data",
+   "label": "Service Headline"
+  },
+  {
+   "fieldname": "short_description",
+   "fieldtype": "Small Text",
+   "label": "Short Description"
+  },
+  {
+   "fieldname": "section_break_psdh",
+   "fieldtype": "Section Break",
+   "label": "Service Providing List"
+  },
+  {
+   "fieldname": "service_providing",
+   "fieldtype": "Table",
+   "label": "Service Providing",
+   "options": "Service Providing List"
+  },
+  {
+   "default": "0",
+   "fieldname": "feature_service",
+   "fieldtype": "Check",
+   "label": "Feature Service"
+  },
+  {
+   "default": "0",
+   "fieldname": "popular_service",
+   "fieldtype": "Check",
+   "label": "Popular Service"
+  },
+  {
+   "fieldname": "service_details_section",
+   "fieldtype": "Section Break",
+   "label": "Service Details"
+  },
+  {
+   "fieldname": "redeem_code",
+   "fieldtype": "Data",
+   "label": "Redeem Code"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-02-01 12:15:07.775470",
+ "modified_by": "Administrator",
+ "module": "START INSIGHTS",
+ "name": "Startup Deals",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

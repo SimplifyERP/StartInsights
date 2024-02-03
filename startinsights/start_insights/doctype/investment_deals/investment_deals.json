@@ -1,0 +1,198 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "ID-.####",
+ "creation": "2024-01-11 15:49:45.672017",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "company_details_section",
+  "legal_name",
+  "founded_year",
+  "column_break_bwnr",
+  "website",
+  "company_logo",
+  "company_description_section",
+  "description",
+  "tab_2_tab",
+  "social_media_section",
+  "linkedin",
+  "youtube",
+  "column_break_zjqe",
+  "instagram",
+  "facebook",
+  "tab_3_tab",
+  "team_section",
+  "investment_details",
+  "tab_4_tab",
+  "documents_section",
+  "doc_1",
+  "column_break_basa",
+  "doc_2",
+  "column_break_uavt",
+  "doc_3"
+ ],
+ "fields": [
+  {
+   "fieldname": "company_logo",
+   "fieldtype": "Attach",
+   "label": "Company Logo "
+  },
+  {
+   "fieldname": "legal_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Legal Name ",
+   "reqd": 1
+  },
+  {
+   "fieldname": "founded_year",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Founded Year",
+   "reqd": 1
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text Editor",
+   "label": "Description ",
+   "reqd": 1
+  },
+  {
+   "fieldname": "website",
+   "fieldtype": "Data",
+   "label": "Website",
+   "options": "URL",
+   "reqd": 1
+  },
+  {
+   "default": "https://",
+   "fieldname": "linkedin",
+   "fieldtype": "Data",
+   "label": "Linkedin",
+   "options": "URL",
+   "reqd": 1
+  },
+  {
+   "fieldname": "instagram",
+   "fieldtype": "Data",
+   "label": "Instagram",
+   "options": "URL"
+  },
+  {
+   "fieldname": "facebook",
+   "fieldtype": "Data",
+   "label": "Facebook",
+   "options": "URL"
+  },
+  {
+   "fieldname": "youtube",
+   "fieldtype": "Data",
+   "label": " Youtube",
+   "options": "URL"
+  },
+  {
+   "fieldname": "doc_1",
+   "fieldtype": "Attach",
+   "label": "Doc 1",
+   "options": "URL"
+  },
+  {
+   "fieldname": "doc_2",
+   "fieldtype": "Attach",
+   "label": "Doc 2"
+  },
+  {
+   "fieldname": "doc_3",
+   "fieldtype": "Attach",
+   "label": "Doc 3"
+  },
+  {
+   "fieldname": "column_break_bwnr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "team_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "documents_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_basa",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tab_2_tab",
+   "fieldtype": "Tab Break",
+   "label": "Social Media"
+  },
+  {
+   "fieldname": "social_media_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_zjqe",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tab_3_tab",
+   "fieldtype": "Tab Break",
+   "label": "Team"
+  },
+  {
+   "fieldname": "tab_4_tab",
+   "fieldtype": "Tab Break",
+   "label": "Documents"
+  },
+  {
+   "fieldname": "column_break_uavt",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "company_details_section",
+   "fieldtype": "Section Break",
+   "label": "Company Details"
+  },
+  {
+   "fieldname": "company_description_section",
+   "fieldtype": "Section Break",
+   "label": "Company Description"
+  },
+  {
+   "fieldname": "investment_details",
+   "fieldtype": "Table",
+   "label": "Investment Details",
+   "options": "Investment Team"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-01-29 17:07:12.002978",
+ "modified_by": "Administrator",
+ "module": "START INSIGHTS",
+ "name": "Investment Deals",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}

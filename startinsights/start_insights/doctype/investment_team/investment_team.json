@@ -1,0 +1,65 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-01-12 18:12:52.635972",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "investment_team_child_table_section",
+  "investor_name",
+  "column_break_xxyu",
+  "designation",
+  "column_break_nxxe",
+  "linkedin"
+ ],
+ "fields": [
+  {
+   "fieldname": "investment_team_child_table_section",
+   "fieldtype": "Section Break",
+   "label": "Investment Team Child Table"
+  },
+  {
+   "fieldname": "investor_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Investor Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Designation",
+   "options": "Designation",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_xxyu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_nxxe",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "linkedin",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Linkedin",
+   "options": "URL"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-01-18 12:32:59.245169",
+ "modified_by": "Administrator",
+ "module": "START INSIGHTS",
+ "name": "Investment Team",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

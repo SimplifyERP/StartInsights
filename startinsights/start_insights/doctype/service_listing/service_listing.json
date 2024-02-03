@@ -1,0 +1,135 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "SR-LIST-.####",
+ "creation": "2024-01-18 14:32:28.339700",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "service_booked_details_section",
+  "expert_name",
+  "service_date",
+  "start_time",
+  "column_break_ackk",
+  "status",
+  "end_time",
+  "book_an_expert",
+  "user_details_section",
+  "user",
+  "user_name",
+  "column_break_hvpo",
+  "user_type",
+  "login_type"
+ ],
+ "fields": [
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nPaid\nUnPaid",
+   "read_only": 1
+  },
+  {
+   "fieldname": "service_booked_details_section",
+   "fieldtype": "Section Break",
+   "label": "Service Booked Details"
+  },
+  {
+   "fieldname": "column_break_ackk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "user_details_section",
+   "fieldtype": "Section Break",
+   "label": "User Details"
+  },
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "User",
+   "options": "User"
+  },
+  {
+   "fetch_from": "user_name.user_type",
+   "fieldname": "user_type",
+   "fieldtype": "Data",
+   "label": "User Type",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "user_name.login_type",
+   "fieldname": "login_type",
+   "fieldtype": "Data",
+   "label": "Login Type",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "user.full_name",
+   "fieldname": "user_name",
+   "fieldtype": "Link",
+   "label": "User Name",
+   "options": "Login Type",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_hvpo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "start_time",
+   "fieldtype": "Time",
+   "label": "Start Time",
+   "read_only": 1
+  },
+  {
+   "fieldname": "end_time",
+   "fieldtype": "Time",
+   "label": "End Time",
+   "read_only": 1
+  },
+  {
+   "fieldname": "expert_name",
+   "fieldtype": "Data",
+   "label": "Expert Name"
+  },
+  {
+   "fieldname": "service_date",
+   "fieldtype": "Date",
+   "label": "Service Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "book_an_expert",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Book an Expert",
+   "options": "Book an Expert",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-01-20 10:15:32.723379",
+ "modified_by": "Administrator",
+ "module": "START INSIGHTS",
+ "name": "Service Listing",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

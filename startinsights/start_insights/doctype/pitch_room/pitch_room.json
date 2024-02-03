@@ -1,0 +1,100 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "PR-.####",
+ "creation": "2024-02-02 10:02:41.678001",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "room_details_section",
+  "room_name",
+  "description",
+  "documents_section",
+  "document_1",
+  "column_break_zbrc",
+  "document_2",
+  "column_break_dkgo",
+  "document_3",
+  "column_break_bpoo",
+  "document_4"
+ ],
+ "fields": [
+  {
+   "fieldname": "room_name",
+   "fieldtype": "Data",
+   "label": "Room Name"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "documents_section",
+   "fieldtype": "Section Break",
+   "label": "Documents"
+  },
+  {
+   "fieldname": "document_1",
+   "fieldtype": "Attach",
+   "label": "Document 1"
+  },
+  {
+   "fieldname": "column_break_zbrc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "document_2",
+   "fieldtype": "Attach",
+   "label": "Document 2"
+  },
+  {
+   "fieldname": "column_break_dkgo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "document_3",
+   "fieldtype": "Attach",
+   "label": "Document 3"
+  },
+  {
+   "fieldname": "column_break_bpoo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "document_4",
+   "fieldtype": "Attach",
+   "label": "Document 4"
+  },
+  {
+   "fieldname": "room_details_section",
+   "fieldtype": "Section Break",
+   "label": "Room Details"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-02-02 11:09:46.771265",
+ "modified_by": "Administrator",
+ "module": "START INSIGHTS",
+ "name": "Pitch Room",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

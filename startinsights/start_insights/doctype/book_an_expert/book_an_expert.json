@@ -1,0 +1,219 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "BK-EXP-.####",
+ "creation": "2024-01-11 13:53:09.081129",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "expert_details_section",
+  "first_name",
+  "last_name",
+  "full_name",
+  "attach_image",
+  "column_break_druf",
+  "designation",
+  "linkedin",
+  "pricing",
+  "description_section",
+  "short_description",
+  "expert_description_section",
+  "description",
+  "tab_2_tab",
+  "booking_duration_section",
+  "from_date",
+  "start_time",
+  "duration",
+  "column_break_dwax",
+  "to_date",
+  "end_time",
+  "create_booking",
+  "amended_from",
+  "booking_slot_table_section",
+  "booking"
+ ],
+ "fields": [
+  {
+   "fieldname": "designation",
+   "fieldtype": "Link",
+   "label": "Designation",
+   "options": "Designation",
+   "reqd": 1
+  },
+  {
+   "default": "https://",
+   "fieldname": "linkedin",
+   "fieldtype": "Data",
+   "label": "Linkedin",
+   "options": "URL",
+   "reqd": 1
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text Editor",
+   "label": "Description ",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_druf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "expert_details_section",
+   "fieldtype": "Section Break",
+   "label": "Expert Details"
+  },
+  {
+   "fieldname": "first_name",
+   "fieldtype": "Data",
+   "label": "First Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "last_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Last Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "full_name",
+   "fieldtype": "Data",
+   "label": "Full Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "expert_description_section",
+   "fieldtype": "Section Break",
+   "label": "Expert Description"
+  },
+  {
+   "fieldname": "tab_2_tab",
+   "fieldtype": "Tab Break",
+   "label": "Booking Details"
+  },
+  {
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "label": "From Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_dwax",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.from_date",
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "label": "To Date"
+  },
+  {
+   "depends_on": "eval:doc.to_date",
+   "fieldname": "start_time",
+   "fieldtype": "Time",
+   "label": "Start Time"
+  },
+  {
+   "depends_on": "eval:doc.duration",
+   "fieldname": "end_time",
+   "fieldtype": "Time",
+   "label": "End Time"
+  },
+  {
+   "depends_on": "eval:doc.start_time",
+   "fieldname": "duration",
+   "fieldtype": "Select",
+   "label": "Duration",
+   "options": "\n30\n45\n1"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Book an Expert",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "depends_on": "eval:doc.end_time",
+   "fieldname": "create_booking",
+   "fieldtype": "Button",
+   "label": "Create Booking"
+  },
+  {
+   "fieldname": "booking_duration_section",
+   "fieldtype": "Section Break",
+   "label": "Booking Duration"
+  },
+  {
+   "fieldname": "booking_slot_table_section",
+   "fieldtype": "Section Break",
+   "label": "Booking Slot Table"
+  },
+  {
+   "fieldname": "booking",
+   "fieldtype": "Table",
+   "label": "Booking",
+   "options": "Book an Expert Table"
+  },
+  {
+   "fieldname": "pricing",
+   "fieldtype": "Currency",
+   "label": "Pricing",
+   "reqd": 1
+  },
+  {
+   "fieldname": "description_section",
+   "fieldtype": "Section Break",
+   "label": "Description"
+  },
+  {
+   "fieldname": "short_description",
+   "fieldtype": "Text Editor",
+   "label": "Short Description",
+   "reqd": 1
+  },
+  {
+   "fieldname": "attach_image",
+   "fieldtype": "Attach",
+   "label": "Attach Image"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [
+  {
+   "link_doctype": "Service Listing",
+   "link_fieldname": "book_an_expert"
+  }
+ ],
+ "modified": "2024-01-24 17:53:30.320206",
+ "modified_by": "Administrator",
+ "module": "START INSIGHTS",
+ "name": "Book an Expert",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}

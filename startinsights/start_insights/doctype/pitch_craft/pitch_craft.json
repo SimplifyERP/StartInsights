@@ -1,0 +1,144 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "PC-.####",
+ "creation": "2024-01-09 14:38:54.761298",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "card_view_section",
+  "service_name",
+  "pitch_craft_image",
+  "column_break_sxhw",
+  "pricing",
+  "description_section",
+  "short_description",
+  "overview_tab",
+  "overview_section",
+  "benefits",
+  "section_break_mkiu",
+  "description",
+  "process_tab",
+  "process_section",
+  "documents_required",
+  "section_break_edpw",
+  "deliverables"
+ ],
+ "fields": [
+  {
+   "fieldname": "overview_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "benefits",
+   "fieldtype": "Text Editor",
+   "label": "Benefits "
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text Editor",
+   "label": "Description "
+  },
+  {
+   "fieldname": "process_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "documents_required",
+   "fieldtype": "Text Editor",
+   "label": "Documents Required "
+  },
+  {
+   "fieldname": "deliverables",
+   "fieldtype": "Text Editor",
+   "label": "Deliverables "
+  },
+  {
+   "fieldname": "card_view_section",
+   "fieldtype": "Section Break",
+   "label": "Service Details"
+  },
+  {
+   "fieldname": "service_name",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Service Name",
+   "options": "Pitch Craft Service List",
+   "reqd": 1
+  },
+  {
+   "fieldname": "pricing",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Pricing",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_sxhw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "overview_tab",
+   "fieldtype": "Tab Break",
+   "label": "Overview"
+  },
+  {
+   "fieldname": "process_tab",
+   "fieldtype": "Tab Break",
+   "label": "Process"
+  },
+  {
+   "fieldname": "section_break_mkiu",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_edpw",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "description_section",
+   "fieldtype": "Section Break",
+   "label": "Description"
+  },
+  {
+   "fetch_from": "service_name.description",
+   "fieldname": "short_description",
+   "fieldtype": "Small Text",
+   "label": "Short Description"
+  },
+  {
+   "fieldname": "pitch_craft_image",
+   "fieldtype": "Attach Image",
+   "label": "Pitch Craft Image",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-02-03 15:25:30.917899",
+ "modified_by": "Administrator",
+ "module": "START INSIGHTS",
+ "name": "Pitch Craft",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}
