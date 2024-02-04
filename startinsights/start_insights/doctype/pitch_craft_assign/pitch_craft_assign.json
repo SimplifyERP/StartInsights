@@ -1,24 +1,68 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "PITCH-ASSIGN-.####",
  "creation": "2024-02-01 14:35:39.020961",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "section_break_2uwx"
+  "assign_details_section",
+  "column_break_hjmh",
+  "pitch_craft_id",
+  "pitch_craft_service_name",
+  "column_break_yhoo",
+  "assign_user",
+  "date"
  ],
  "fields": [
   {
-   "fieldname": "section_break_2uwx",
-   "fieldtype": "Section Break"
+   "fieldname": "assign_details_section",
+   "fieldtype": "Section Break",
+   "label": "Assign Details"
+  },
+  {
+   "fieldname": "pitch_craft_id",
+   "fieldtype": "Link",
+   "label": "Pitch Craft ID",
+   "options": "Pitch Craft",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_yhoo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "assign_user",
+   "fieldtype": "Link",
+   "label": "Assign User",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "pitch_craft_service_name",
+   "fieldtype": "Data",
+   "label": "Pitch Craft Service Name"
+  },
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_hjmh",
+   "fieldtype": "Column Break",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-01 14:35:39.020961",
+ "modified": "2024-02-04 09:52:19.809722",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Pitch Craft Assign",
+ "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
   {
