@@ -22,7 +22,8 @@
   "process_section",
   "documents_required",
   "section_break_edpw",
-  "deliverables"
+  "deliverables",
+  "amended_from"
  ],
  "fields": [
   {
@@ -111,11 +112,27 @@
    "fieldtype": "Attach Image",
    "label": "Pitch Craft Image",
    "reqd": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Pitch Craft",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
   }
  ],
  "index_web_pages_for_search": 1,
- "links": [],
- "modified": "2024-02-03 15:25:30.917899",
+ "is_submittable": 1,
+ "links": [
+  {
+   "link_doctype": "Pitch Craft Assign",
+   "link_fieldname": "pitch_craft_id"
+  }
+ ],
+ "modified": "2024-02-04 09:50:59.195803",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Pitch Craft",
