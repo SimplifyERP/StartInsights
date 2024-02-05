@@ -36,15 +36,21 @@ def pitch_craft_list():
 def pitch_craft_overview_details(name):
     plain_text_short_description = ""
     plain_text_benefits = ""
+    image_url = ""
     try:
         pitch_craft = frappe.get_doc('Pitch Craft', name)
         if not pitch_craft:
             return {"status": False, "message": f"Pitch Craft '{name}' not found"}
         plain_text_short_description = html2text.html2text(pitch_craft.description).strip()
         plain_text_benefits = html2text.html2text(pitch_craft.benefits).strip()
+        if pitch_craft.pitch_craft_image:
+            image_url = get_url() + pitch_craft.pitch_craft_image
+        else:
+            image_url = ""    
         formatted_pitch_craft_details = {
             'id': pitch_craft.name,
             'service_name': pitch_craft.service_name,
+            "pitch_craft_image":image_url,
             'pricing': pitch_craft.pricing,
             'benefits': plain_text_benefits,
             'description': plain_text_short_description,
@@ -58,15 +64,21 @@ def pitch_craft_overview_details(name):
 def pitch_craft_process_details(name):
     plain_text_documents_required = ""
     plain_text_deliverables = ""
+    image_url = ""
     try:
         pitch_craft = frappe.get_doc('Pitch Craft', name)
         if not pitch_craft:
             return {"status": False, "message": f"Pitch Craft '{name}' not found"}
         plain_text_documents_required = html2text.html2text(pitch_craft.documents_required).strip()
         plain_text_deliverables = html2text.html2text(pitch_craft.deliverables).strip()
+        if pitch_craft.pitch_craft_image:
+            image_url = get_url() + pitch_craft.pitch_craft_image
+        else:
+            image_url = "" 
         formatted_pitch_craft_details = {
             'id': pitch_craft.name,
             'service_name': pitch_craft.service_name,
+            "pitch_craft_image":image_url,
             'pricing': pitch_craft.pricing,
             'deliverables': plain_text_deliverables,
             'documents_required': plain_text_documents_required,
@@ -80,8 +92,8 @@ def pitch_craft_process_details(name):
 def pitch_craft_service_details(name):
     plain_text_short_description = ""
     plain_text_benefits = ""
-    plain_text_documents_required = ""
     plain_text_deliverables = ""
+    image_url = ""
     try:
         pitch_craft = frappe.get_doc('Pitch Craft', name)
         pitch_craft_list = []
@@ -90,9 +102,14 @@ def pitch_craft_service_details(name):
         plain_text_short_description = html2text.html2text(pitch_craft.description).strip()
         plain_text_benefits = html2text.html2text(pitch_craft.benefits).strip()
         plain_text_deliverables = html2text.html2text(pitch_craft.deliverables).strip()
+        if pitch_craft.pitch_craft_image:
+            image_url = get_url()+ pitch_craft.pitch_craft_image
+        else:
+            image_url = ""    
         pitch_craft_details = {
             'id': pitch_craft.name,
             'service_name': pitch_craft.service_name,
+            "pitch_craft_image":image_url,
             'pricing': pitch_craft.pricing,
             'benefits': plain_text_benefits,
             'description': plain_text_short_description,
