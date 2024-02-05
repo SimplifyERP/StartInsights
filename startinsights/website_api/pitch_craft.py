@@ -84,21 +84,27 @@ def pitch_craft_service_details(name):
     plain_text_deliverables = ""
     try:
         pitch_craft = frappe.get_doc('Pitch Craft', name)
+        pitch_craft_list = []
         if not pitch_craft:
             return {"status": False, "message": f"Pitch Craft '{name}' not found"}
         plain_text_short_description = html2text.html2text(pitch_craft.description).strip()
         plain_text_benefits = html2text.html2text(pitch_craft.benefits).strip()
-        plain_text_documents_required = html2text.html2text(pitch_craft.documents_required).strip()
         plain_text_deliverables = html2text.html2text(pitch_craft.deliverables).strip()
-        formatted_pitch_craft_details = {
+        pitch_craft_details = {
             'id': pitch_craft.name,
             'service_name': pitch_craft.service_name,
             'pricing': pitch_craft.pricing,
             'benefits': plain_text_benefits,
             'description': plain_text_short_description,
             'deliverables': plain_text_deliverables,
-            'documents_required': plain_text_documents_required,
+            'documents_required':[],
         }
-        return {"status": True, "pitch_craft_details": formatted_pitch_craft_details}
+        documents_required = frappe.db.get_all("Pitch Craft Documents Table",{'parent':name},['documents_required'],order_by='idx ASC')
+        for documents in documents_required:
+            pitch_craft_details['documents_required'].append({
+                "documents":documents.documents_required
+            })
+        pitch_craft_list.append(pitch_craft_details)    
+        return {"status": True, "pitch_craft_details": pitch_craft_list}
     except:
         return {"status": False}
