@@ -27,7 +27,7 @@ def pitch_craft_list():
                 'short_description': plain_text_short_description,
             }
             formatted_pitch_craft_list.append(pitch_craft_details)
-        return {"status": True, "pitch_craft_details": formatted_pitch_craft_list}
+        return {"status": True, "pitch_craft_list": formatted_pitch_craft_list}
     except:
         return {"status": False}
 
@@ -55,35 +55,40 @@ def pitch_craft_overview_details(name):
             'benefits': plain_text_benefits,
             'description': plain_text_short_description,
         }
-        return {"status": True, "pitch_craft_details": formatted_pitch_craft_details}
+        return {"status": True, "pitch_craft_overview_details": formatted_pitch_craft_details}
     except:
         return {"status": False}
 
 # pitch craft process & document details
 @frappe.whitelist()
 def pitch_craft_process_details(name):
-    plain_text_documents_required = ""
     plain_text_deliverables = ""
     image_url = ""
     try:
         pitch_craft = frappe.get_doc('Pitch Craft', name)
+        pitch_craft_list = []
         if not pitch_craft:
             return {"status": False, "message": f"Pitch Craft '{name}' not found"}
-        plain_text_documents_required = html2text.html2text(pitch_craft.documents_required).strip()
         plain_text_deliverables = html2text.html2text(pitch_craft.deliverables).strip()
         if pitch_craft.pitch_craft_image:
             image_url = get_url() + pitch_craft.pitch_craft_image
         else:
             image_url = "" 
-        formatted_pitch_craft_details = {
+        pitch_craft_details = {
             'id': pitch_craft.name,
             'service_name': pitch_craft.service_name,
             "pitch_craft_image":image_url,
             'pricing': pitch_craft.pricing,
             'deliverables': plain_text_deliverables,
-            'documents_required': plain_text_documents_required,
+            'documents_required':[],
         }
-        return {"status": True, "pitch_craft_details": formatted_pitch_craft_details}
+        documents_required = frappe.db.get_all("Pitch Craft Documents Table",{'parent':name},['documents_required'],order_by='idx ASC')
+        for documents in documents_required:
+            pitch_craft_details['documents_required'].append({
+                "documents":documents.documents_required
+            })
+        pitch_craft_list.append(pitch_craft_details)    
+        return {"status": True, "pitch_craft_process_details": pitch_craft_list}
     except:
         return {"status": False}
 
@@ -122,6 +127,6 @@ def pitch_craft_service_details(name):
                 "documents":documents.documents_required
             })
         pitch_craft_list.append(pitch_craft_details)    
-        return {"status": True, "pitch_craft_details": pitch_craft_list}
+        return {"status": True, "pitch_craft_service_details": pitch_craft_list}
     except:
         return {"status": False}
