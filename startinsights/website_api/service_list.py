@@ -41,4 +41,5 @@ def mark_booked_status(booking_id,start_time,end_time,date):
         if entry.date == service_date_format:
             if get_time(entry.start_time) == get_time(start_time) and get_time(entry.end_time) == get_time(end_time):
                 frappe.db.set_value("Book an Expert Table",entry.name,'booked_status','1')
+                frappe.db.set_value("Book an Expert Table",entry.name,'status','True')
        

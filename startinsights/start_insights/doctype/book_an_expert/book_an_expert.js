@@ -22,7 +22,8 @@ frappe.ui.form.on("Book an Expert", {
                         frm.add_child('booking', {
                             "date": date,
                             "start_time": start_time,
-                            "end_time": end_time
+                            "end_time": end_time,
+                            "status":"False"
                         });
                     });
                 }
