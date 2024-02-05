@@ -14,13 +14,14 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Question",
-   "options": "Quiz Question"
+   "options": "Quiz Question",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-02-01 14:58:15.132268",
+ "modified": "2024-02-05 17:24:27.802813",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Question",

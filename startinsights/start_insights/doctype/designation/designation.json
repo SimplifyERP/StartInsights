@@ -12,13 +12,15 @@
   {
    "fieldname": "designation",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Designation",
+   "reqd": 1,
    "unique": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-01-12 17:54:36.634928",
+ "modified": "2024-02-05 17:22:13.416641",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Designation",

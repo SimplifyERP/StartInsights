@@ -47,13 +47,14 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Linkedin",
-   "options": "URL"
+   "options": "URL",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-01-18 12:32:59.245169",
+ "modified": "2024-02-05 17:22:21.034678",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Investment Team",

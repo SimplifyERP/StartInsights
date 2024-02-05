@@ -23,9 +23,11 @@
   {
    "fieldname": "pitch_craft_id",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Pitch Craft ID",
    "options": "Pitch Craft",
-   "read_only": 1
+   "read_only": 1,
+   "reqd": 1
   },
   {
    "fieldname": "column_break_yhoo",
@@ -34,21 +36,27 @@
   {
    "fieldname": "assign_user",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Assign User",
    "options": "User",
-   "read_only": 1
+   "read_only": 1,
+   "reqd": 1
   },
   {
    "fieldname": "pitch_craft_service_name",
    "fieldtype": "Data",
-   "label": "Pitch Craft Service Name"
+   "in_list_view": 1,
+   "label": "Pitch Craft Service Name",
+   "reqd": 1
   },
   {
    "default": "Today",
    "fieldname": "date",
    "fieldtype": "Date",
+   "in_list_view": 1,
    "label": "Date",
-   "read_only": 1
+   "read_only": 1,
+   "reqd": 1
   },
   {
    "fieldname": "column_break_hjmh",
@@ -58,7 +66,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-04 09:52:19.809722",
+ "modified": "2024-02-05 17:26:07.795509",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Pitch Craft Assign",
