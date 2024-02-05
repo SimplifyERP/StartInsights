@@ -31,7 +31,7 @@ def book_an_expert(expert_id):
                 "duration":expert.duration,
                 "booking":[]
             }
-            booking = frappe.db.get_all('Book an Expert Table',{'parent': expert.name,'booked_status':0},['date','start_time','end_time','status'],order_by='idx ASC')
+            booking = frappe.db.get_all('Book an Expert Table',{'parent': expert.name},['date','start_time','end_time','status'],order_by='idx ASC')
             expert['booking'] = []
 
             for book in booking:
