@@ -24,8 +24,10 @@
   {
    "fieldname": "user",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "User",
    "options": "User",
+   "reqd": 1,
    "unique": 1
   },
   {
@@ -36,7 +38,9 @@
    "fetch_from": "user.full_name",
    "fieldname": "full_name",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Full Name",
+   "reqd": 1,
    "unique": 1
   },
   {
@@ -46,8 +50,10 @@
   {
    "fieldname": "login_type",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Login Type",
-   "options": "\nGoggle\nFacebook\nTwitter\nNormal"
+   "options": "\nGoggle\nFacebook\nTwitter\nNormal",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_oghd",
@@ -56,13 +62,15 @@
   {
    "fieldname": "user_type",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "User Type",
-   "options": "Start Insight User"
+   "options": "Start Insight User",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-01-18 14:52:45.872728",
+ "modified": "2024-02-05 17:22:38.499630",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Login Type",

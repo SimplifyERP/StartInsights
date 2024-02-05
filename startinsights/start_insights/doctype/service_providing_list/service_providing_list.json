@@ -14,13 +14,14 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Type of Service",
-   "options": "Service Module"
+   "options": "Service Module",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-02-01 10:10:21.587717",
+ "modified": "2024-02-05 17:23:34.400044",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Service Providing List",
