@@ -33,12 +33,14 @@
   {
    "fieldname": "benefits",
    "fieldtype": "Text Editor",
-   "label": "Benefits "
+   "label": "Benefits ",
+   "reqd": 1
   },
   {
    "fieldname": "description",
    "fieldtype": "Text Editor",
-   "label": "Description "
+   "label": "Description ",
+   "reqd": 1
   },
   {
    "fieldname": "documents_required",
@@ -49,7 +51,8 @@
   {
    "fieldname": "deliverables",
    "fieldtype": "Text Editor",
-   "label": "Deliverables "
+   "label": "Deliverables ",
+   "reqd": 1
   },
   {
    "fieldname": "card_view_section",
@@ -102,7 +105,8 @@
    "fetch_from": "service_name.description",
    "fieldname": "short_description",
    "fieldtype": "Small Text",
-   "label": "Short Description"
+   "label": "Short Description",
+   "reqd": 1
   },
   {
    "fieldname": "pitch_craft_image",
@@ -133,7 +137,7 @@
    "link_fieldname": "pitch_craft_id"
   }
  ],
- "modified": "2024-02-05 13:02:30.168827",
+ "modified": "2024-02-05 14:03:29.720152",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Pitch Craft",
