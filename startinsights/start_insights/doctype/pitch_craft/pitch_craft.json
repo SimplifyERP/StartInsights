@@ -19,11 +19,11 @@
   "section_break_mkiu",
   "description",
   "process_tab",
-  "process_section",
-  "documents_required",
   "section_break_edpw",
   "deliverables",
-  "amended_from"
+  "amended_from",
+  "section_break_xypp",
+  "documents_required"
  ],
  "fields": [
   {
@@ -41,13 +41,10 @@
    "label": "Description "
   },
   {
-   "fieldname": "process_section",
-   "fieldtype": "Section Break"
-  },
-  {
    "fieldname": "documents_required",
-   "fieldtype": "Text Editor",
-   "label": "Documents Required "
+   "fieldtype": "Table",
+   "label": "Documents Required",
+   "options": "Pitch Craft Documents Table"
   },
   {
    "fieldname": "deliverables",
@@ -122,6 +119,10 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
+  },
+  {
+   "fieldname": "section_break_xypp",
+   "fieldtype": "Section Break"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -132,7 +133,7 @@
    "link_fieldname": "pitch_craft_id"
   }
  ],
- "modified": "2024-02-04 09:50:59.195803",
+ "modified": "2024-02-05 13:02:30.168827",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Pitch Craft",
