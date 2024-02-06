@@ -2,7 +2,8 @@ import frappe
 from frappe import _
 import html2text
 from frappe.utils import  get_url
-
+import urllib.parse
+from urllib.parse import quote
 
 #course details
 @frappe.whitelist()
@@ -28,12 +29,15 @@ def angel_investing_details(course_id):
                 }
                 for lesson in lesson_details:
                     lesson_doc = frappe.get_doc('Course Lesson', lesson.lesson)
-                    youtube_video_id = lesson_doc.body.split('/')[-1] 
-                    youtube_video = lesson_doc.youtube
-                    youtube_link = "https://youtu.be/"
+                    if lesson_doc.custom_video:
+                        video_url = get_url() + lesson_doc.custom_video
+                    else:
+                        video_url = ""   
+                    
+                    encoded_url = quote(video_url)
                     lesson_data = {
                         'lesson_name': lesson.lesson,
-                        'body': youtube_video
+                        'body': encoded_url
                     }
                     chapter_data['lessons'].append(lesson_data)
                 course_data['chapters'].append(chapter_data)
