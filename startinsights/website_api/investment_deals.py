@@ -21,7 +21,7 @@ def investment_deals_details():
         for investment_deals in investment_api:
             plain_text_description = html2text.html2text(investment_deals.description).strip()
             if investment_deals.company_logo:
-                image_url = investment_deals.company_logo
+                image_url = get_url() + investment_deals.company_logo
             else:
                 image_url = ""
             if investment_deals.doc1:
