@@ -25,18 +25,14 @@
   "team_section",
   "investment_details",
   "tab_4_tab",
-  "documents_section",
-  "doc_1",
-  "column_break_basa",
-  "doc_2",
-  "column_break_uavt",
-  "doc_3"
+  "document_required"
  ],
  "fields": [
   {
    "fieldname": "company_logo",
    "fieldtype": "Attach",
-   "label": "Company Logo "
+   "label": "Company Logo ",
+   "reqd": 1
   },
   {
    "fieldname": "legal_name",
@@ -48,9 +44,7 @@
   {
    "fieldname": "founded_year",
    "fieldtype": "Int",
-   "in_list_view": 1,
-   "label": "Founded Year",
-   "reqd": 1
+   "label": "Founded Year"
   },
   {
    "fieldname": "description",
@@ -62,16 +56,12 @@
    "fieldname": "website",
    "fieldtype": "Data",
    "label": "Website",
-   "options": "URL",
-   "reqd": 1
+   "options": "URL"
   },
   {
-   "default": "https://",
    "fieldname": "linkedin",
    "fieldtype": "Data",
-   "label": "Linkedin",
-   "options": "URL",
-   "reqd": 1
+   "label": "Linkedin"
   },
   {
    "fieldname": "instagram",
@@ -92,36 +82,12 @@
    "options": "URL"
   },
   {
-   "fieldname": "doc_1",
-   "fieldtype": "Attach",
-   "label": "Doc 1",
-   "options": "URL"
-  },
-  {
-   "fieldname": "doc_2",
-   "fieldtype": "Attach",
-   "label": "Doc 2"
-  },
-  {
-   "fieldname": "doc_3",
-   "fieldtype": "Attach",
-   "label": "Doc 3"
-  },
-  {
    "fieldname": "column_break_bwnr",
    "fieldtype": "Column Break"
   },
   {
    "fieldname": "team_section",
    "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "documents_section",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "column_break_basa",
-   "fieldtype": "Column Break"
   },
   {
    "fieldname": "tab_2_tab",
@@ -147,10 +113,6 @@
    "label": "Documents"
   },
   {
-   "fieldname": "column_break_uavt",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "company_details_section",
    "fieldtype": "Section Break",
    "label": "Company Details"
@@ -165,11 +127,17 @@
    "fieldtype": "Table",
    "label": "Investment Details",
    "options": "Investment Team"
+  },
+  {
+   "fieldname": "document_required",
+   "fieldtype": "Table",
+   "label": "Document Required",
+   "options": "Pitch Craft Documents Table"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-01-29 17:07:12.002978",
+ "modified": "2024-02-06 15:27:09.690084",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Investment Deals",
