@@ -42,7 +42,7 @@ def investment_deals_details():
                 'Legal Name': investment_deals.legal_name,
                 'Founded Year': investment_deals.founded_year,
                 'Website': investment_deals.website,
-                'Company Logo': web_url + image_url ,
+                'Company Logo': image_url ,
                 'description': plain_text_description,
                 'linkedin': investment_deals.linkedin,
                 'youtube': investment_deals.youtube or "",
