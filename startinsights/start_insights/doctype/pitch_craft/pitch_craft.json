@@ -11,6 +11,7 @@
   "pitch_craft_image",
   "column_break_sxhw",
   "pricing",
+  "pitch_craft_status",
   "description_section",
   "short_description",
   "overview_tab",
@@ -127,6 +128,14 @@
   {
    "fieldname": "section_break_xypp",
    "fieldtype": "Section Break"
+  },
+  {
+   "default": "Unsaved",
+   "fieldname": "pitch_craft_status",
+   "fieldtype": "Select",
+   "label": "Pitch Craft Status",
+   "options": "\nSaved\nUnsaved",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
@@ -137,7 +146,7 @@
    "link_fieldname": "pitch_craft_id"
   }
  ],
- "modified": "2024-02-05 14:03:29.720152",
+ "modified": "2024-02-06 14:15:20.674586",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Pitch Craft",
