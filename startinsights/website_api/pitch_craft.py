@@ -175,3 +175,22 @@ def get_saved_pitch_craft(pitch_id,status):
     except Exception as e:
         return {"status": False, "message": str(e)}
     
+
+
+@frappe.whitelist()
+def make_pitch_craft_payment(pitch_craft_id,user,payment_id,amount,date):
+    try:
+        service_booked_date = datetime.strptime(format_date(date), "%m-%d-%Y").date()
+        new_pitch_craft_payment = frappe.new_doc("Pitch Craft Payment")
+        new_pitch_craft_payment.pitch_craft_id = pitch_craft_id
+        new_pitch_craft_payment.service_booked_date = service_booked_date
+        new_pitch_craft_payment.payment_status = "Paid"
+        new_pitch_craft_payment.payment_id = payment_id
+        new_pitch_craft_payment.amount = amount
+        new_pitch_craft_payment.login_user = user
+        new_pitch_craft_payment.save(ignore_permissions=True)
+        new_pitch_craft_payment.submit()
+        frappe.db.commit()
+        return {"status":True,"message":"New Pitch Craft Payment Submitted"}
+    except Exception as e:
+        return {"status":False,"message":e}    
