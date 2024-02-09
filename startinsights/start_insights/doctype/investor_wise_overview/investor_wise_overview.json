@@ -1,0 +1,122 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "I-W Overview-.####",
+ "creation": "2024-02-08 12:31:38.330707",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "name1",
+  "tag_name",
+  "date_of_allotment",
+  "invested_round",
+  "amount_invested",
+  "distinctive_share_no",
+  "share_certificate",
+  "column_break_siyr",
+  "shares_allotted",
+  "price_per_share",
+  "fully_diluted_shares",
+  "class_of_shares",
+  "folio_number",
+  "_shareholding"
+ ],
+ "fields": [
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "label": "Name"
+  },
+  {
+   "fieldname": "tag_name",
+   "fieldtype": "Link",
+   "label": "Tag Name",
+   "options": "Tag Name"
+  },
+  {
+   "fieldname": "date_of_allotment",
+   "fieldtype": "Date",
+   "label": "Date Of Allotment"
+  },
+  {
+   "fieldname": "invested_round",
+   "fieldtype": "Link",
+   "label": "Invested Round ",
+   "options": "Invested Round"
+  },
+  {
+   "fieldname": "amount_invested",
+   "fieldtype": "Currency",
+   "label": "Amount Invested"
+  },
+  {
+   "fieldname": "distinctive_share_no",
+   "fieldtype": "Data",
+   "label": "Distinctive Share No"
+  },
+  {
+   "fieldname": "share_certificate",
+   "fieldtype": "Attach",
+   "label": "Share Certificate"
+  },
+  {
+   "fieldname": "column_break_siyr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "shares_allotted",
+   "fieldtype": "Data",
+   "label": "Shares Allotted"
+  },
+  {
+   "fieldname": "price_per_share",
+   "fieldtype": "Currency",
+   "label": "Price Per Share"
+  },
+  {
+   "fieldname": "fully_diluted_shares",
+   "fieldtype": "Data",
+   "label": "Fully Diluted Shares"
+  },
+  {
+   "fieldname": "class_of_shares",
+   "fieldtype": "Data",
+   "label": "Class Of Shares"
+  },
+  {
+   "fieldname": "folio_number",
+   "fieldtype": "Data",
+   "label": "Folio Number"
+  },
+  {
+   "fieldname": "_shareholding",
+   "fieldtype": "Data",
+   "label": "% Shareholding"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-02-08 12:41:07.319505",
+ "modified_by": "Administrator",
+ "module": "START INSIGHTS",
+ "name": "Investor-Wise Overview",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
