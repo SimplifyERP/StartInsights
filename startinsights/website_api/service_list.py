@@ -4,7 +4,7 @@ from frappe.utils import now,getdate,today,format_date,nowdate,add_months,get_ti
 
 
 @frappe.whitelist()
-def create_service_list(expert_name,service_date,start_time,end_time,user,booking_id):
+def create_service_list(expert_name,service_date,start_time,end_time,user,booking_id,payment_id,amount):
     status = ""
     message = ""
     try:
@@ -20,13 +20,15 @@ def create_service_list(expert_name,service_date,start_time,end_time,user,bookin
         new_service.user = user
         new_service.book_an_expert = booking_id
         new_service.status = "Paid"
+        new_service.payment_id = payment_id
+        new_service.service_amount = amount
         new_service.save(ignore_permissions=True)
         frappe.db.commit()
 
         mark_booked_status(booking_id,start_time,end_time,service_date)
         status = True
         message = "Service List Created"
-        return {"status":status,"message":message}
+        return {"status":status,"message":booking_id}
     except Exception as e:
         status = False
         message = e
