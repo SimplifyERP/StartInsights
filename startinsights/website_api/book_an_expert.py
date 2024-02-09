@@ -39,7 +39,7 @@ def book_an_expert(expert_id):
                     "date":formatdate(book.date),
                     "start_time":book.start_time,
                     "end_time":book.end_time,
-                    "status":book.status
+                    "status":bool(book.status)
                 })
             formatted_book_an_expert.append(expert_list)    
         return {"status":True,"book_an_expert":formatted_book_an_expert}
@@ -49,11 +49,10 @@ def book_an_expert(expert_id):
 
 @frappe.whitelist()
 def get_book_an_expert_list():
-    expert_list = []
     description = ""
     image_url = ""
     try:
-        get_book_an_expert = frappe.db.get_all("Book an Expert",{'docstatus':1},['*'])
+        get_book_an_expert = frappe.db.get_all("Book an Expert",{'docstatus':1},['*'],order_by='idx ASC')
         formatted_book_an_expert = []
         for expert in get_book_an_expert:
             description = html2text.html2text(expert.short_description).strip()
@@ -71,6 +70,6 @@ def get_book_an_expert_list():
                 "description":description,
             }
             formatted_book_an_expert.append(expert_list)    
-            return {"status":True,"book_an_expert_list":formatted_book_an_expert}
+        return {"status":True,"book_an_expert_list":formatted_book_an_expert}
     except Exception as e:
         return {"status":False,"message":e}
