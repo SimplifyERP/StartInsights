@@ -10,10 +10,12 @@
   "expert_name",
   "service_date",
   "start_time",
+  "payment_id",
   "column_break_ackk",
   "status",
   "end_time",
   "book_an_expert",
+  "service_amount",
   "user_details_section",
   "user",
   "user_name",
@@ -107,15 +109,26 @@
   {
    "fieldname": "book_an_expert",
    "fieldtype": "Link",
-   "hidden": 1,
    "label": "Book an Expert",
    "options": "Book an Expert",
+   "read_only": 1
+  },
+  {
+   "fieldname": "payment_id",
+   "fieldtype": "Data",
+   "label": "Payment ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "service_amount",
+   "fieldtype": "Currency",
+   "label": "Service Amount",
    "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-05 17:22:59.486621",
+ "modified": "2024-02-09 11:16:34.291627",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Service Listing",
