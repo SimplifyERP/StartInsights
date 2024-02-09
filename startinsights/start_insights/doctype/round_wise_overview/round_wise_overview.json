@@ -1,0 +1,100 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "R-W Overview-.####",
+ "creation": "2024-02-08 11:07:14.618518",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "name_of_the_round",
+  "round_type",
+  "closing_date_of_the_round",
+  "description",
+  "select_security_prefix",
+  "column_break_khec",
+  "amount_raised",
+  "price_per_share",
+  "pre_money_valuation",
+  "dilution_for_this_round"
+ ],
+ "fields": [
+  {
+   "fieldname": "name_of_the_round",
+   "fieldtype": "Data",
+   "label": "Name of the round",
+   "unique": 1
+  },
+  {
+   "fieldname": "round_type",
+   "fieldtype": "Link",
+   "label": "Round Type",
+   "options": "Round Type"
+  },
+  {
+   "fieldname": "closing_date_of_the_round",
+   "fieldtype": "Date",
+   "label": "Closing date of the Round"
+  },
+  {
+   "fetch_from": "round_type.description",
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "amount_raised",
+   "fieldtype": "Currency",
+   "label": "Amount Raised"
+  },
+  {
+   "fieldname": "column_break_khec",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "price_per_share",
+   "fieldtype": "Currency",
+   "label": "Price per share"
+  },
+  {
+   "fieldname": "pre_money_valuation",
+   "fieldtype": "Currency",
+   "label": "Pre-Money Valuation"
+  },
+  {
+   "depends_on": "eval:doc.round_type == \"CCD\" || doc.round_type =='CN' || doc.round_type =='iSAFE' ",
+   "fieldname": "select_security_prefix",
+   "fieldtype": "Data",
+   "label": "Select Security Prefix"
+  },
+  {
+   "fieldname": "dilution_for_this_round",
+   "fieldtype": "Data",
+   "label": "Dilution for this round (%)"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-02-08 12:28:25.083643",
+ "modified_by": "Administrator",
+ "module": "START INSIGHTS",
+ "name": "Round-wise Overview",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
