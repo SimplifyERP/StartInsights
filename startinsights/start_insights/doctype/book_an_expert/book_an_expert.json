@@ -13,7 +13,6 @@
   "attach_image",
   "column_break_druf",
   "designation",
-  "linkedin",
   "pricing",
   "description_section",
   "short_description",
@@ -38,14 +37,6 @@
    "fieldtype": "Link",
    "label": "Designation",
    "options": "Designation",
-   "reqd": 1
-  },
-  {
-   "default": "https://",
-   "fieldname": "linkedin",
-   "fieldtype": "Data",
-   "label": "Linkedin",
-   "options": "URL",
    "reqd": 1
   },
   {
@@ -193,7 +184,7 @@
    "link_fieldname": "book_an_expert"
   }
  ],
- "modified": "2024-02-09 13:11:19.149559",
+ "modified": "2024-02-12 18:34:08.646410",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Book an Expert",

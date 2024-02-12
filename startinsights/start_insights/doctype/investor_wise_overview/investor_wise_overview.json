@@ -6,7 +6,7 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "name1",
+  "investor_name",
   "tag_name",
   "date_of_allotment",
   "invested_round",
@@ -23,11 +23,6 @@
  ],
  "fields": [
   {
-   "fieldname": "name1",
-   "fieldtype": "Data",
-   "label": "Name"
-  },
-  {
    "fieldname": "tag_name",
    "fieldtype": "Link",
    "label": "Tag Name",
@@ -36,7 +31,7 @@
   {
    "fieldname": "date_of_allotment",
    "fieldtype": "Date",
-   "label": "Date Of Allotment"
+   "label": "Date of Allotment"
   },
   {
    "fieldname": "invested_round",
@@ -56,7 +51,7 @@
   },
   {
    "fieldname": "share_certificate",
-   "fieldtype": "Attach",
+   "fieldtype": "Attach Image",
    "label": "Share Certificate"
   },
   {
@@ -92,11 +87,16 @@
    "fieldname": "_shareholding",
    "fieldtype": "Data",
    "label": "% Shareholding"
+  },
+  {
+   "fieldname": "investor_name",
+   "fieldtype": "Data",
+   "label": "Investor Name"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-08 12:41:07.319505",
+ "modified": "2024-02-10 17:18:53.343059",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Investor-Wise Overview",

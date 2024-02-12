@@ -20,7 +20,6 @@ def book_an_expert(expert_id):
             expert_list = {
                 "expert_name":expert.full_name,
                 "designation":expert.designation,
-                "linkedin_id":expert.linkedin or "",
                 "price":expert.pricing,
                 "attach_image":image_url,
                 "description":description,
@@ -64,7 +63,6 @@ def get_book_an_expert_list():
                 "id":expert.name,
                 "expert_name":expert.full_name,
                 "designation":expert.designation,
-                "linkedin_id":expert.linkedin,
                 "attach_image":image_url,
                 "price":expert.pricing,
                 "description":description,
