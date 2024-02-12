@@ -35,11 +35,15 @@ def book_an_expert(expert_id):
             expert['booking'] = []
 
             for book in booking:
+                if book.status == "True":
+                    booking_status = bool(True)
+                else:
+                    booking_status = bool(False)    
                 expert_list['booking'].append({
                     "date":formatdate(book.date),
                     "start_time":book.start_time,
                     "end_time":book.end_time,
-                    "status":bool(book.status)
+                    "status":booking_status
                 })
             formatted_book_an_expert.append(expert_list)    
         return {"status":True,"book_an_expert":formatted_book_an_expert}
