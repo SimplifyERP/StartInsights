@@ -8,6 +8,7 @@ def book_an_expert(expert_id):
     expert_list = []
     description = ""
     image_url = ""
+    booking_status = ""
     try:
         get_book_an_expert = frappe.db.get_all("Book an Expert",{'docstatus':1,'name':expert_id},['*'])
         formatted_book_an_expert = []
@@ -35,6 +36,7 @@ def book_an_expert(expert_id):
             expert['booking'] = []
 
             for book in booking:
+                #added new condition for bool type
                 if book.status == "True":
                     booking_status = bool(True)
                 else:
