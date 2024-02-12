@@ -158,25 +158,7 @@ def pitch_craft_service_details(name):
     except:
         return {"status": False}
 
-
-
-#get the saved and unsaved courses list
-@frappe.whitelist()
-def get_saved_pitch_craft(pitch_id,status):
-    message = ""
-    try:
-        if status:
-            frappe.db.set_value("Pitch Craft",pitch_id,'pitch_craft_status',status)
-            message = "%s course update as %s"%(pitch_id,status)
-            return {"status": True, "message":message} 
-        else:
-            message = "Please Put the Status"
-            return {"status": False, "message":message} 
-    except Exception as e:
-        return {"status": False, "message": str(e)}
-    
-
-
+#pitch craft payment details
 @frappe.whitelist()
 def make_pitch_craft_payment(pitch_craft_id,user,payment_id,amount,date):
     try:
@@ -191,6 +173,7 @@ def make_pitch_craft_payment(pitch_craft_id,user,payment_id,amount,date):
         new_pitch_craft_payment.save(ignore_permissions=True)
         new_pitch_craft_payment.submit()
         frappe.db.commit()
+        frappe.db.set_value("Pitch Craft",pitch_craft_id,'pitch_craft_status',"Saved")
         return {"status":True,"message":"New Pitch Craft Payment Submitted"}
     except Exception as e:
         return {"status":False,"message":e}    
