@@ -36,6 +36,7 @@ def book_an_expert(expert_id):
             expert['booking'] = []
 
             for book in booking:
+                #added new condition for bool type
                 if book.status == "True":
                     booking_status = bool(True)
                 else:
