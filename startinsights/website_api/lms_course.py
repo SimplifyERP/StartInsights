@@ -7,7 +7,7 @@ from urllib.parse import quote
 
 # course details
 @frappe.whitelist()
-def lms_course_details(course_id):
+def lms_course_details(course_id,user_id):
     video_url = ""
     plain_text_description = ""
     try:
@@ -33,6 +33,7 @@ def lms_course_details(course_id):
                     'lessons': []
                 }
                 for lesson in lesson_details:
+                    lms_course_progress = get_lms_progress(user_id,lesson.lesson)
                     lesson_doc = frappe.get_doc('Course Lesson', lesson.lesson)
                     if lesson_doc.custom_video:
                         video_url = get_url() + lesson_doc.custom_video
@@ -42,7 +43,8 @@ def lms_course_details(course_id):
                     encoded_url = quote(video_url)
                     lesson_data = {
                         'lesson_name': lesson.lesson,
-                        'body': encoded_url
+                        'body': encoded_url,
+                        'status':lms_course_progress
                     }
                     chapter_data['lessons'].append(lesson_data)
                 course_data['chapters'].append(chapter_data)
@@ -50,6 +52,16 @@ def lms_course_details(course_id):
         return {"status": True, "Course": formatted_course}
     except Exception as e:
         return {"status": False, "message": str(e)}
+
+#get the lms course progress
+def get_lms_progress(user_id,lesson_id):
+    status = bool(False)
+    lms_progress = frappe.db.exists("LMS Course Progress",{'member':user_id,'lesson':lesson_id,'status':"Complete"})
+    if lms_progress:
+        status = bool(True)
+    else:
+        status
+    return status    
 
 #list of courses
 @frappe.whitelist()
@@ -150,4 +162,19 @@ def get_saved_list_course(course_id,status):
     except Exception as e:
         return {"status": False, "message": str(e)}
     
-
+#create a lms course progress for user completed the lesson
+@frappe.whitelist()
+def create_lms_progress(user_id,lesson_id,status):
+    try:
+        if not frappe.db.exists("LMS Course Progress",{'member':user_id,'lesson':lesson_id}):
+            new_lms_progress = frappe.new_doc("LMS Course Progress")
+            new_lms_progress.member = user_id
+            new_lms_progress.status = status
+            new_lms_progress.lesson = lesson_id
+            new_lms_progress.save(ignore_permissions=True)
+            frappe.db.commit()
+            return {"status":True,"message":"New LMS Progress Created"}
+        else:    
+            return {"status":False,"message":"Already User have Progress for the lesson"}
+    except Exception as e:
+        return {"status":False,"message":e}
