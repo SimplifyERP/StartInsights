@@ -18,10 +18,11 @@
   "service_amount",
   "user_details_section",
   "user",
-  "user_name",
-  "column_break_hvpo",
   "user_type",
-  "login_type"
+  "column_break_hvpo",
+  "user_name",
+  "login_type",
+  "amended_from"
  ],
  "fields": [
   {
@@ -124,11 +125,23 @@
    "fieldtype": "Currency",
    "label": "Service Amount",
    "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Service Listing",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
   }
  ],
+ "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
+ "is_submittable": 1,
  "links": [],
- "modified": "2024-02-09 11:16:34.291627",
+ "modified": "2024-02-14 16:58:10.960510",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Service Listing",
@@ -136,6 +149,7 @@
  "owner": "Administrator",
  "permissions": [
   {
+   "cancel": 1,
    "create": 1,
    "delete": 1,
    "email": 1,
@@ -144,7 +158,9 @@
    "read": 1,
    "report": 1,
    "role": "System Manager",
+   "select": 1,
    "share": 1,
+   "submit": 1,
    "write": 1
   }
  ],
