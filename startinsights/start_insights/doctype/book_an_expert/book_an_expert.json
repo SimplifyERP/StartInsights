@@ -14,6 +14,7 @@
   "column_break_druf",
   "designation",
   "pricing",
+  "expert_mail_id",
   "description_section",
   "short_description",
   "expert_description_section",
@@ -173,7 +174,15 @@
   {
    "fieldname": "attach_image",
    "fieldtype": "Attach",
-   "label": "Attach Image"
+   "label": "Attach Image",
+   "reqd": 1
+  },
+  {
+   "fieldname": "expert_mail_id",
+   "fieldtype": "Data",
+   "label": "Expert Mail ID",
+   "options": "Email",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
@@ -184,7 +193,7 @@
    "link_fieldname": "book_an_expert"
   }
  ],
- "modified": "2024-02-12 18:34:08.646410",
+ "modified": "2024-02-16 19:12:43.377234",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Book an Expert",
