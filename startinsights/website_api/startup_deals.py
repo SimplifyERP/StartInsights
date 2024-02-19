@@ -12,6 +12,8 @@ def get_startup_deal():
             image_url = get_url() + startup.attach_image if startup.attach_image else ""
             
             startup_dict = {
+                "id":startup.name,
+                "name":startup.name,
                 "service_provider_name": startup.service_provider_name,
                 "service_headline": startup.service_headline,
                 "attach_image": image_url,
