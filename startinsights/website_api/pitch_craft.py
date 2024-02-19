@@ -3,7 +3,6 @@ from frappe.utils import now, getdate, today, format_date
 from datetime import datetime
 import html2text
 from frappe.utils import  get_url
-from startinsights.email_alerts import email_alert_on_pitch_craft
 
 
 # pitch craft service details view
@@ -175,7 +174,6 @@ def make_pitch_craft_payment(pitch_craft_id,user,payment_id,amount,date):
         new_pitch_craft_payment.submit()
         frappe.db.commit()
         frappe.db.set_value("Pitch Craft",pitch_craft_id,'pitch_craft_status',"Saved")
-        email_alert_on_pitch_craft(user)
         return {"status":True,"message":"New Pitch Craft Payment Submitted"}
     except Exception as e:
         return {"status":False,"message":e}    
