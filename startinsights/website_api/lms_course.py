@@ -44,7 +44,8 @@ def lms_course_details(course_id,user_id):
                     lesson_data = {
                         'lesson_name': lesson.lesson,
                         'body': encoded_url,
-                        'status':lms_course_progress
+                        'status':lms_course_progress,
+                        'extension':lesson_doc.custom_extension_type
                     }
                     chapter_data['lessons'].append(lesson_data)
                 course_data['chapters'].append(chapter_data)
