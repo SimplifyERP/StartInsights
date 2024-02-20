@@ -1,0 +1,47 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-02-20 11:23:35.834138",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "email_subject",
+  "email_message"
+ ],
+ "fields": [
+  {
+   "fieldname": "email_subject",
+   "fieldtype": "Data",
+   "label": "Email Subject"
+  },
+  {
+   "fieldname": "email_message",
+   "fieldtype": "Text Editor",
+   "label": "Email Message"
+  }
+ ],
+ "hide_toolbar": 1,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2024-02-20 11:24:26.805445",
+ "modified_by": "Administrator",
+ "module": "START INSIGHTS",
+ "name": "LMS Email Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
