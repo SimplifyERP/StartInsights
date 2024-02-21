@@ -11,6 +11,7 @@
   "description",
   "column_break_qtmp",
   "shared_user",
+  "expiry_date",
   "documents_section",
   "pitch_deck",
   "pitch_deck_doc_type",
@@ -103,11 +104,17 @@
    "label": "Executive Summary Doc Type",
    "options": "\nPDF\nEXCEL",
    "read_only": 1
+  },
+  {
+   "fieldname": "expiry_date",
+   "fieldtype": "Date",
+   "label": "Expiry Date",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-21 17:04:10.514861",
+ "modified": "2024-02-21 18:07:13.566065",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Pitch Room",

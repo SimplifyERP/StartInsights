@@ -3,13 +3,16 @@ from frappe.utils import get_url
 import html2text
 import base64
 from frappe.utils.file_manager import save_file
+from datetime import datetime
+
 
 
 # Creating a new pitch room list
 @frappe.whitelist()
 def create_pitch_room(room_name, description,pitch_deck,projections,executive_summary,pitch_deck_doc_type,
-                    projection_doc_type,executive_summary_doc_type,shared_user):
+                    projection_doc_type,executive_summary_doc_type,shared_user,expiry_date):
     try:
+        expiry_date_format = datetime.strptime(str(expiry_date), "%d-%m-%Y").date()
         decoded_data_inside_1 = base64.b64decode(pitch_deck)
         decoded_data_inside_2 = base64.b64decode(projections)
         decoded_data_inside_3 = base64.b64decode(executive_summary)
@@ -21,6 +24,7 @@ def create_pitch_room(room_name, description,pitch_deck,projections,executive_su
         new_room.pitch_deck_doc_type = pitch_deck_doc_type
         new_room.projection_doc_type = projection_doc_type
         new_room.executive_summary_doc_type = executive_summary_doc_type
+        new_room.expiry_date = expiry_date
         new_room.save(ignore_permissions=True)
         frappe.db.commit()
         # the below method the giving the pitch deck attach in file list
