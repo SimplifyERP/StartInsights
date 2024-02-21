@@ -24,7 +24,7 @@ def create_pitch_room(room_name, description,pitch_deck,projections,executive_su
         new_room.pitch_deck_doc_type = pitch_deck_doc_type
         new_room.projection_doc_type = projection_doc_type
         new_room.executive_summary_doc_type = executive_summary_doc_type
-        new_room.expiry_date = expiry_date
+        new_room.expiry_date = expiry_date_format
         new_room.save(ignore_permissions=True)
         frappe.db.commit()
         # the below method the giving the pitch deck attach in file list
