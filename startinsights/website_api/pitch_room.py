@@ -7,7 +7,8 @@ from frappe.utils.file_manager import save_file
 
 # Creating a new pitch room list
 @frappe.whitelist()
-def create_pitch_room(room_name, description,pitch_deck,projections,executive_summary,doc_type,shared_user):
+def create_pitch_room(room_name, description,pitch_deck,projections,executive_summary,pitch_deck_doc_type,
+                    projection_doc_type,executive_summary_doc_type,shared_user):
     try:
         decoded_data_inside_1 = base64.b64decode(pitch_deck)
         decoded_data_inside_2 = base64.b64decode(projections)
@@ -17,22 +18,28 @@ def create_pitch_room(room_name, description,pitch_deck,projections,executive_su
         new_room.room_name = room_name
         new_room.description = description
         new_room.shared_user = shared_user
+        new_room.pitch_deck_doc_type = pitch_deck_doc_type
+        new_room.projection_doc_type = projection_doc_type
+        new_room.executive_summary_doc_type = executive_summary_doc_type
         new_room.save(ignore_permissions=True)
         frappe.db.commit()
         # the below method the giving the pitch deck attach in file list
-        attach_pitch_deck(new_room,doc_type,decoded_data_inside_1)
+        if pitch_deck:
+            attach_pitch_deck(new_room,pitch_deck_doc_type,decoded_data_inside_1)
         #the below method the giving the projections attach in file list
-        attach_projections(new_room,doc_type,decoded_data_inside_2)
+        if projections:
+            attach_projections(new_room,projection_doc_type,decoded_data_inside_2)
         #the below method the giving the executive_summary attach in file list
-        attach_executive_summary(new_room,doc_type,decoded_data_inside_3)
+        if executive_summary:
+            attach_executive_summary(new_room,executive_summary_doc_type,decoded_data_inside_3)
         return {'status':True,"message":"New Pitch Room Created"}
     except Exception as e:
         status = False
         return {'status': status, 'message': str(e)}
 
-def attach_pitch_deck(new_room,doc_type,decoded_data_inside_1):
-    if doc_type == "Image":
-        file_name_inside = f"{new_room.name.replace(' ', '_')}_image.png"
+def attach_pitch_deck(new_room,pitch_deck_doc_type,decoded_data_inside_1):
+    if pitch_deck_doc_type == "PDF":
+        file_name_inside = f"{new_room.name.replace(' ', '_')}document.pdf"
         new_file_inside = frappe.new_doc('File')
         new_file_inside.file_name = file_name_inside
         new_file_inside.content = decoded_data_inside_1
@@ -43,8 +50,8 @@ def attach_pitch_deck(new_room,doc_type,decoded_data_inside_1):
         new_file_inside.save(ignore_permissions=True)
         frappe.db.commit()
         frappe.db.set_value("Pitch Room",new_room.name,'pitch_deck',new_file_inside.file_url)
-    elif doc_type == "Pdf":
-        file_name_inside = f"{new_room.name.replace(' ', '_')}document.pdf"
+    elif pitch_deck_doc_type == "EXCEL":
+        file_name_inside = f"{new_room.name.replace(' ', '_')}document.xlsx"
         new_file_inside = frappe.new_doc('File')
         new_file_inside.file_name = file_name_inside
         new_file_inside.content = decoded_data_inside_1
@@ -58,9 +65,9 @@ def attach_pitch_deck(new_room,doc_type,decoded_data_inside_1):
     else:
         return "The Given document is not a Image or PDF"    
 
-def attach_projections(new_room,doc_type,decoded_data_inside_2):
-    if doc_type == "Image":
-        file_name_inside = f"{new_room.name.replace(' ', '_')}_image.png"
+def attach_projections(new_room,projection_doc_type,decoded_data_inside_2):
+    if projection_doc_type == "PDF":
+        file_name_inside = f"{new_room.name.replace(' ', '_')}document.pdf"
         new_file_inside = frappe.new_doc('File')
         new_file_inside.file_name = file_name_inside
         new_file_inside.content = decoded_data_inside_2
@@ -71,8 +78,8 @@ def attach_projections(new_room,doc_type,decoded_data_inside_2):
         new_file_inside.save(ignore_permissions=True)
         frappe.db.commit()
         frappe.db.set_value("Pitch Room",new_room.name,'projections',new_file_inside.file_url)
-    elif doc_type == "Pdf":
-        file_name_inside = f"{new_room.name.replace(' ', '_')}document.pdf"
+    elif projection_doc_type == "EXCEL":
+        file_name_inside = f"{new_room.name.replace(' ', '_')}document.xlsx"
         new_file_inside = frappe.new_doc('File')
         new_file_inside.file_name = file_name_inside
         new_file_inside.content = decoded_data_inside_2
@@ -86,9 +93,9 @@ def attach_projections(new_room,doc_type,decoded_data_inside_2):
     else:
         return "The Given document is not a Image or PDF"
     
-def attach_executive_summary(new_room,doc_type,decoded_data_inside_3):
-    if doc_type == "Image":
-        file_name_inside = f"{new_room.name.replace(' ', '_')}_image.png"
+def attach_executive_summary(new_room,executive_summary_doc_type,decoded_data_inside_3):
+    if executive_summary_doc_type == "PDF":
+        file_name_inside = f"{new_room.name.replace(' ', '_')}document.pdf"
         new_file_inside = frappe.new_doc('File')
         new_file_inside.file_name = file_name_inside
         new_file_inside.content = decoded_data_inside_3
@@ -99,8 +106,8 @@ def attach_executive_summary(new_room,doc_type,decoded_data_inside_3):
         new_file_inside.save(ignore_permissions=True)
         frappe.db.commit()
         frappe.db.set_value("Pitch Room",new_room.name,'executive_summary',new_file_inside.file_url)
-    elif doc_type == "Pdf":
-        file_name_inside = f"{new_room.name.replace(' ', '_')}document.pdf"
+    elif executive_summary_doc_type == "EXCEL":
+        file_name_inside = f"{new_room.name.replace(' ', '_')}document.xlsx"
         new_file_inside = frappe.new_doc('File')
         new_file_inside.file_name = file_name_inside
         new_file_inside.content = decoded_data_inside_3

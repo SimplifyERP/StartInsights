@@ -13,10 +13,13 @@
   "shared_user",
   "documents_section",
   "pitch_deck",
+  "pitch_deck_doc_type",
   "column_break_zbrc",
   "projections",
+  "projection_doc_type",
   "column_break_dkgo",
-  "executive_summary"
+  "executive_summary",
+  "executive_summary_doc_type"
  ],
  "fields": [
   {
@@ -79,11 +82,32 @@
    "label": "Shared User",
    "options": "User",
    "read_only": 1
+  },
+  {
+   "fieldname": "pitch_deck_doc_type",
+   "fieldtype": "Select",
+   "label": "Pitch Deck Doc Type",
+   "options": "\nPDF\nEXCEL",
+   "read_only": 1
+  },
+  {
+   "fieldname": "projection_doc_type",
+   "fieldtype": "Select",
+   "label": "Projection Doc Type",
+   "options": "\nPDF\nEXCEL",
+   "read_only": 1
+  },
+  {
+   "fieldname": "executive_summary_doc_type",
+   "fieldtype": "Select",
+   "label": "Executive Summary Doc Type",
+   "options": "\nPDF\nEXCEL",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-21 16:20:23.678496",
+ "modified": "2024-02-21 17:04:10.514861",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Pitch Room",
