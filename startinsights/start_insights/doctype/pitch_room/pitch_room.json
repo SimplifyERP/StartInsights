@@ -9,6 +9,8 @@
   "room_details_section",
   "room_name",
   "description",
+  "column_break_qtmp",
+  "shared_user",
   "documents_section",
   "pitch_deck",
   "column_break_zbrc",
@@ -66,11 +68,22 @@
    "fieldtype": "Attach",
    "label": "Executive Summary",
    "read_only": 1
+  },
+  {
+   "fieldname": "column_break_qtmp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "shared_user",
+   "fieldtype": "Link",
+   "label": "Shared User",
+   "options": "User",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-20 17:25:26.963681",
+ "modified": "2024-02-21 16:20:23.678496",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Pitch Room",

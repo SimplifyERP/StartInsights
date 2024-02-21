@@ -2,27 +2,120 @@ import frappe
 from frappe.utils import get_url
 import html2text
 import base64
+from frappe.utils.file_manager import save_file
+
 
 # Creating a new pitch room list
 @frappe.whitelist()
-def create_pitch_room(room_name, description,pitch_deck,projections,executive_summary):
+def create_pitch_room(room_name, description,pitch_deck,projections,executive_summary,doc_type,shared_user):
     try:
         decoded_data_inside_1 = base64.b64decode(pitch_deck)
         decoded_data_inside_2 = base64.b64decode(projections)
         decoded_data_inside_3 = base64.b64decode(executive_summary)
+        #creating a new pitch room through api
         new_room = frappe.new_doc('Pitch Room')
         new_room.room_name = room_name
         new_room.description = description
-        new_room.document_1 = decoded_data_inside_1
-        new_room.document_2 = decoded_data_inside_2
-        new_room.document_3 = decoded_data_inside_3
+        new_room.shared_user = shared_user
         new_room.save(ignore_permissions=True)
         frappe.db.commit()
+        # the below method the giving the pitch deck attach in file list
+        attach_pitch_deck(new_room,doc_type,decoded_data_inside_1)
+        #the below method the giving the projections attach in file list
+        attach_projections(new_room,doc_type,decoded_data_inside_2)
+        #the below method the giving the executive_summary attach in file list
+        attach_executive_summary(new_room,doc_type,decoded_data_inside_3)
         return {'status':True,"message":"New Pitch Room Created"}
     except Exception as e:
         status = False
         return {'status': status, 'message': str(e)}
+
+def attach_pitch_deck(new_room,doc_type,decoded_data_inside_1):
+    if doc_type == "Image":
+        file_name_inside = f"{new_room.name.replace(' ', '_')}_image.png"
+        new_file_inside = frappe.new_doc('File')
+        new_file_inside.file_name = file_name_inside
+        new_file_inside.content = decoded_data_inside_1
+        new_file_inside.attached_to_doctype = "Pitch Room"
+        new_file_inside.attached_to_name = new_room.name
+        new_file_inside.attached_to_field = "pitch_deck"
+        new_file_inside.is_private = 0
+        new_file_inside.save(ignore_permissions=True)
+        frappe.db.commit()
+        frappe.db.set_value("Pitch Room",new_room.name,'pitch_deck',new_file_inside.file_url)
+    elif doc_type == "Pdf":
+        file_name_inside = f"{new_room.name.replace(' ', '_')}document.pdf"
+        new_file_inside = frappe.new_doc('File')
+        new_file_inside.file_name = file_name_inside
+        new_file_inside.content = decoded_data_inside_1
+        new_file_inside.attached_to_doctype = "Pitch Room"
+        new_file_inside.attached_to_name = new_room.name
+        new_file_inside.attached_to_field = "pitch_deck"
+        new_file_inside.is_private = 0
+        new_file_inside.save(ignore_permissions=True)
+        frappe.db.commit()
+        frappe.db.set_value("Pitch Room",new_room.name,'pitch_deck',new_file_inside.file_url)
+    else:
+        return "The Given document is not a Image or PDF"    
+
+def attach_projections(new_room,doc_type,decoded_data_inside_2):
+    if doc_type == "Image":
+        file_name_inside = f"{new_room.name.replace(' ', '_')}_image.png"
+        new_file_inside = frappe.new_doc('File')
+        new_file_inside.file_name = file_name_inside
+        new_file_inside.content = decoded_data_inside_2
+        new_file_inside.attached_to_doctype = "Pitch Room"
+        new_file_inside.attached_to_name = new_room.name
+        new_file_inside.attached_to_field = "projections"
+        new_file_inside.is_private = 0
+        new_file_inside.save(ignore_permissions=True)
+        frappe.db.commit()
+        frappe.db.set_value("Pitch Room",new_room.name,'projections',new_file_inside.file_url)
+    elif doc_type == "Pdf":
+        file_name_inside = f"{new_room.name.replace(' ', '_')}document.pdf"
+        new_file_inside = frappe.new_doc('File')
+        new_file_inside.file_name = file_name_inside
+        new_file_inside.content = decoded_data_inside_2
+        new_file_inside.attached_to_doctype = "Pitch Room"
+        new_file_inside.attached_to_name = new_room.name
+        new_file_inside.attached_to_field = "projections"
+        new_file_inside.is_private = 0
+        new_file_inside.save(ignore_permissions=True)
+        frappe.db.commit()
+        frappe.db.set_value("Pitch Room",new_room.name,'projections',new_file_inside.file_url)
+    else:
+        return "The Given document is not a Image or PDF"
     
+def attach_executive_summary(new_room,doc_type,decoded_data_inside_3):
+    if doc_type == "Image":
+        file_name_inside = f"{new_room.name.replace(' ', '_')}_image.png"
+        new_file_inside = frappe.new_doc('File')
+        new_file_inside.file_name = file_name_inside
+        new_file_inside.content = decoded_data_inside_3
+        new_file_inside.attached_to_doctype = "Pitch Room"
+        new_file_inside.attached_to_name = new_room.name
+        new_file_inside.attached_to_field = "executive_summary"
+        new_file_inside.is_private = 0
+        new_file_inside.save(ignore_permissions=True)
+        frappe.db.commit()
+        frappe.db.set_value("Pitch Room",new_room.name,'executive_summary',new_file_inside.file_url)
+    elif doc_type == "Pdf":
+        file_name_inside = f"{new_room.name.replace(' ', '_')}document.pdf"
+        new_file_inside = frappe.new_doc('File')
+        new_file_inside.file_name = file_name_inside
+        new_file_inside.content = decoded_data_inside_3
+        new_file_inside.attached_to_doctype = "Pitch Room"
+        new_file_inside.attached_to_name = new_room.name
+        new_file_inside.attached_to_field = "executive_summary"
+        new_file_inside.is_private = 0
+        new_file_inside.save(ignore_permissions=True)
+        frappe.db.commit()
+        frappe.db.set_value("Pitch Room",new_room.name,'executive_summary',new_file_inside.file_url)
+    else:
+        return "The Given document is not a Image or PDF"    
+        
+
+
 # pitch room details view
 @frappe.whitelist()
 def pitch_room_list():
