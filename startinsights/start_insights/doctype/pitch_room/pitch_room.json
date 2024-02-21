@@ -10,13 +10,11 @@
   "room_name",
   "description",
   "documents_section",
-  "document_1",
+  "pitch_deck",
   "column_break_zbrc",
-  "document_2",
+  "projections",
   "column_break_dkgo",
-  "document_3",
-  "column_break_bpoo",
-  "document_4"
+  "executive_summary"
  ],
  "fields": [
   {
@@ -24,61 +22,55 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Room Name",
-   "reqd": 1
+   "read_only": 1
   },
   {
    "fieldname": "description",
    "fieldtype": "Small Text",
    "in_list_view": 1,
    "label": "Description",
-   "reqd": 1
+   "read_only": 1
   },
   {
    "fieldname": "documents_section",
    "fieldtype": "Section Break",
-   "label": "Documents"
-  },
-  {
-   "fieldname": "document_1",
-   "fieldtype": "Attach",
-   "label": "Document 1"
+   "label": "Upload Documents"
   },
   {
    "fieldname": "column_break_zbrc",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "document_2",
-   "fieldtype": "Attach",
-   "label": "Document 2"
-  },
-  {
    "fieldname": "column_break_dkgo",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "document_3",
-   "fieldtype": "Attach",
-   "label": "Document 3"
-  },
-  {
-   "fieldname": "column_break_bpoo",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "document_4",
-   "fieldtype": "Attach",
-   "label": "Document 4"
   },
   {
    "fieldname": "room_details_section",
    "fieldtype": "Section Break",
    "label": "Room Details"
+  },
+  {
+   "fieldname": "pitch_deck",
+   "fieldtype": "Attach",
+   "label": "Pitch Deck",
+   "read_only": 1
+  },
+  {
+   "fieldname": "projections",
+   "fieldtype": "Attach",
+   "label": "Projections",
+   "read_only": 1
+  },
+  {
+   "fieldname": "executive_summary",
+   "fieldtype": "Attach",
+   "label": "Executive Summary",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-05 17:25:50.271830",
+ "modified": "2024-02-20 17:25:26.963681",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Pitch Room",
