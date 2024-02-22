@@ -132,11 +132,11 @@ def get_investor_wise_graph():
         formatted_investor_wise_graph = []  
         for investor_wise in get_investor_wise_data:
             investor_wise_graph = {
-                "name":investor_wise.name_of_the_round,
+                "name":investor_wise.investor_name,
                 "percentage":investor_wise._shareholding,
                 "color_code":investor_wise.color_code
             }
             formatted_investor_wise_graph.append(investor_wise_graph)
-        return {"status":True,"round_wise_graph":formatted_investor_wise_graph}
+        return {"status":True,"investor_wise_graph":formatted_investor_wise_graph}
     except Exception as e:
         return {"status":False,"message":e}    
