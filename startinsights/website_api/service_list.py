@@ -1,8 +1,6 @@
 import frappe
 from datetime import datetime
 from frappe.utils import now,getdate,today,format_date,nowdate,add_months,get_time
-from startinsights.email_alerts import email_alert_on_book_an_expert
-
 
 @frappe.whitelist()
 def create_service_list(expert_name,service_date,start_time,end_time,user,booking_id,payment_id,amount):
@@ -27,7 +25,6 @@ def create_service_list(expert_name,service_date,start_time,end_time,user,bookin
         new_service.submit()
         frappe.db.commit()
 
-        email_alert_on_book_an_expert(user,booking_id)
         mark_booked_status(booking_id,start_time,end_time,service_date_format)
         status = True
         message = "Service List Created"
