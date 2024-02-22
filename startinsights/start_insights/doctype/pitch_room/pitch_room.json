@@ -88,21 +88,21 @@
    "fieldname": "pitch_deck_doc_type",
    "fieldtype": "Select",
    "label": "Pitch Deck Doc Type",
-   "options": "\nPDF\nEXCEL",
+   "options": "\nxlsx\npdf\ndocx",
    "read_only": 1
   },
   {
    "fieldname": "projection_doc_type",
    "fieldtype": "Select",
    "label": "Projection Doc Type",
-   "options": "\nPDF\nEXCEL",
+   "options": "\nxlsx\npdf\ndocx",
    "read_only": 1
   },
   {
    "fieldname": "executive_summary_doc_type",
    "fieldtype": "Select",
    "label": "Executive Summary Doc Type",
-   "options": "\nPDF\nEXCEL",
+   "options": "\nxlsx\npdf\ndocx",
    "read_only": 1
   },
   {
@@ -114,7 +114,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-21 18:07:13.566065",
+ "modified": "2024-02-22 12:03:18.091989",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Pitch Room",
