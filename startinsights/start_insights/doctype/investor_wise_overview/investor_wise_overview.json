@@ -13,46 +13,54 @@
   "amount_invested",
   "distinctive_share_no",
   "share_certificate",
+  "color_code",
   "column_break_siyr",
   "shares_allotted",
   "price_per_share",
   "fully_diluted_shares",
   "class_of_shares",
   "folio_number",
-  "_shareholding"
+  "_shareholding",
+  "creation_person_id"
  ],
  "fields": [
   {
    "fieldname": "tag_name",
    "fieldtype": "Link",
    "label": "Tag Name",
-   "options": "Tag Name"
+   "options": "Tag Name",
+   "read_only": 1
   },
   {
    "fieldname": "date_of_allotment",
    "fieldtype": "Date",
-   "label": "Date of Allotment"
+   "label": "Date of Allotment",
+   "read_only": 1
   },
   {
    "fieldname": "invested_round",
    "fieldtype": "Link",
    "label": "Invested Round ",
-   "options": "Invested Round"
+   "options": "Invested Round",
+   "read_only": 1
   },
   {
    "fieldname": "amount_invested",
    "fieldtype": "Currency",
-   "label": "Amount Invested"
+   "label": "Amount Invested",
+   "read_only": 1
   },
   {
    "fieldname": "distinctive_share_no",
    "fieldtype": "Data",
-   "label": "Distinctive Share No"
+   "label": "Distinctive Share No",
+   "read_only": 1
   },
   {
    "fieldname": "share_certificate",
-   "fieldtype": "Attach Image",
-   "label": "Share Certificate"
+   "fieldtype": "Attach",
+   "label": "Share Certificate",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_siyr",
@@ -61,42 +69,62 @@
   {
    "fieldname": "shares_allotted",
    "fieldtype": "Data",
-   "label": "Shares Allotted"
+   "label": "Shares Allotted",
+   "read_only": 1
   },
   {
    "fieldname": "price_per_share",
    "fieldtype": "Currency",
-   "label": "Price Per Share"
+   "label": "Price Per Share",
+   "read_only": 1
   },
   {
    "fieldname": "fully_diluted_shares",
    "fieldtype": "Data",
-   "label": "Fully Diluted Shares"
+   "label": "Fully Diluted Shares",
+   "read_only": 1
   },
   {
    "fieldname": "class_of_shares",
    "fieldtype": "Data",
-   "label": "Class Of Shares"
+   "label": "Class Of Shares",
+   "read_only": 1
   },
   {
    "fieldname": "folio_number",
    "fieldtype": "Data",
-   "label": "Folio Number"
+   "label": "Folio Number",
+   "read_only": 1
   },
   {
    "fieldname": "_shareholding",
    "fieldtype": "Data",
-   "label": "% Shareholding"
+   "label": "% Shareholding",
+   "read_only": 1
   },
   {
    "fieldname": "investor_name",
    "fieldtype": "Data",
-   "label": "Investor Name"
+   "label": "Investor Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "creation_person_id",
+   "fieldtype": "Link",
+   "label": "Creation Person ID",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "color_code",
+   "fieldtype": "Data",
+   "label": "Color Code",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-10 17:18:53.343059",
+ "modified": "2024-02-22 18:10:15.784345",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Investor-Wise Overview",
