@@ -5,8 +5,6 @@ import html2text
 from frappe.utils import  get_url
 from frappe import _
 
-
-
 # investment deals list view
 @frappe.whitelist()
 def investment_deals_details(id):
@@ -25,15 +23,30 @@ def investment_deals_details(id):
             if investment_deals.company_logo:
                 image_url = get_url() + investment_deals.company_logo
             else:
-                image_url = ""               
+                image_url = ""  
+            if investment_deals.pitch_deck:
+                    pitch_img = get_url() + investment_deals.pitch_deck
+            else:
+                pitch_img = "" 
+            if investment_deals.projections:
+                project_img = get_url() + investment_deals.projections
+            else:
+                project_img = "" 
+            if investment_deals.executive_summary:
+                exe_img = get_url() + investment_deals.executive_summary
+            else:
+                exe_img = ""              
             investment_deals_data = {
                 'id': investment_deals.name,
                 'name': investment_deals.name,
                 'Legal Name': investment_deals.legal_name,
                 'Company Logo': image_url ,
                 'description': plain_text_description,
+                'pitch_deck':pitch_img,
+                'projections': project_img,
+                'executive_summary':exe_img,  # Comma was missing here
                 'founders_list': [],
-                'documents':[]
+                
             }
             # Fetch items for each investment deal
             investment_deals_details = frappe.get_all('Investment Team', filters={'parent': investment_deals.name},
@@ -43,17 +56,13 @@ def investment_deals_details(id):
                     logo = get_url() + invest.founder_logo
                 else:
                     logo = "" 
+               
                 investment_deals_data['founders_list'].append({
                     'investor_name': invest.investor_name,
                     'designation': invest.designation,
                     'founder_logo': logo,
                 })
-            investment_deals_doc = frappe.get_all('Pitch Craft Documents Table', filters={'parent': investment_deals.name},
-                                                      fields=['documents_required'])
-            for invested in investment_deals_doc:
-                investment_deals_data['documents'].append({
-                    'doc_name': invested.documents_required,
-                })
+            
             formatted_investment_list.append(investment_deals_data)
         return {"status": True, "investment_deals": formatted_investment_list}
     except Exception as e:
@@ -83,3 +92,5 @@ def investment_deals_list():
     except Exception as e:
         frappe.log_error(_("Error in investment_deals_list: {0}").format(e))
         return {"status": False, "message": str(e)}
+
+

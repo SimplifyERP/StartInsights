@@ -23,7 +23,7 @@
    "fieldname": "investor_name",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Investor Name",
+   "label": "Name",
    "reqd": 1
   },
   {
@@ -53,7 +53,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-02-06 14:41:00.044972",
+ "modified": "2024-02-22 12:30:31.294796",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Investment Team",
