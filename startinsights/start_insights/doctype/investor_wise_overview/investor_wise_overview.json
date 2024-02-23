@@ -9,6 +9,7 @@
   "investor_name",
   "tag_name",
   "date_of_allotment",
+  "type_of_shares",
   "invested_round",
   "amount_invested",
   "distinctive_share_no",
@@ -106,11 +107,16 @@
    "fieldname": "color_code",
    "fieldtype": "Data",
    "label": "Color Code"
+  },
+  {
+   "fieldname": "type_of_shares",
+   "fieldtype": "Data",
+   "label": "Type of Shares"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-23 17:20:53.927071",
+ "modified": "2024-02-23 17:39:12.541471",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Investor-Wise Overview",
