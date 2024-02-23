@@ -4,6 +4,8 @@ import html2text
 import base64
 from frappe.utils.file_manager import save_file
 from datetime import datetime
+from frappe.utils import now, getdate, today, format_date
+
 
 
 
@@ -173,19 +175,19 @@ def pitch_room_list():
         pitch_room_list = frappe.db.get_all('Pitch Room', ['*'], order_by='idx ASC')
         formatted_pitch_room_list = []
         for pitch_room in pitch_room_list:
-            plain_text_description = html2text.html2text(pitch_room.description).strip()
-
-            doc_1 = get_url() + pitch_room.document_1 if pitch_room.document_1 else ""
-            doc_2 = get_url() + pitch_room.document_2 if pitch_room.document_2 else ""
-            doc_3 = get_url() + pitch_room.document_3 if pitch_room.document_3 else ""
+            doc_1 = get_url() + pitch_room.pitch_deck if pitch_room.pitch_deck else ""
+            doc_2 = get_url() + pitch_room.projections if pitch_room.projections else ""
+            doc_3 = get_url() + pitch_room.executive_summary if pitch_room.executive_summary else ""
 
             pitch_room_details = {
                 'id': pitch_room.name,
                 'room_name': pitch_room.room_name,
-                'description': plain_text_description,
+                'description': pitch_room.description,
                 'pitch_deck': doc_1,
                 'projections': doc_2,
                 'executive_summary': doc_3,
+                'shared_user':pitch_room.shared_user,
+                'expiry_date':format_date(pitch_room.expiry_date)
             }
             formatted_pitch_room_list.append(pitch_room_details)
         return {"status": True, "pitch_room_details": formatted_pitch_room_list}
@@ -204,17 +206,17 @@ def pitch_room(id):
         for room in pitch_room:
             description = html2text.html2text(room.description).strip()
             if room.pitch_deck:
-                doc_1 = get_url() + room.document_1
+                doc_1 = get_url() + room.pitch_deck
             else:
                 doc_1 = ""
 
             if room.projections:
-                doc_2 = get_url() + room.document_2
+                doc_2 = get_url() + room.projections
             else:
                 doc_2 = "" 
 
             if room.executive_summary:
-                doc_3 = get_url() + room.document_3
+                doc_3 = get_url() + room.executive_summary
             else:
                 doc_3 = ""  
             room_list = {
@@ -223,7 +225,9 @@ def pitch_room(id):
                 "description":description or '',
                 "pitch_deck":doc_1,
                 "projections":doc_2,
-                "executive_summary":doc_3,                
+                "executive_summary":doc_3, 
+                "shared_user":pitch_room.shared_user,
+                "expiry_date":format_date(pitch_room.expiry_date) 
             }
             formatted_pitch_room.append(room_list)
         return {"status":True,"pitch_room":formatted_pitch_room}
