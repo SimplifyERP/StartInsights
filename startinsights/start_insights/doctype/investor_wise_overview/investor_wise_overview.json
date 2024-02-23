@@ -28,8 +28,7 @@
    "fieldname": "tag_name",
    "fieldtype": "Link",
    "label": "Tag Name",
-   "options": "Tag Name",
-   "read_only": 1
+   "options": "Tag Name"
   },
   {
    "fieldname": "date_of_allotment",
@@ -41,26 +40,22 @@
    "fieldname": "invested_round",
    "fieldtype": "Link",
    "label": "Invested Round ",
-   "options": "Invested Round",
-   "read_only": 1
+   "options": "Invested Round"
   },
   {
    "fieldname": "amount_invested",
    "fieldtype": "Currency",
-   "label": "Amount Invested",
-   "read_only": 1
+   "label": "Amount Invested"
   },
   {
    "fieldname": "distinctive_share_no",
    "fieldtype": "Data",
-   "label": "Distinctive Share No",
-   "read_only": 1
+   "label": "Distinctive Share No"
   },
   {
    "fieldname": "share_certificate",
    "fieldtype": "Attach",
-   "label": "Share Certificate",
-   "read_only": 1
+   "label": "Share Certificate"
   },
   {
    "fieldname": "column_break_siyr",
@@ -69,63 +64,54 @@
   {
    "fieldname": "shares_allotted",
    "fieldtype": "Data",
-   "label": "Shares Allotted",
-   "read_only": 1
+   "label": "Shares Allotted"
   },
   {
    "fieldname": "price_per_share",
    "fieldtype": "Currency",
-   "label": "Price Per Share",
-   "read_only": 1
+   "label": "Price Per Share"
   },
   {
    "fieldname": "fully_diluted_shares",
    "fieldtype": "Data",
-   "label": "Fully Diluted Shares",
-   "read_only": 1
+   "label": "Fully Diluted Shares"
   },
   {
    "fieldname": "class_of_shares",
    "fieldtype": "Data",
-   "label": "Class Of Shares",
-   "read_only": 1
+   "label": "Class Of Shares"
   },
   {
    "fieldname": "folio_number",
    "fieldtype": "Data",
-   "label": "Folio Number",
-   "read_only": 1
+   "label": "Folio Number"
   },
   {
    "description": "Note : Enter only Numeric Values.",
    "fieldname": "_shareholding",
    "fieldtype": "Data",
-   "label": "% Shareholding",
-   "read_only": 1
+   "label": "% Shareholding"
   },
   {
    "fieldname": "investor_name",
    "fieldtype": "Data",
-   "label": "Investor Name",
-   "read_only": 1
+   "label": "Investor Name"
   },
   {
    "fieldname": "creation_person_id",
    "fieldtype": "Link",
    "label": "Creation Person ID",
-   "options": "User",
-   "read_only": 1
+   "options": "User"
   },
   {
    "fieldname": "color_code",
    "fieldtype": "Data",
-   "label": "Color Code",
-   "read_only": 1
+   "label": "Color Code"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-23 10:40:27.319698",
+ "modified": "2024-02-23 16:47:50.989103",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Investor-Wise Overview",
