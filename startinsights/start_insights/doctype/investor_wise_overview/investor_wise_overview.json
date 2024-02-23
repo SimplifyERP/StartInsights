@@ -33,8 +33,7 @@
   {
    "fieldname": "date_of_allotment",
    "fieldtype": "Date",
-   "label": "Date of Allotment",
-   "read_only": 1
+   "label": "Date of Allotment"
   },
   {
    "fieldname": "invested_round",
@@ -111,7 +110,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-23 16:47:50.989103",
+ "modified": "2024-02-23 17:20:53.927071",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Investor-Wise Overview",
