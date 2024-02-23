@@ -47,19 +47,22 @@ def get_investor_wise_list_view(user_id):
                 "creation_person_id":investor.creation_person_id
             }
             formatted_investor_wise.append(investor_wise)
-        return investor_wise
+        return formatted_investor_wise
     except Exception as e:
         return {"status":False,"message":e} 
     
 def get_investor_wise_graph(user_id):
     try:
-        get_investor_wise_data = frappe.db.get_value("Investor-Wise Overview",{'creation_person_id':user_id},['investor_name','_shareholding','color_code'])
-        investor_wise_graph = {
-            "name":get_investor_wise_data[0],
-            "percentage":get_investor_wise_data[1],
-            "color_code":get_investor_wise_data[2]
-        }
-        return investor_wise_graph
+        get_investor_wise_data = frappe.db.get_all("Investor-Wise Overview",{'creation_person_id':user_id},['investor_name','_shareholding','color_code'])
+        formatted_investor_wise_graph = []
+        for investor in get_investor_wise_data:
+            investor_wise_graph = {
+                "name":investor.investor_name,
+                "percentage":investor._shareholding,
+                "color_code":investor.color_code
+            }
+            formatted_investor_wise_graph.append(investor_wise_graph)
+        return formatted_investor_wise_graph
     except Exception as e:
         return {"status":False,"message":e}        
 
@@ -81,18 +84,21 @@ def get_round_wise_list_view(user_id):
                 "creation_person_id":round_wise.creation_person_id
             }
             formatted_round_wise.append(round_wise)
-        return round_wise
+        return formatted_round_wise 
     except Exception as e:
         return {"status":False,"message":e}     
 
 def get_round_wise_graph(user_id):
     try:
-        get_round_wise_data = frappe.db.get_value("Round-wise Overview",{'creation_person_id':user_id},['name_of_the_round','dilution_for_this_round','color_code'])
-        round_wise_graph = {
-            "name":get_round_wise_data[0],
-            "percentage":get_round_wise_data[1],
-            "color_code":get_round_wise_data[2]
-        }
-        return round_wise_graph
+        get_round_wise_data = frappe.db.get_all("Round-wise Overview",{'creation_person_id':user_id},['name_of_the_round','dilution_for_this_round','color_code'])
+        formatted_round_wise_graph = []
+        for round in get_round_wise_data:
+            round_wise_graph = {
+                "name":round.name_of_the_round,
+                "percentage":round.dilution_for_this_round,
+                "color_code":round.color_code
+            }
+            formatted_round_wise_graph.append(round_wise_graph)
+        return formatted_round_wise_graph
     except Exception as e:
         return {"status":False,"message":e}    
