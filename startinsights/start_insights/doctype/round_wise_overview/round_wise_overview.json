@@ -82,13 +82,12 @@
   {
    "fieldname": "color_code",
    "fieldtype": "Data",
-   "label": "Color Code",
-   "read_only": 1
+   "label": "Color Code"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-23 16:48:30.277196",
+ "modified": "2024-02-23 17:25:32.555899",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Round-wise Overview",
