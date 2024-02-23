@@ -1,0 +1,97 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-02-21 20:00:23.020042",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "user",
+  "email_id",
+  "linkedin",
+  "designation",
+  "profile_created_date",
+  "column_break_fedy",
+  "user_name",
+  "mobile_no",
+  "company_name",
+  "profile_image"
+ ],
+ "fields": [
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "User",
+   "options": "User"
+  },
+  {
+   "fieldname": "column_break_fedy",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "user_name",
+   "fieldtype": "Data",
+   "label": "User Name"
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Link",
+   "label": "Email ID",
+   "options": "User"
+  },
+  {
+   "fieldname": "mobile_no",
+   "fieldtype": "Data",
+   "label": "Mobile No"
+  },
+  {
+   "fieldname": "linkedin",
+   "fieldtype": "Data",
+   "label": "Linkedin"
+  },
+  {
+   "fieldname": "company_name",
+   "fieldtype": "Data",
+   "label": "Company Name"
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Link",
+   "label": "Designation",
+   "options": "Designation"
+  },
+  {
+   "fieldname": "profile_image",
+   "fieldtype": "Attach Image",
+   "label": "Profile Image"
+  },
+  {
+   "fieldname": "profile_created_date",
+   "fieldtype": "Date",
+   "label": "Profile Created Date"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-02-21 20:21:02.347985",
+ "modified_by": "Administrator",
+ "module": "START INSIGHTS",
+ "name": "Profile Application",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
