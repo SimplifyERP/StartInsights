@@ -177,3 +177,11 @@ def make_pitch_craft_payment(pitch_craft_id,user,payment_id,amount,date):
         return {"status":True,"message":"New Pitch Craft Payment Submitted"}
     except Exception as e:
         return {"status":False,"message":e}    
+    
+
+@frappe.whitelist()
+def get_pitch_craft_payment_details():
+    try:
+        return {"status":True}
+    except Exception as e:
+        return {"status":False,"message":e}    

@@ -1,0 +1,54 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-02-23 14:22:07.255049",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "pitch_craft_service",
+  "column_break_ysws",
+  "service_name"
+ ],
+ "fields": [
+  {
+   "fieldname": "pitch_craft_service",
+   "fieldtype": "Link",
+   "label": "PItch Craft ID",
+   "options": "Pitch Craft"
+  },
+  {
+   "fieldname": "column_break_ysws",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "pitch_craft_service.service_name",
+   "fieldname": "service_name",
+   "fieldtype": "Data",
+   "label": "Service Name"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-02-23 14:26:26.168896",
+ "modified_by": "Administrator",
+ "module": "START INSIGHTS",
+ "name": "Pitch Craft Documents Application",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

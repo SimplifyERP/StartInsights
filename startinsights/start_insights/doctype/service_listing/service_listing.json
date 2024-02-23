@@ -11,6 +11,7 @@
   "service_date",
   "start_time",
   "payment_id",
+  "payment_method",
   "column_break_ackk",
   "status",
   "end_time",
@@ -52,7 +53,7 @@
    "in_list_view": 1,
    "label": "User",
    "options": "User",
-   "reqd": 1
+   "read_only": 1
   },
   {
    "fetch_from": "user_name.user_type",
@@ -97,15 +98,14 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Expert Name",
-   "reqd": 1
+   "read_only": 1
   },
   {
    "fieldname": "service_date",
    "fieldtype": "Date",
    "in_list_view": 1,
    "label": "Service Date",
-   "read_only": 1,
-   "reqd": 1
+   "read_only": 1
   },
   {
    "fieldname": "book_an_expert",
@@ -135,13 +135,19 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
+  },
+  {
+   "fieldname": "payment_method",
+   "fieldtype": "Data",
+   "label": "Payment Method",
+   "read_only": 1
   }
  ],
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-02-14 16:58:10.960510",
+ "modified": "2024-02-23 12:30:05.255566",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Service Listing",
