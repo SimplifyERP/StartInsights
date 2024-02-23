@@ -97,6 +97,7 @@
    "read_only": 1
   },
   {
+   "description": "Note : Enter only Numeric Values.",
    "fieldname": "_shareholding",
    "fieldtype": "Data",
    "label": "% Shareholding",
@@ -124,7 +125,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-22 18:10:15.784345",
+ "modified": "2024-02-23 10:40:27.319698",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Investor-Wise Overview",
