@@ -37,22 +37,27 @@ def get_startup_deal():
     except Exception as e:
         return {"status": False, "message": str(e)}
 
-
-import frappe
-
 @frappe.whitelist()
 def redeem_code(name):
     try:
-        codes = frappe.get_all('Startup Deals', filters={'name': name}, fields=['name', 'redeem_code'])
+        codes = frappe.get_all('Startup Deals', filters={'name': name}, fields=['name', 'redeem_code', 'redeem__url', 'redeem_description', 'special_deal'])
         
         formatted_code_list = []
         for code in codes:
-            code_data = {
-                'id': code.name,
-                'name': code.name,
-                'redeem_code': code.redeem_code
-            }
-            
+            if code.get('special_deal') == "No":
+                code_data = {
+                    'id': code.name,
+                    'name': code.name,
+                    'redeem_code': code.redeem_code,
+                    'redeem_description': code.redeem_description
+                }
+            elif code.get('special_deal') == "Yes":
+                code_data = {
+                    'id': code.name,
+                    'name': code.name,
+                    'redeem_url': code.redeem__url,
+                    'redeem_description': code.redeem_description
+                }
             formatted_code_list.append(code_data)
 
         if formatted_code_list:
@@ -64,4 +69,5 @@ def redeem_code(name):
         return {"status": False, "message": "Document does not exist."}
     except Exception as e:
         frappe.log_error(f"Error in redeem_code: {str(e)}")
-        return {"status": False, "message": "An error occurred while processing the request."}
+        print(f"Error in redeem_code: {str(e)}")
+        return {"status": False, "message": f"An error occurred while processing the request: {str(e)}"}
