@@ -9,13 +9,15 @@
   "service_details_section",
   "service_provider_name",
   "short_description",
-  "special_deal",
-  "redeem__url",
   "column_break_jddl",
   "service_headline",
   "attach_image",
   "feature_service",
   "popular_service",
+  "section_break_hhlt",
+  "special_deal",
+  "redeem__url",
+  "column_break_gdnx",
   "redeem_code",
   "redeem_description",
   "section_break_psdh",
@@ -102,11 +104,19 @@
    "fieldtype": "Small Text",
    "label": "Redeem Description",
    "reqd": 1
+  },
+  {
+   "fieldname": "section_break_hhlt",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_gdnx",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-24 16:18:45.261702",
+ "modified": "2024-02-24 17:57:21.116531",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Startup Deals",
