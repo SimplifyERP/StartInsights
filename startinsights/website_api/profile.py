@@ -3,19 +3,35 @@ import base64
 
 
 @frappe.whitelist()
-def create_profile(user,user_name,mobile_no,linkedin,company_name,designation,image):
+def update_profile(user_id,full_name,email_id,phone_no,company_name,designation,linkedin,image,user_type,password):
     try:
-        decoded_image = base64.b64decode(image)
-        if not frappe.db.exists("Profile Application",{'user':user}):
-            new_profile = frappe.new_doc("Profile Application")
-            new_profile.user = user
-            new_profile.user_name = user_name
-            new_profile.email_id = user
-            new_profile.mobile_no = mobile_no
-            new_profile.linkedin = linkedin
-            new_profile.company_name = company_name
-            new_profile.designation = designation
-            new_profile.profile_image = image
+        decode_image = base64.b64decode(image)
+        get_profile = frappe.get_doc("Profile Application",user_id)
+        get_profile.full_name = full_name
+        get_profile.email_id = email_id
+        get_profile.company_name = company_name
+        get_profile.phone_no = phone_no
+        get_profile.designation = designation
+        get_profile.linkedin = linkedin
+        get_profile.customer_group = user_type
+        get_profile.save(ignore_permissions=True)
+        frappe.db.commit()
 
+        frappe.db.set_value("User",user_id,'full_name',full_name)
+        frappe.db.set_value("User",user_id,'new_password',password)
+
+        file_name_inside = f"{get_profile.full_name.replace(' ', '_')}document.png"
+        new_file_inside = frappe.new_doc('File')
+        new_file_inside.file_name = file_name_inside
+        new_file_inside.content = decode_image
+        new_file_inside.attached_to_doctype = "Profile Application"
+        new_file_inside.attached_to_name = get_profile.full_name
+        new_file_inside.attached_to_field = "profile_image"
+        new_file_inside.is_private = 0
+        new_file_inside.save(ignore_permissions=True)
+        frappe.db.commit()
+
+        frappe.db.set_value("Profile Application",get_profile.name,'profile_image',new_file_inside.file_url)
+        return {"status":True,"message":"Profile Updated"}
     except Exception as e:
-        pass
+        return {"status":False,"message":e}

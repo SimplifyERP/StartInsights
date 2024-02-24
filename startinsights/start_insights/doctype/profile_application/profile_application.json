@@ -1,47 +1,33 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "field:user_id",
  "creation": "2024-02-21 20:00:23.020042",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "user",
+  "profile_details_section",
+  "user_id",
   "email_id",
+  "phone_no",
   "linkedin",
-  "designation",
-  "profile_created_date",
+  "login_type",
   "column_break_fedy",
-  "user_name",
-  "mobile_no",
+  "full_name",
   "company_name",
-  "profile_image"
+  "designation",
+  "profile_image",
+  "customer_group"
  ],
  "fields": [
-  {
-   "fieldname": "user",
-   "fieldtype": "Link",
-   "label": "User",
-   "options": "User"
-  },
   {
    "fieldname": "column_break_fedy",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "user_name",
-   "fieldtype": "Data",
-   "label": "User Name"
-  },
-  {
    "fieldname": "email_id",
-   "fieldtype": "Link",
-   "label": "Email ID",
-   "options": "User"
-  },
-  {
-   "fieldname": "mobile_no",
    "fieldtype": "Data",
-   "label": "Mobile No"
+   "label": "Email ID"
   },
   {
    "fieldname": "linkedin",
@@ -65,17 +51,48 @@
    "label": "Profile Image"
   },
   {
-   "fieldname": "profile_created_date",
-   "fieldtype": "Date",
-   "label": "Profile Created Date"
+   "fieldname": "phone_no",
+   "fieldtype": "Data",
+   "label": "Phone No"
+  },
+  {
+   "fieldname": "profile_details_section",
+   "fieldtype": "Section Break",
+   "label": "Profile Details"
+  },
+  {
+   "fieldname": "user_id",
+   "fieldtype": "Link",
+   "label": "User ID",
+   "options": "User",
+   "unique": 1
+  },
+  {
+   "fetch_from": ".full_name",
+   "fieldname": "full_name",
+   "fieldtype": "Data",
+   "label": "Full Name"
+  },
+  {
+   "fieldname": "login_type",
+   "fieldtype": "Select",
+   "label": "Login Type",
+   "options": "\nGoggle\nFacebook\nTwitter"
+  },
+  {
+   "fieldname": "customer_group",
+   "fieldtype": "Link",
+   "label": "Customer Group",
+   "options": "Customer Group"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-21 20:21:02.347985",
+ "modified": "2024-02-24 16:59:59.841170",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Profile Application",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {

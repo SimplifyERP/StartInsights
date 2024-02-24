@@ -4,16 +4,15 @@ from datetime import datetime
 
 # Creating a new user in user list
 @frappe.whitelist()
-def create_user(user_id,password,user_type,first_name,phone_no,login_type):
+def create_user(first_name,user_id,phone_no,login_type,user_type,password,linkedin,company_name):
     status = ""
     message = ""
     try:
-        if not frappe.db.exists("User",{'name':user_id,'enabled':1}):
+        if not frappe.db.exists("User",{'name':user_id,'enabled':1}):   
             new_user = frappe.new_doc('User')
-            new_user.email = user_id
             new_user.first_name = first_name
+            new_user.email = user_id
             new_user.new_password = password
-            new_user.phone = phone_no
             new_user.send_welcome_email = 0
             new_user.append('roles', {
                 'role': user_type,
@@ -26,15 +25,20 @@ def create_user(user_id,password,user_type,first_name,phone_no,login_type):
             new_user.save(ignore_permissions=True)
             frappe.db.commit()
 
-            if not frappe.db.exists("Login Type",{'name':user_id}):
-                new_login_user = frappe.new_doc('Login Type')
-                new_login_user.user = user_id
-                new_login_user.login_type = login_type
-                new_login_user.user_type = user_type
-                new_login_user.save(ignore_permissions=True)
+            if not frappe.db.exists("Profile Application",{'name':user_id}):
+                new_profile = frappe.new_doc("Profile Application")
+                new_profile.user_id = user_id
+                new_profile.full_name = first_name
+                new_profile.email_id = user_id
+                new_profile.phone_no = phone_no
+                new_profile.linkedin = linkedin
+                new_profile.company_name = company_name
+                new_profile.login_type = login_type
+                new_profile.customer_group = user_type
+                new_profile.save(ignore_permissions=True)
                 frappe.db.commit()
             else:
-                message = "Login Type User Already Created"    
+                message = "Please Contact Support Team" 
 
             status = True
             message = "New User has been Created"
