@@ -1,0 +1,104 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "REDEEM-CODE-.####",
+ "creation": "2024-02-24 18:41:42.675267",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_3q3i",
+  "start_up_deal_id",
+  "redeem_code",
+  "redeem_status",
+  "column_break_dbau",
+  "service_provider_name",
+  "redeem_url",
+  "redeem_user",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_3q3i",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "start_up_deal_id",
+   "fieldtype": "Link",
+   "label": "Start Up Deal ID",
+   "options": "Startup Deals"
+  },
+  {
+   "fieldname": "column_break_dbau",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "start_up_deal_id.service_provider_name",
+   "fieldname": "service_provider_name",
+   "fieldtype": "Data",
+   "label": "Service Provider Name"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Startup Deal Redeem User",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fetch_from": "start_up_deal_id.redeem_code",
+   "fieldname": "redeem_code",
+   "fieldtype": "Data",
+   "label": "Redeem Code",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "start_up_deal_id.redeem__url",
+   "fieldname": "redeem_url",
+   "fieldtype": "Data",
+   "label": "Redeem URL",
+   "read_only": 1
+  },
+  {
+   "fieldname": "redeem_status",
+   "fieldtype": "Data",
+   "label": "Redeem Status"
+  },
+  {
+   "fieldname": "redeem_user",
+   "fieldtype": "Link",
+   "label": "Redeem User",
+   "options": "User"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-02-24 19:20:28.193653",
+ "modified_by": "Administrator",
+ "module": "START INSIGHTS",
+ "name": "Startup Deal Redeem User",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
