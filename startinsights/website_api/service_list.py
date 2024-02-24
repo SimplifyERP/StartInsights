@@ -22,7 +22,7 @@ def create_service_list(expert_name,service_date,start_time,end_time,user,bookin
         new_service.payment_id = payment_id
         new_service.service_amount = amount
         new_service.save(ignore_permissions=True)
-        new_service.payment_method = payment_method
+        # new_service.payment_method = payment_method
         new_service.submit()
         frappe.db.commit()
 
@@ -58,7 +58,7 @@ def get_service_list_payment_details(user_id,booking_id):
                 "amount_paid":payment.service_amount,
                 "service_start_time":payment.start_time,
                 "service_end_time":payment.end_time,
-                "payment_method":payment.payment_method or ""
+                # "payment_method":payment.payment_method or ""
             }
             format_payment.append(service_payment_details)
         return {"status":True,"service_list_payment_details":format_payment}    
