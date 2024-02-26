@@ -1,13 +1,19 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "PITCH_DOC_APP-.####",
  "creation": "2024-02-23 14:22:07.255049",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
   "pitch_craft_service",
+  "pitch_craft_payment_id",
+  "user",
   "column_break_ysws",
-  "service_name"
+  "service_name",
+  "date",
+  "section_break_nbtb",
+  "pitch_craft_document_table"
  ],
  "fields": [
   {
@@ -25,14 +31,43 @@
    "fieldname": "service_name",
    "fieldtype": "Data",
    "label": "Service Name"
+  },
+  {
+   "fetch_from": "pitch_craft_payment_id.login_user",
+   "fieldname": "user",
+   "fieldtype": "Data",
+   "label": "User"
+  },
+  {
+   "fetch_from": "pitch_craft_payment_id.service_booked_date",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "pitch_craft_payment_id",
+   "fieldtype": "Link",
+   "label": "Pitch Craft Payment ID",
+   "options": "Pitch Craft Payment"
+  },
+  {
+   "fieldname": "section_break_nbtb",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "pitch_craft_document_table",
+   "fieldtype": "Table",
+   "label": "Pitch Craft Document Table",
+   "options": "Pitch Craft Document Table"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-23 14:26:26.168896",
+ "modified": "2024-02-23 16:42:10.180350",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Pitch Craft Documents Application",
+ "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
   {

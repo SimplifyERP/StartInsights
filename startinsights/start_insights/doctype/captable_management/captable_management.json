@@ -1,0 +1,190 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-02-24 16:23:52.816880",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "name_of_the_round",
+  "round_type",
+  "closing_date_of_the_round",
+  "select_security_prefix",
+  "amount_raised",
+  "price_per_share",
+  "pre_money_valuation",
+  "dilution_for_this_round_",
+  "_shareholding",
+  "creation_person_id",
+  "description",
+  "color_code",
+  "column_break_mswl",
+  "investor_name",
+  "tag_name",
+  "date_of_allotment",
+  "type_of_shares",
+  "invested_round",
+  "amount_invested",
+  "distinctive_share_no",
+  "shares_allotted",
+  "fully_diluted_shares",
+  "class_of_shares",
+  "folio_number",
+  "share_certificate"
+ ],
+ "fields": [
+  {
+   "fieldname": "name_of_the_round",
+   "fieldtype": "Data",
+   "label": "Name of the Round"
+  },
+  {
+   "fieldname": "round_type",
+   "fieldtype": "Link",
+   "label": "Round Type",
+   "options": "Round Type"
+  },
+  {
+   "fieldname": "closing_date_of_the_round",
+   "fieldtype": "Date",
+   "label": "Closing date of the Round"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  },
+  {
+   "depends_on": "eval:doc.round_type == \"CCD\" || doc.round_type =='CN' || doc.round_type =='iSAFE' ",
+   "description": "Note : This field only display on Round Type based on \"CCD\",\"CN\",\"iSAFE\"",
+   "fieldname": "select_security_prefix",
+   "fieldtype": "Data",
+   "label": "Select Security Prefix"
+  },
+  {
+   "fieldname": "amount_raised",
+   "fieldtype": "Currency",
+   "label": "Amount Raised"
+  },
+  {
+   "fieldname": "price_per_share",
+   "fieldtype": "Currency",
+   "label": "Price per share"
+  },
+  {
+   "fieldname": "pre_money_valuation",
+   "fieldtype": "Currency",
+   "label": "Pre-Money Valuation"
+  },
+  {
+   "fieldname": "dilution_for_this_round_",
+   "fieldtype": "Data",
+   "label": "Dilution for this round (%)"
+  },
+  {
+   "fieldname": "creation_person_id",
+   "fieldtype": "Link",
+   "label": "Creation Person ID",
+   "options": "User"
+  },
+  {
+   "fieldname": "color_code",
+   "fieldtype": "Color",
+   "label": "Color Code"
+  },
+  {
+   "fieldname": "column_break_mswl",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "investor_name",
+   "fieldtype": "Data",
+   "label": "Investor Name"
+  },
+  {
+   "fieldname": "tag_name",
+   "fieldtype": "Link",
+   "label": "Tag Name",
+   "options": "Tag Name"
+  },
+  {
+   "fieldname": "date_of_allotment",
+   "fieldtype": "Date",
+   "label": "Date of Allotment"
+  },
+  {
+   "fieldname": "type_of_shares",
+   "fieldtype": "Data",
+   "label": "Type of Shares"
+  },
+  {
+   "fieldname": "invested_round",
+   "fieldtype": "Link",
+   "label": "Invested Round ",
+   "options": "Invested Round"
+  },
+  {
+   "fieldname": "amount_invested",
+   "fieldtype": "Currency",
+   "label": "Amount Invested"
+  },
+  {
+   "fieldname": "distinctive_share_no",
+   "fieldtype": "Data",
+   "label": "Distinctive Share No"
+  },
+  {
+   "fieldname": "share_certificate",
+   "fieldtype": "Attach",
+   "label": "Share Certificate"
+  },
+  {
+   "fieldname": "shares_allotted",
+   "fieldtype": "Data",
+   "label": "Shares Allotted"
+  },
+  {
+   "fieldname": "fully_diluted_shares",
+   "fieldtype": "Data",
+   "label": "Fully Diluted Shares"
+  },
+  {
+   "fieldname": "class_of_shares",
+   "fieldtype": "Data",
+   "label": "Class Of Shares"
+  },
+  {
+   "fieldname": "folio_number",
+   "fieldtype": "Data",
+   "label": "Folio Number"
+  },
+  {
+   "fieldname": "_shareholding",
+   "fieldtype": "Data",
+   "label": "% Shareholding"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-02-26 11:07:10.907037",
+ "modified_by": "Administrator",
+ "module": "START INSIGHTS",
+ "name": "Captable Management",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
