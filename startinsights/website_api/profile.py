@@ -50,6 +50,6 @@ def update_profile(user_id,full_name,email_id,phone_no,company_name,designation,
         }
 
         frappe.db.set_value("Profile Application",get_profile.name,'profile_image',new_file_inside.file_url)
-        return {"status":True,"message":user_details }
+        return {"status":True,"userinfo":user_details }
     except Exception as e:
         return {"status":False,"message":e}
