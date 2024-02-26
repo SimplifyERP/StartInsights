@@ -1,5 +1,6 @@
 import frappe
 from frappe.utils import get_url
+from startinsights.custom import get_domain_name
 
 @frappe.whitelist()
 def get_startup_deal(user_id):
@@ -9,7 +10,7 @@ def get_startup_deal(user_id):
         formatted_startup_deals = []
 
         for startup in startup_deals:
-            image_url = get_url() + startup.attach_image if startup.attach_image else ""
+            image_url = get_domain_name() + startup.attach_image if startup.attach_image else ""
             get_reedem_status = frappe.db.exists("Startup Deal Redeem User",{'start_up_deal_id':startup.name,'redeem_user':user_id})
             if get_reedem_status:
                 redeem_status = True
