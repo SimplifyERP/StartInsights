@@ -1,23 +1,24 @@
-import frappe
 from frappe import _
 import html2text
-from frappe.utils import  get_url
+from frappe.utils import get_url
 import urllib.parse
 from urllib.parse import quote
 from startinsights.custom import get_domain_name
-# course details
+import frappe
+
+# Course details
 @frappe.whitelist()
-def lms_course_details(course_id,user_id):
+def lms_course_details(course_id, user_id):
     video_url = ""
     plain_text_description = ""
     try:
-        if not frappe.db.exists('LMS Course', {'name': course_id}):
-            return {"status": False, "message": _("There is no Course in Frappe LMS")}
-        courses = frappe.get_all('LMS Course', filters={'name': course_id}, fields=['*'])
+        custom_customer_group = get_customer_group(user_id)
+        if custom_customer_group:
+            courses = frappe.db.get_all('LMS Course', filters={'name': course_id,'custom_customer_group':custom_customer_group}, fields=['*'])
         formatted_course = []
         for course in courses:
             # Convert HTML description to plain text
-            plain_text_description = html2text.html2text(course.description).strip()
+            plain_text_description = html2text.html2text(course.description or "").strip()
             course_data = {
                 'id': course.name,
                 'name': course.name,
@@ -25,44 +26,54 @@ def lms_course_details(course_id,user_id):
                 'description': plain_text_description,
                 'chapters': []
             }
-            chapter_details = frappe.get_all('Chapter Reference', filters={'parent': course.name}, fields=['chapter'], order_by='idx ASC')
+            chapter_details = frappe.db.get_all('Chapter Reference', filters={'parent': course.name}, fields=['chapter'], order_by='idx ASC')
             for chapter in chapter_details:
-                lesson_details = frappe.get_all('Lesson Reference', filters={'parent': chapter.chapter}, fields=['lesson'], order_by='idx ASC')
+                lesson_details = frappe.db.get_all('Lesson Reference', filters={'parent': chapter.chapter}, fields=['lesson'], order_by='idx ASC')
                 chapter_data = {
                     'chapter_name': chapter.chapter,
                     'lessons': []
                 }
                 for lesson in lesson_details:
-                    lms_course_progress = get_lms_progress(user_id,lesson.lesson)
+                    lms_course_progress = get_lms_progress(user_id, lesson.lesson)
                     lesson_doc = frappe.get_doc('Course Lesson', lesson.lesson)
+                    
                     if lesson_doc.custom_video:
                         video_url = get_domain_name() + lesson_doc.custom_video
                     else:
-                        video_url = ""   
+                        video_url = ""
                     
                     encoded_url = quote(video_url)
                     lesson_data = {
                         'lesson_name': lesson.lesson,
                         'body': encoded_url,
-                        'status':lms_course_progress,
-                        'extension':lesson_doc.custom_extension_type
+                        'status': lms_course_progress,
+                        'extension': lesson_doc.custom_extension_type
                     }
                     chapter_data['lessons'].append(lesson_data)
+                
                 course_data['chapters'].append(chapter_data)
+            
             formatted_course.append(course_data)
+        
         return {"status": True, "Course": formatted_course}
+    
     except Exception as e:
         return {"status": False, "message": str(e)}
 
-#get the lms course progress
-def get_lms_progress(user_id,lesson_id):
+# Get the customer_group from Profile Application Document
+def get_customer_group(user_id):
+    profile = frappe.db.get_value('Profile Application', filters={'user_id': user_id}, fieldname='customer_group')
+    return profile
+
+# Get the LMS course progress
+def get_lms_progress(user_id, lesson_id):
     status = bool(False)
-    lms_progress = frappe.db.exists("LMS Course Progress",{'member':user_id,'lesson':lesson_id,'status':"Complete"})
+    lms_progress = frappe.db.exists("LMS Course Progress", {'member': user_id, 'lesson': lesson_id, 'status': "Complete"})
+    
     if lms_progress:
         status = bool(True)
-    else:
-        status
-    return status    
+    
+    return status
 
 #list of courses
 @frappe.whitelist()
