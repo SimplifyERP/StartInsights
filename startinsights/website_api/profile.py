@@ -3,7 +3,7 @@ import base64
 
 
 @frappe.whitelist()
-def update_profile(user_id,full_name,email_id,phone_no,company_name,designation,linkedin,image,user_type,password):
+def update_profile(user_id,full_name,email_id,phone_no,company_name,designation,linkedin,image,user_type):
     try:
         decode_image = base64.b64decode(image)
         get_profile = frappe.get_doc("Profile Application",user_id)
@@ -18,7 +18,6 @@ def update_profile(user_id,full_name,email_id,phone_no,company_name,designation,
         frappe.db.commit()
 
         frappe.db.set_value("User",user_id,'full_name',full_name)
-        frappe.db.set_value("User",user_id,'new_password',password)
 
         file_name_inside = f"{get_profile.full_name.replace(' ', '_')}document.png"
         new_file_inside = frappe.new_doc('File')
