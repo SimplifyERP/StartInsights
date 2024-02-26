@@ -3,6 +3,7 @@ from frappe.utils import now, getdate, today, format_date
 from datetime import datetime
 import html2text
 from frappe.utils import  get_url
+from start_insights.custom import get_domain_name
 
 
 # pitch craft service details view
@@ -16,7 +17,7 @@ def pitch_craft_list():
 		for pitch_craft in pitch_craft_list:
 			plain_text_short_description = html2text.html2text(pitch_craft.short_description).strip()
 			if pitch_craft.pitch_craft_image:
-				image_url = get_url() + pitch_craft.pitch_craft_image
+				image_url = get_domain_name() + pitch_craft.pitch_craft_image
 			else:
 				image_url = ""    
 			pitch_craft_details = {
@@ -42,7 +43,7 @@ def get_my_services_pitch_craft():
 		for pitch_craft in pitch_craft_list:
 			plain_text_short_description = html2text.html2text(pitch_craft.short_description).strip()
 			if pitch_craft.pitch_craft_image:
-				image_url = get_url() + pitch_craft.pitch_craft_image
+				image_url = get_domain_name() + pitch_craft.pitch_craft_image
 			else:
 				image_url = ""    
 			pitch_craft_details = {
@@ -71,7 +72,7 @@ def pitch_craft_overview_details(name):
 		plain_text_short_description = html2text.html2text(pitch_craft.description).strip()
 		plain_text_benefits = html2text.html2text(pitch_craft.benefits).strip()
 		if pitch_craft.pitch_craft_image:
-			image_url = get_url() + pitch_craft.pitch_craft_image
+			image_url = get_domain_name() + pitch_craft.pitch_craft_image
 		else:
 			image_url = ""    
 		formatted_pitch_craft_details = {
@@ -98,7 +99,7 @@ def pitch_craft_process_details(name):
 			return {"status": False, "message": f"Pitch Craft '{name}' not found"}
 		plain_text_deliverables = html2text.html2text(pitch_craft.deliverables).strip()
 		if pitch_craft.pitch_craft_image:
-			image_url = get_url() + pitch_craft.pitch_craft_image
+			image_url = get_domain_name() + pitch_craft.pitch_craft_image
 		else:
 			image_url = "" 
 		pitch_craft_details = {
@@ -135,7 +136,7 @@ def pitch_craft_service_details(name):
 		plain_text_benefits = html2text.html2text(pitch_craft.benefits).strip()
 		plain_text_deliverables = html2text.html2text(pitch_craft.deliverables).strip()
 		if pitch_craft.pitch_craft_image:
-			image_url = get_url()+ pitch_craft.pitch_craft_image
+			image_url = get_domain_name()+ pitch_craft.pitch_craft_image
 		else:
 			image_url = ""    
 		pitch_craft_details = {
