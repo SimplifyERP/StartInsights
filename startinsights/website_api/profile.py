@@ -1,5 +1,7 @@
 import frappe
 import base64
+from startinsights.custom import get_domain_name
+
 
 
 @frappe.whitelist()
@@ -30,7 +32,24 @@ def update_profile(user_id,full_name,email_id,phone_no,company_name,designation,
         new_file_inside.save(ignore_permissions=True)
         frappe.db.commit()
 
+        if get_profile.profile_image:
+            image_url = get_domain_name() + get_profile.profile_image
+        else:
+            image_url = ""    
+        user_details = {
+            "user_name": get_profile.user_id,
+            "full_name": get_profile.full_name,
+            "user_email": get_profile.email_id,
+            "company_name":get_profile.company_name,
+            "phone_no": get_profile.phone_no,
+            "designation":get_profile.designation or "",
+            "linkedin":get_profile.linkedin,
+            "profile_image":image_url or "",
+            "login_type":get_profile.login_type or "",
+            "role": get_profile.customer_group ,
+        }
+
         frappe.db.set_value("Profile Application",get_profile.name,'profile_image',new_file_inside.file_url)
-        return {"status":True,"message":"Profile Updated"}
+        return {"status":True,"message":user_details }
     except Exception as e:
         return {"status":False,"message":e}
