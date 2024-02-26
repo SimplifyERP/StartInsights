@@ -3,7 +3,7 @@ from frappe.utils import now, getdate, today, format_date
 from datetime import datetime
 import html2text
 from frappe.utils import  get_url
-from start_insights.custom import get_domain_name
+from startinsights.custom import get_domain_name
 
 
 # pitch craft service details view
