@@ -44,7 +44,7 @@ def investment_deals_details(id):
                 'description': plain_text_description,
                 'pitch_deck':pitch_img,
                 'projections': project_img,
-                'executive_summary':exe_img,  # Comma was missing here
+                'executive_summary':exe_img, 
                 'founders_list': [],
                 
             }
