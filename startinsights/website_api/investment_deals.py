@@ -4,7 +4,7 @@ from datetime import datetime
 import html2text
 from frappe.utils import  get_url
 from frappe import _
-
+from startinsights.custom import get_domain_name
 # investment deals list view
 @frappe.whitelist()
 def investment_deals_details(id):
@@ -21,19 +21,19 @@ def investment_deals_details(id):
         for investment_deals in investment_api:
             plain_text_description = html2text.html2text(investment_deals.description).strip()
             if investment_deals.company_logo:
-                image_url = get_url() + investment_deals.company_logo
+                image_url = get_domain_name() + investment_deals.company_logo
             else:
                 image_url = ""  
             if investment_deals.pitch_deck:
-                    pitch_img = get_url() + investment_deals.pitch_deck
+                    pitch_img = get_domain_name() + investment_deals.pitch_deck
             else:
                 pitch_img = "" 
             if investment_deals.projections:
-                project_img = get_url() + investment_deals.projections
+                project_img = get_domain_name() + investment_deals.projections
             else:
                 project_img = "" 
             if investment_deals.executive_summary:
-                exe_img = get_url() + investment_deals.executive_summary
+                exe_img = get_domain_name() + investment_deals.executive_summary
             else:
                 exe_img = ""              
             investment_deals_data = {
@@ -53,7 +53,7 @@ def investment_deals_details(id):
                                                       fields=['investor_name', 'designation', 'founder_logo'])
             for invest in investment_deals_details:
                 if invest.founder_logo:
-                    logo = get_url() + invest.founder_logo
+                    logo = get_domain_name() + invest.founder_logo
                 else:
                     logo = "" 
                
@@ -80,7 +80,7 @@ def investment_deals_list():
         for investment_deal in investment_api:
             image_url = ""
             if investment_deal.company_logo:
-                image_url = frappe.utils.get_url() + investment_deal.company_logo
+                image_url = get_domain_name() + investment_deal.company_logo
             investment_deal_data = {
                 'id': investment_deal.name,
                 'name': investment_deal.name,

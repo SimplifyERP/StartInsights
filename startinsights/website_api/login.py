@@ -1,7 +1,7 @@
 import frappe
 from frappe.utils.password import check_password, get_decrypted_password
 from frappe.utils import get_url
-
+from startinsights.custom import get_domain_name
     
 @frappe.whitelist(allow_guest=True)
 def user_login(username, password):
@@ -14,7 +14,7 @@ def user_login(username, password):
             if user and check_password(user.name, password):
                 profile = frappe.get_doc("Profile Application",username)
                 if profile.profile_image:
-                    image_url = get_url() + profile.profile_image
+                    image_url = get_domain_name() + profile.profile_image
                 else:
                     image_url = ""    
 

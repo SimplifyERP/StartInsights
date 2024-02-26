@@ -2,7 +2,7 @@ import frappe
 import html2text
 from frappe.utils import add_days, cint, cstr, flt, getdate, rounded, date_diff, money_in_words, formatdate,get_time, get_first_day
 from frappe.utils import  get_url
-
+from startinsights.custom import get_domain_name
 @frappe.whitelist()
 def book_an_expert(expert_id):
     expert_list = []
@@ -15,7 +15,7 @@ def book_an_expert(expert_id):
         for expert in get_book_an_expert:
             description = html2text.html2text(expert.description).strip()
             if expert.attach_image:
-                image_url = get_url() + expert.attach_image
+                image_url = get_domain_name() + expert.attach_image
             else:
                 image_url = ""    
             expert_list = {
@@ -62,7 +62,7 @@ def get_book_an_expert_list():
         for expert in get_book_an_expert:
             description = html2text.html2text(expert.short_description).strip()
             if expert.attach_image:
-                image_url = get_url() + expert.attach_image
+                image_url = get_domain_name() + expert.attach_image
             else:
                 image_url = ""    
             expert_list = {

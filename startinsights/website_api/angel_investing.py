@@ -4,7 +4,7 @@ import html2text
 from frappe.utils import  get_url
 import urllib.parse
 from urllib.parse import quote
-
+from startinsights.custom import get_domain_name
 #course details
 @frappe.whitelist()
 def angel_investing_details(course_id):
@@ -30,7 +30,7 @@ def angel_investing_details(course_id):
                 for lesson in lesson_details:
                     lesson_doc = frappe.get_doc('Course Lesson', lesson.lesson)
                     if lesson_doc.custom_video:
-                        video_url = get_url() + lesson_doc.custom_video
+                        video_url = get_domain_name() + lesson_doc.custom_video
                     else:
                         video_url = ""   
                     

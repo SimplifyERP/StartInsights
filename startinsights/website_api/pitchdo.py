@@ -1,6 +1,7 @@
 import frappe
 import html2text
 from frappe.utils import  get_url
+from startinsights.custom import get_domain_name
 
 
 
@@ -14,7 +15,7 @@ def get_pitchdo():
         for pitch in pitchdo:
             description = html2text.html2text(pitch.short_description).strip()
             if pitch.pitch_image:
-                image_url = get_url() + pitch.pitch_image
+                image_url = get_domain_name() + pitch.pitch_image
             else:
                 image_url = ""    
             pitch_do_details = {

@@ -4,7 +4,7 @@ import html2text
 from frappe.utils import  get_url
 import urllib.parse
 from urllib.parse import quote
-
+from startinsights.custom import get_domain_name
 # course details
 @frappe.whitelist()
 def lms_course_details(course_id,user_id):
@@ -36,7 +36,7 @@ def lms_course_details(course_id,user_id):
                     lms_course_progress = get_lms_progress(user_id,lesson.lesson)
                     lesson_doc = frappe.get_doc('Course Lesson', lesson.lesson)
                     if lesson_doc.custom_video:
-                        video_url = get_url() + lesson_doc.custom_video
+                        video_url = get_domain_name() + lesson_doc.custom_video
                     else:
                         video_url = ""   
                     
@@ -80,7 +80,7 @@ def courses_list_api():
             videos_count = get_course_videos(lesson_count)
             quiz_count = get_quiz_count(course_list.title)
             if course_list.image:
-                image_url = get_url() + course_list.image
+                image_url = get_domain_name() + course_list.image
             else:
                 image_url = ""    
             listed_courses = {
@@ -111,7 +111,7 @@ def get_saved_courses_list():
             videos_count = get_course_videos(lesson_count)
             quiz_count = get_quiz_count(course_list.title)
             if course_list.image:
-                image_url = get_url() + course_list.image
+                image_url = get_domain_name() + course_list.image
             else:
                 image_url = ""    
             saved_courses = {

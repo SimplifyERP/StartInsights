@@ -5,8 +5,7 @@ import base64
 from frappe.utils.file_manager import save_file
 from datetime import datetime
 from frappe.utils import now, getdate, today, format_date
-
-
+from startinsights.custom import get_domain_name
 
 
 # Creating a new pitch room list
@@ -175,9 +174,9 @@ def pitch_room_list():
         pitch_room_list = frappe.db.get_all('Pitch Room', ['*'], order_by='idx ASC')
         formatted_pitch_room_list = []
         for pitch_room in pitch_room_list:
-            doc_1 = get_url() + pitch_room.pitch_deck if pitch_room.pitch_deck else ""
-            doc_2 = get_url() + pitch_room.projections if pitch_room.projections else ""
-            doc_3 = get_url() + pitch_room.executive_summary if pitch_room.executive_summary else ""
+            doc_1 = get_domain_name() + pitch_room.pitch_deck if pitch_room.pitch_deck else ""
+            doc_2 = get_domain_name() + pitch_room.projections if pitch_room.projections else ""
+            doc_3 = get_domain_name() + pitch_room.executive_summary if pitch_room.executive_summary else ""
 
             pitch_room_details = {
                 'id': pitch_room.name,
@@ -206,17 +205,17 @@ def pitch_room(id):
         for room in pitch_room:
             description = html2text.html2text(room.description).strip()
             if room.pitch_deck:
-                doc_1 = get_url() + room.pitch_deck
+                doc_1 = get_domain_name() + room.pitch_deck
             else:
                 doc_1 = ""
 
             if room.projections:
-                doc_2 = get_url() + room.projections
+                doc_2 = get_domain_name() + room.projections
             else:
                 doc_2 = "" 
 
             if room.executive_summary:
-                doc_3 = get_url() + room.executive_summary
+                doc_3 = get_domain_name() + room.executive_summary
             else:
                 doc_3 = ""  
             room_list = {
