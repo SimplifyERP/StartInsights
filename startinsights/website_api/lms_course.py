@@ -12,49 +12,43 @@ def lms_course_details(course_id, user_id):
     video_url = ""
     plain_text_description = ""
     try:
-        custom_customer_group = get_customer_group(user_id)
-        if custom_customer_group:
-            courses = frappe.db.get_all('LMS Course', filters={'name': course_id,'custom_customer_group':custom_customer_group}, fields=['*'])
+        course = frappe.get_doc('LMS Course',course_id)
         formatted_course = []
-        for course in courses:
-            # Convert HTML description to plain text
-            plain_text_description = html2text.html2text(course.description or "").strip()
-            course_data = {
-                'id': course.name,
-                'name': course.name,
-                'course_title': course.title,
-                'description': plain_text_description,
-                'chapters': []
+        # Convert HTML description to plain text
+        plain_text_description = html2text.html2text(course.description or "").strip()
+        course_data = {
+            'id': course.name,
+            'name': course.name,
+            'course_title': course.title,
+            'description': plain_text_description,
+            'chapters': []
+        }
+        chapter_details = frappe.db.get_all('Chapter Reference', filters={'parent': course.name}, fields=['chapter'], order_by='idx ASC')
+        for chapter in chapter_details:
+            lesson_details = frappe.db.get_all('Lesson Reference', filters={'parent': chapter.chapter}, fields=['lesson'], order_by='idx ASC')
+            chapter_data = {
+                'chapter_name': chapter.chapter,
+                'lessons': []
             }
-            chapter_details = frappe.db.get_all('Chapter Reference', filters={'parent': course.name}, fields=['chapter'], order_by='idx ASC')
-            for chapter in chapter_details:
-                lesson_details = frappe.db.get_all('Lesson Reference', filters={'parent': chapter.chapter}, fields=['lesson'], order_by='idx ASC')
-                chapter_data = {
-                    'chapter_name': chapter.chapter,
-                    'lessons': []
-                }
-                for lesson in lesson_details:
-                    lms_course_progress = get_lms_progress(user_id, lesson.lesson)
-                    lesson_doc = frappe.get_doc('Course Lesson', lesson.lesson)
-                    
-                    if lesson_doc.custom_video:
-                        video_url = get_domain_name() + lesson_doc.custom_video
-                    else:
-                        video_url = ""
-                    
-                    encoded_url = quote(video_url)
-                    lesson_data = {
-                        'lesson_name': lesson.lesson,
-                        'body': encoded_url,
-                        'status': lms_course_progress,
-                        'extension': lesson_doc.custom_extension_type
-                    }
-                    chapter_data['lessons'].append(lesson_data)
+            for lesson in lesson_details:
+                lms_course_progress = get_lms_progress(user_id, lesson.lesson)
+                lesson_doc = frappe.get_doc('Course Lesson', lesson.lesson)
                 
-                course_data['chapters'].append(chapter_data)
-            
-            formatted_course.append(course_data)
-        
+                if lesson_doc.custom_video:
+                    video_url = get_domain_name() + lesson_doc.custom_video
+                else:
+                    video_url = ""
+                    
+                encoded_url = quote(video_url)
+                lesson_data = {
+                    'lesson_name': lesson.lesson,
+                    'body': encoded_url,
+                    'status': lms_course_progress,
+                    'extension': lesson_doc.custom_extension_type
+                }
+                chapter_data['lessons'].append(lesson_data)
+            course_data['chapters'].append(chapter_data)
+        formatted_course.append(course_data)
         return {"status": True, "Course": formatted_course}
     
     except Exception as e:
@@ -77,12 +71,16 @@ def get_lms_progress(user_id, lesson_id):
 
 #list of courses
 @frappe.whitelist()
-def courses_list_api():
+def courses_list_api(user_id):
     image_url = ""
     listed_courses = []
     saved_courses_list = []
     try:
-        courses_list_api = frappe.db.get_all('LMS Course',{'custom_course_status':"Unsaved"},['*'])
+        customer_group = get_customer_group(user_id)
+        if customer_group:
+            courses_list_api = frappe.db.get_all('LMS Course',{'custom_course_status':"Unsaved",'custom_customer_group':customer_group},['*'])
+        else:
+            courses_list_api = frappe.db.get_all('LMS Course',{'custom_course_status':"Unsaved"},['*'])    
         # Format the response
         formatted_course_list = []
         for course_list in courses_list_api:
@@ -104,16 +102,20 @@ def courses_list_api():
                 'videos_count': videos_count   
             }
             formatted_course_list.append(listed_courses)
-        saved_courses_list = get_saved_courses_list()
+        saved_courses_list = get_saved_courses_list(user_id)
         return {"status": True, "courses_list": formatted_course_list,"saved_courses":saved_courses_list}
     except Exception as e:
         return {"status": False, "message": str(e)}
         
-def get_saved_courses_list():
+def get_saved_courses_list(user_id):
     image_url = ""
     saved_courses = []
     try:
-        get_saved_courses = frappe.db.get_all('LMS Course',{'custom_course_status':"Saved"},['*'])
+        customer_group = get_customer_group(user_id)
+        if customer_group:
+            get_saved_courses = frappe.db.get_all('LMS Course',{'custom_course_status':"Saved",'custom_customer_group':customer_group},['*'])
+        else:
+            get_saved_courses = frappe.db.get_all('LMS Course',{'custom_course_status':"Saved"},['*'])
         # Format the response
         formatted_saved_courses = []
         for course_list in get_saved_courses:
