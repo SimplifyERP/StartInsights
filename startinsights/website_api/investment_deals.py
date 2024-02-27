@@ -6,6 +6,8 @@ from frappe.utils import  get_url
 from frappe import _
 from startinsights.custom import get_domain_name
 # investment deals list view
+
+
 @frappe.whitelist()
 def investment_deals_details(id):
     image_url = ""
