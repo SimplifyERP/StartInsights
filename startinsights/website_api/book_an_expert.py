@@ -1,8 +1,13 @@
 import frappe
 import html2text
-from frappe.utils import add_days, cint, cstr, flt, getdate, rounded, date_diff, money_in_words, formatdate,get_time, get_first_day
+from frappe.utils import add_days,getdate,date_diff,now_datetime, add_to_date,formatdate,get_time, get_first_day,today,format_time,get_datetime
 from frappe.utils import  get_url
 from startinsights.custom import get_domain_name
+from datetime import datetime, timedelta
+
+
+
+
 @frappe.whitelist()
 def book_an_expert(expert_id):
     expert_list = []
@@ -35,17 +40,23 @@ def book_an_expert(expert_id):
             expert['booking'] = []
 
             for book in booking:
+                if book.date >= getdate("15-02-2024"):
+                    current_time = get_time("")
+                    # current_time = now_datetime().time()
+                    book_time = book.start_time -  timedelta(minutes=15)
+                    # if current_time >= book_time:
                 #added new condition for bool type
-                if book.status == "True":
-                    booking_status = bool(True)
-                else:
-                    booking_status = bool(False)    
-                expert_list['booking'].append({
-                    "date":formatdate(book.date),
-                    "start_time":book.start_time,
-                    "end_time":book.end_time,
-                    "status":booking_status
-                })
+                    if book.status == "True":
+                        booking_status = bool(True)
+                    else:
+                        booking_status = bool(False)    
+                    expert_list['booking'].append({
+                        "date":formatdate(book.date),
+                        "start_time":book.start_time,
+                        "end_time":book.end_time,
+                        "status":booking_status,
+                        "current_time":current_time
+                    })
             formatted_book_an_expert.append(expert_list)    
         return {"status":True,"book_an_expert":formatted_book_an_expert}
     except Exception as e:
