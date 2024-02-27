@@ -5,9 +5,6 @@ from frappe.utils import  get_url
 from startinsights.custom import get_domain_name
 from datetime import datetime, timedelta
 
-
-
-
 @frappe.whitelist()
 def book_an_expert(expert_id):
     expert_list = []
@@ -17,6 +14,14 @@ def book_an_expert(expert_id):
     try:
         get_book_an_expert = frappe.db.get_all("Book an Expert",{'docstatus':1,'name':expert_id},['*'])
         formatted_book_an_expert = []
+        current_time = datetime.now().time()
+        time_since_midnight = timedelta(
+        hours=current_time.hour,
+        minutes=current_time.minute,
+        seconds=current_time.second,
+        microseconds=current_time.microsecond
+)
+ 
         for expert in get_book_an_expert:
             description = html2text.html2text(expert.description).strip()
             if expert.attach_image:
@@ -40,28 +45,25 @@ def book_an_expert(expert_id):
             expert['booking'] = []
 
             for book in booking:
-                if book.date >= getdate("15-02-2024"):
-                    current_time = get_time("")
-                    # current_time = now_datetime().time()
-                    book_time = book.start_time -  timedelta(minutes=15)
-                    # if current_time >= book_time:
-                #added new condition for bool type
-                    if book.status == "True":
-                        booking_status = bool(True)
-                    else:
-                        booking_status = bool(False)    
-                    expert_list['booking'].append({
-                        "date":formatdate(book.date),
-                        "start_time":book.start_time,
-                        "end_time":book.end_time,
-                        "status":booking_status,
-                        "current_time":current_time
-                    })
+                if book.date >= datetime.now().date(): 
+                    book_time = book.start_time - timedelta(minutes=15)
+                    if not time_since_midnight >= book_time: 
+                        if book.status == "True":
+                            booking_status = bool(True)
+                        else:
+                            booking_status = bool(False)    
+                        expert_list['booking'].append({
+                            "date":formatdate(book.date),
+                            "start_time":book.start_time,
+                            "end_time":book.end_time,
+                            "status":booking_status,
+                            "current_time":time_since_midnight
+                        })
             formatted_book_an_expert.append(expert_list)    
-        return {"status":True,"book_an_expert":formatted_book_an_expert}
+        return {"status":True,"book_an_expert":formatted_book_an_expert, "current_time":time_since_midnight,"book_time":expert.start_time}
     except Exception as e:
-        return {"status":False,"message":e}
-    
+        return {"status":False,"message":str(e)}
+
 
 @frappe.whitelist()
 def get_book_an_expert_list():
