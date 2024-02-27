@@ -1,42 +1,35 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "CPM-.####",
  "creation": "2024-02-24 16:23:52.816880",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "name_of_the_round",
-  "round_type",
-  "closing_date_of_the_round",
-  "select_security_prefix",
-  "amount_raised",
-  "price_per_share",
-  "pre_money_valuation",
-  "dilution_for_this_round_",
-  "_shareholding",
-  "creation_person_id",
-  "description",
-  "color_code",
-  "column_break_mswl",
   "investor_name",
   "tag_name",
   "date_of_allotment",
-  "type_of_shares",
-  "invested_round",
   "amount_invested",
-  "distinctive_share_no",
   "shares_allotted",
   "fully_diluted_shares",
   "class_of_shares",
   "folio_number",
-  "share_certificate"
+  "distinctive_share_no",
+  "_shareholding",
+  "share_certificate",
+  "description",
+  "column_break_tnfx",
+  "round_name",
+  "round_type",
+  "select_security_prefix",
+  "closing_date_of_the_round",
+  "price_per_share",
+  "pre_money_valuation",
+  "dilution_for_this_round_",
+  "color_code",
+  "user"
  ],
  "fields": [
-  {
-   "fieldname": "name_of_the_round",
-   "fieldtype": "Data",
-   "label": "Name of the Round"
-  },
   {
    "fieldname": "round_type",
    "fieldtype": "Link",
@@ -61,11 +54,6 @@
    "label": "Select Security Prefix"
   },
   {
-   "fieldname": "amount_raised",
-   "fieldtype": "Currency",
-   "label": "Amount Raised"
-  },
-  {
    "fieldname": "price_per_share",
    "fieldtype": "Currency",
    "label": "Price per share"
@@ -81,19 +69,9 @@
    "label": "Dilution for this round (%)"
   },
   {
-   "fieldname": "creation_person_id",
-   "fieldtype": "Link",
-   "label": "Creation Person ID",
-   "options": "User"
-  },
-  {
    "fieldname": "color_code",
    "fieldtype": "Color",
    "label": "Color Code"
-  },
-  {
-   "fieldname": "column_break_mswl",
-   "fieldtype": "Column Break"
   },
   {
    "fieldname": "investor_name",
@@ -110,17 +88,6 @@
    "fieldname": "date_of_allotment",
    "fieldtype": "Date",
    "label": "Date of Allotment"
-  },
-  {
-   "fieldname": "type_of_shares",
-   "fieldtype": "Data",
-   "label": "Type of Shares"
-  },
-  {
-   "fieldname": "invested_round",
-   "fieldtype": "Link",
-   "label": "Invested Round ",
-   "options": "Invested Round"
   },
   {
    "fieldname": "amount_invested",
@@ -161,14 +128,33 @@
    "fieldname": "_shareholding",
    "fieldtype": "Data",
    "label": "% Shareholding"
+  },
+  {
+   "description": "Note : Type of Round",
+   "fieldname": "round_name",
+   "fieldtype": "Link",
+   "label": "Round Name",
+   "options": "Name of the Round"
+  },
+  {
+   "fieldname": "column_break_tnfx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "User",
+   "options": "User",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-26 11:07:10.907037",
+ "modified": "2024-02-27 15:37:26.824371",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Captable Management",
+ "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
   {

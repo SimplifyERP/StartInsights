@@ -235,10 +235,24 @@ def pitch_room(id):
 
 @frappe.whitelist()
 def get_users_with_role():
-    role = "Investors"
-    users_with_role = frappe.get_all("Has Role", filters={"role": role}, fields=["parent"])
-    user_list = [user.get("parent") for user in users_with_role]
-    return user_list
+    user_type = "Investors"
+    image_url = ""
+    get_profile_details = frappe.db.get_all("Profile Application",{"type_of_user":user_type},['*'])
+    format_user = []
+    for profile in get_profile_details:
+        if profile.profile_image:
+            image_url = get_domain_name() + profile.profile_image
+        else:
+            image_url = ""    
+        user_role = {
+            "user_id":profile.user_id,
+            "full_name":profile.full_name,
+            "profile_image":image_url,
+            "email_id":profile.email_id,
+            "designation":profile.designation
+        }
+        format_user.append(user_role)
+    return {"status":True,"user_role":format_user}
 if __name__ == "__main__":
     students_users = get_users_with_role()
     print(f"Users with the role 'Students': {students_users}")

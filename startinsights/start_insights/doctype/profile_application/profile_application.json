@@ -12,12 +12,13 @@
   "phone_no",
   "linkedin",
   "login_type",
+  "profile_password",
   "column_break_fedy",
   "full_name",
   "company_name",
   "designation",
   "profile_image",
-  "customer_group"
+  "type_of_user"
  ],
  "fields": [
   {
@@ -80,15 +81,21 @@
    "options": "\nGoggle\nFacebook\nTwitter"
   },
   {
-   "fieldname": "customer_group",
+   "fieldname": "type_of_user",
    "fieldtype": "Link",
-   "label": "Customer Group",
+   "label": "Type of User",
    "options": "Customer Group"
+  },
+  {
+   "fieldname": "profile_password",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Profile Password"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-24 16:59:59.841170",
+ "modified": "2024-02-27 16:00:12.196215",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Profile Application",
