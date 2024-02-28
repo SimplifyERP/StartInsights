@@ -58,3 +58,34 @@ def get_invested_round_masters():
         invested_round_masters = []
     return invested_round_masters    
 
+
+@frappe.whitelist()
+def get_investors_masters():
+    try:
+        investors_masters = {
+            "countries":get_territory(),
+            "funding_stages":get_funding_stages()
+        }
+        return {"staus":True,"investors_masters":investors_masters}
+    except Exception as e:
+        return {"status":False,"message":e}
+    
+    
+def get_territory():
+    territory = []
+    get_territory_list = frappe.db.get_all("Terriroty",['name'])
+    if get_territory_list:
+        territory = get_territory_list
+    else:
+        territory = []
+    return territory
+
+
+def get_funding_stages():
+    funding_stages = []
+    get_funding_stages_list = frappe.db.get_all("Funding Stages",{'disabled':0},['name'])
+    if get_funding_stages_list:
+        funding_stages = get_funding_stages_list
+    else:
+        funding_stages = []
+    return funding_stages        

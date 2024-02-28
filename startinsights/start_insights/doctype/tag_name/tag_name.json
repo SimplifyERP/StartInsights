@@ -1,8 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:tag_name",
- "creation": "2024-02-08 12:32:43.745858",
+ "creation": "2024-02-28 18:22:05.998585",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
@@ -12,17 +11,17 @@
   {
    "fieldname": "tag_name",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Tag Name",
-   "unique": 1
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-08 12:33:19.085623",
+ "modified": "2024-02-28 18:22:39.667148",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Tag Name",
- "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
