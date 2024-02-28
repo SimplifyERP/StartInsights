@@ -247,9 +247,9 @@ def get_users_with_role():
         user_role = {
             "user_id":profile.user_id,
             "full_name":profile.full_name,
-            "profile_image":image_url,
+            "profile_image":image_url or "",
             "email_id":profile.email_id,
-            "designation":profile.designation
+            "designation":profile.designation or ""
         }
         format_user.append(user_role)
     return {"status":True,"user_role":format_user}
