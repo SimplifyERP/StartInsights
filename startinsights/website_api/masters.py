@@ -73,7 +73,7 @@ def get_investors_masters():
     
 def get_territory():
     territory = []
-    get_territory_list = frappe.db.get_all("Terriroty",['name'])
+    get_territory_list = frappe.db.get_all("Territory",['name'])
     if get_territory_list:
         territory = get_territory_list
     else:
