@@ -17,7 +17,7 @@ def get_search_investors_list():
             fund_rasing = frappe.db.get_all("Investor Funding Stages",{'parent':investor.name},['funding_stages'])
             search_investors = {
                 "title":investor.investor_title,
-                "logo":"",
+                "logo":image_url,
                 "linkedin":investor.investor_linkedin,
                 "website":investor.investor_website,
                 "about_us":investor.about_us,
