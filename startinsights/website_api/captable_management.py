@@ -127,6 +127,40 @@ def captable_management_list(user_id):
             else:
                 investor_wise_list = []  
                 round_wise_list = []
-        return {"status":True,"investor_wise":format_management,"round_wise":round_wise_list}
+        return {
+            "status":True,"investor_wise":format_management,
+            "round_wise":round_wise_list,
+            "investor_wise_graph":get_investor_wise_graph(user_id),
+            "round_wise_graph":get_round_wise_graph(user_id)}
     except Exception as e:
         return {"status":False,"message":e}
+
+def get_investor_wise_graph(user_id):
+    try:
+        get_investor_wise_data = frappe.db.get_all("Captable Management",{'user':user_id},['investor_name','_shareholding','color_code'])
+        formatted_investor_wise_graph = []
+        for investor in get_investor_wise_data:
+            investor_wise_graph = {
+                "name":investor.investor_name,
+                "percentage":investor._shareholding,
+                "color_code":investor.color_code
+            }
+            formatted_investor_wise_graph.append(investor_wise_graph)
+        return formatted_investor_wise_graph
+    except Exception as e:
+        return {"status":False,"message":e}        
+
+def get_round_wise_graph(user_id):
+    try:
+        get_round_wise_data = frappe.db.get_all("Captable Management",{'user':user_id},['round_name','dilution_for_this_round_','color_code'])
+        formatted_round_wise_graph = []
+        for round in get_round_wise_data:
+            round_wise_graph = {
+                "name":round.round_name,
+                "percentage":round.dilution_for_this_round_,
+                "color_code":round.color_code
+            }
+            formatted_round_wise_graph.append(round_wise_graph)
+        return formatted_round_wise_graph
+    except Exception as e:
+        return {"status":False,"message":e}        

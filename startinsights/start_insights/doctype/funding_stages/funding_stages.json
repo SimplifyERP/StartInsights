@@ -6,7 +6,9 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "investor_funding_stages"
+  "investor_funding_stages",
+  "column_break_sngp",
+  "disabled"
  ],
  "fields": [
   {
@@ -14,11 +16,21 @@
    "fieldtype": "Data",
    "label": "Investor Funding Stages",
    "unique": 1
+  },
+  {
+   "fieldname": "column_break_sngp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-28 12:54:43.656309",
+ "modified": "2024-02-28 17:12:15.555895",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Funding Stages",
