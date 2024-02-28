@@ -1,0 +1,187 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "SCH-INVESTORS-.####",
+ "creation": "2024-02-28 12:33:19.518920",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "investor_details_section",
+  "investor_title",
+  "investor_linkedin",
+  "disabled",
+  "column_break_ltlr",
+  "investor_logo",
+  "investor_website",
+  "about_investor_tab",
+  "investor_overview_section",
+  "about_us",
+  "value_add_section",
+  "value_add",
+  "section_break_yvhm",
+  "firm_type",
+  "column_break_jvjl",
+  "hq",
+  "investor_thesis_tab",
+  "thesis_details_section",
+  "funding_requirements",
+  "section_break_ihye",
+  "funding_stages_table",
+  "section_break_awjg",
+  "min_check_size",
+  "column_break_fgcr",
+  "max_check_size"
+ ],
+ "fields": [
+  {
+   "fieldname": "investor_title",
+   "fieldtype": "Data",
+   "label": "Investor Title"
+  },
+  {
+   "fieldname": "column_break_ltlr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "investor_logo",
+   "fieldtype": "Attach",
+   "label": "Investor Logo"
+  },
+  {
+   "fieldname": "investor_linkedin",
+   "fieldtype": "Data",
+   "label": "Investor Linkedin"
+  },
+  {
+   "fieldname": "investor_website",
+   "fieldtype": "Data",
+   "label": "Investor Website"
+  },
+  {
+   "fieldname": "investor_details_section",
+   "fieldtype": "Section Break",
+   "label": "Investor Details"
+  },
+  {
+   "fieldname": "about_investor_tab",
+   "fieldtype": "Tab Break",
+   "label": "About Investor"
+  },
+  {
+   "fieldname": "about_us",
+   "fieldtype": "Small Text",
+   "label": "About Us"
+  },
+  {
+   "fieldname": "investor_overview_section",
+   "fieldtype": "Section Break",
+   "label": "Investor Overview"
+  },
+  {
+   "fieldname": "value_add",
+   "fieldtype": "Small Text",
+   "label": "Value Add"
+  },
+  {
+   "fieldname": "firm_type",
+   "fieldtype": "Link",
+   "label": "Firm Type",
+   "options": "Firm Type of Investors"
+  },
+  {
+   "fieldname": "investor_thesis_tab",
+   "fieldtype": "Tab Break",
+   "label": "Investor Thesis"
+  },
+  {
+   "fieldname": "thesis_details_section",
+   "fieldtype": "Section Break",
+   "label": "Thesis Details"
+  },
+  {
+   "fieldname": "funding_requirements",
+   "fieldtype": "Small Text",
+   "label": "Funding requirements"
+  },
+  {
+   "fieldname": "section_break_ihye",
+   "fieldtype": "Section Break",
+   "label": "Funding Stages Table"
+  },
+  {
+   "fieldname": "funding_stages_table",
+   "fieldtype": "Table",
+   "label": "Funding stages Table",
+   "options": "Investor Funding Stages"
+  },
+  {
+   "fieldname": "value_add_section",
+   "fieldtype": "Section Break",
+   "label": "Value Add Details"
+  },
+  {
+   "fieldname": "section_break_yvhm",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_jvjl",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_awjg",
+   "fieldtype": "Section Break",
+   "label": "Check Size"
+  },
+  {
+   "fieldname": "min_check_size",
+   "fieldtype": "Currency",
+   "label": "Min Check Size"
+  },
+  {
+   "fieldname": "max_check_size",
+   "fieldtype": "Currency",
+   "label": "Max Check Size"
+  },
+  {
+   "fieldname": "hq",
+   "fieldtype": "Link",
+   "label": "HQ",
+   "options": "Territory"
+  },
+  {
+   "fieldname": "column_break_fgcr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-02-28 16:13:31.658043",
+ "modified_by": "Administrator",
+ "module": "START INSIGHTS",
+ "name": "Search Investors",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
