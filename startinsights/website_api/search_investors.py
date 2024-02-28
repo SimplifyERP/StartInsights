@@ -1,12 +1,19 @@
 import frappe
+from startinsights.custom import get_domain_name
+
 
 @frappe.whitelist()
 def get_search_investors_list():
     search_investors = []
+    image_url = ""
     try:
         get_investors = frappe.db.get_all("Search Investors",{"disabled":0},['*'],order_by='idx ASC')
         investors_list = []
         for investor in get_investors:
+            if investor.investor_logo:
+                image_url = get_domain_name() + investor.investor_logo
+            else:
+                image_url = ""    
             fund_rasing = frappe.db.get_all("Investor Funding Stages",{'parent':investor.name},['funding_stages'])
             search_investors = {
                 "title":investor.investor_title,
