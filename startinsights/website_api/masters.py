@@ -4,9 +4,13 @@ import frappe
 @frappe.whitelist()
 def get_masters():
     try:
-        get_user_type_data = get_user_type()
         masters_data_list = {
-            "user_type":get_user_type_data
+            "user_type": get_user_type(),
+            "round_type_masters":get_round_type_masters(),
+            "tag_name_masters":get_tag_name_masters(),
+            "invested_round_masters":get_invested_round_masters(),
+            "countries":get_territory(),
+            "funding_stages":get_funding_stages()
         }
         return {"status": True, "masters_data": masters_data_list}
     except:
@@ -16,21 +20,8 @@ def get_masters():
 def get_user_type():
     user_type = frappe.db.get_all('Start Insight User',['name'])
     return user_type
-    
-#the below api for round-wise overview field round type of master data
-@frappe.whitelist()
-def get_captable_masters():
-    try:
-        captable_masters = {
-            "round_type_masters":get_round_type_masters(),
-            "tag_name_masters":get_tag_name_masters(),
-            "invested_round_masters":get_invested_round_masters()
-        }
-        return {"status":True,"captable_masters":captable_masters}
-    except Exception as e:
-        return {"status":False,"message":e}
 
-
+# the below method is capatable masters(round_type,tag_name,invested_round_masters)
 def get_round_type_masters():
     round_type_masters = []
     round_type = frappe.db.get_all("Round Type",['round_type','description'])
@@ -58,19 +49,7 @@ def get_invested_round_masters():
         invested_round_masters = []
     return invested_round_masters    
 
-
-@frappe.whitelist()
-def get_investors_masters():
-    try:
-        investors_masters = {
-            "countries":get_territory(),
-            "funding_stages":get_funding_stages()
-        }
-        return {"staus":True,"investors_masters":investors_masters}
-    except Exception as e:
-        return {"status":False,"message":e}
-    
-    
+# the below method is Investors Masters(territory,funding stages)  
 def get_territory():
     territory = []
     get_territory_list = frappe.db.get_all("Territory",['name'])
@@ -79,7 +58,6 @@ def get_territory():
     else:
         territory = []
     return territory
-
 
 def get_funding_stages():
     funding_stages = []
