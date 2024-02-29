@@ -18,7 +18,7 @@ def get_masters():
 
 #get the user type
 def get_user_type():
-    user_type = frappe.db.get_all('Start Insight User',['name'])
+    user_type = frappe.db.get_all('Start Insight User',['name as user_type_name'])
     return user_type
 
 # the below method is capatable masters(round_type,tag_name,invested_round_masters)
@@ -52,7 +52,7 @@ def get_invested_round_masters():
 # the below method is Investors Masters(territory,funding stages)  
 def get_territory():
     territory = []
-    get_territory_list = frappe.db.get_all("Territory",['name'])
+    get_territory_list = frappe.db.get_all("Territory",['name as country_name'])
     if get_territory_list:
         territory = get_territory_list
     else:
@@ -61,7 +61,7 @@ def get_territory():
 
 def get_funding_stages():
     funding_stages = []
-    get_funding_stages_list = frappe.db.get_all("Funding Stages",{'disabled':0},['name'])
+    get_funding_stages_list = frappe.db.get_all("Funding Stages",{'disabled':0},['name as funding_stage_name'])
     if get_funding_stages_list:
         funding_stages = get_funding_stages_list
     else:
