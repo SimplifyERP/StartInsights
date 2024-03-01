@@ -189,12 +189,21 @@ def make_pitch_craft_payment(pitch_craft_id, user, payment_id, amount, date):
 		return {"status": False, "message": str(e)}
 
 @frappe.whitelist()
-def get_pitch_craft_payment_details():
+def get_pitch_craft_payment_details(user_id,pitch_craft_id):
 	try:
-		return {"status":True}
+		get_payment_details = frappe.db.get_all("Pitch Craft Payment",{'login_user':user_id,'pitch_craft_id':pitch_craft_id},['payment_id','service_booked_date','amount'],order_by='idx ASC')
+		format_payment = []
+		for payment in get_payment_details:
+			pitch_craft_payment_details = {
+				"payment_id":payment.payment_id,
+				"payment_date":format_date(payment.service_booked_date),
+				"amount_paid":payment.amount,
+				# "payment_method":payment.payment_method or " "
+			}
+			format_payment.append(pitch_craft_payment_details)
+		return {"status":True,"pitch_craft_payment_details":format_payment}    
 	except Exception as e:
-		return {"status":False,"message":e}    
+		return {"status":False,"message":e}
 	
-
 
 	
