@@ -21,7 +21,7 @@
   "user",
   "user_type",
   "column_break_hvpo",
-  "user_name",
+  "full_name",
   "login_type",
   "amended_from"
  ],
@@ -67,14 +67,6 @@
    "fieldname": "login_type",
    "fieldtype": "Data",
    "label": "Login Type",
-   "read_only": 1
-  },
-  {
-   "fetch_from": "user.full_name",
-   "fieldname": "user_name",
-   "fieldtype": "Link",
-   "label": "User Name",
-   "options": "Login Type",
    "read_only": 1
   },
   {
@@ -141,13 +133,20 @@
    "fieldtype": "Data",
    "label": "Payment Method",
    "read_only": 1
+  },
+  {
+   "fetch_from": "user.full_name",
+   "fieldname": "full_name",
+   "fieldtype": "Data",
+   "label": "Full Name",
+   "read_only": 1
   }
  ],
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-02-23 12:30:05.255566",
+ "modified": "2024-02-29 11:29:14.118718",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Service Listing",

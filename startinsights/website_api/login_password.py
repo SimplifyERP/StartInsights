@@ -1,5 +1,4 @@
 import frappe
-import rsa
 
 
 @frappe.whitelist()

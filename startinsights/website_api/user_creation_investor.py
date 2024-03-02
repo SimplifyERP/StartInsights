@@ -33,6 +33,8 @@ def get_user_created_investors_list(user_id):
         investors_list = []
         for investors in created_investors:
             user_investors = {
+                "id":investors.name,
+                "name":investors.name,
                 "investor_name":investors.investor_name,
                 "investor_email":investors.investor_email,
                 "firm_name":investors.firm_name,
@@ -46,3 +48,11 @@ def get_user_created_investors_list(user_id):
     except Exception as e:
         return {"status":False,"message":e}
     
+@frappe.whitelist()
+def update_investor_status(investor_id,status):
+    try:
+        frappe.db.set_value("User Created Investors",investor_id,"status",status)
+        get_investor_status = frappe.get_doc("User Created Investors",investor_id)
+        return {"status":True,"investor_status":get_investor_status.status}
+    except Exception as e:
+        return {"status":False,"message":e}
