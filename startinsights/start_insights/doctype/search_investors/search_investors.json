@@ -44,7 +44,7 @@
   },
   {
    "fieldname": "investor_logo",
-   "fieldtype": "Attach",
+   "fieldtype": "Attach Image",
    "label": "Investor Logo"
   },
   {
@@ -159,9 +159,10 @@
    "label": "Disabled"
   }
  ],
+ "image_field": "investor_logo",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-28 16:13:31.658043",
+ "modified": "2024-03-02 10:06:15.225860",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Search Investors",
