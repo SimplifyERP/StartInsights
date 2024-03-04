@@ -7,7 +7,9 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "type_of_plan"
+  "type_of_plan",
+  "column_break_wavi",
+  "disabled"
  ],
  "fields": [
   {
@@ -15,11 +17,21 @@
    "fieldtype": "Data",
    "label": "Type of Plan",
    "unique": 1
+  },
+  {
+   "fieldname": "column_break_wavi",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-02 13:39:22.451247",
+ "modified": "2024-03-04 10:42:06.715835",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Type of Plan",

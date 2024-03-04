@@ -7,6 +7,7 @@
  "engine": "InnoDB",
  "field_order": [
   "pitchdo_title_name",
+  "disabled",
   "column_break_uxlt",
   "pitch_image",
   "description_section",
@@ -42,11 +43,17 @@
    "in_list_view": 1,
    "label": "Short Description",
    "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-05 17:24:15.753022",
+ "modified": "2024-03-04 10:53:26.481748",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Pitch Do",

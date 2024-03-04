@@ -8,6 +8,7 @@
  "field_order": [
   "question",
   "type",
+  "disabled",
   "option_1",
   "option_2",
   "option_3",
@@ -59,11 +60,17 @@
    "fieldname": "possible_answer_1",
    "fieldtype": "Small Text",
    "label": "Possible Answer"
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-05 17:25:11.928260",
+ "modified": "2024-03-04 10:53:09.823081",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Quiz Question",

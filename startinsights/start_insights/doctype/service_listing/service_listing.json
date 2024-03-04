@@ -17,6 +17,7 @@
   "end_time",
   "book_an_expert",
   "service_amount",
+  "disabled",
   "user_details_section",
   "user",
   "user_type",
@@ -140,13 +141,19 @@
    "fieldtype": "Data",
    "label": "Full Name",
    "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
   }
  ],
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-02-29 11:29:14.118718",
+ "modified": "2024-03-04 10:42:34.603243",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Service Listing",

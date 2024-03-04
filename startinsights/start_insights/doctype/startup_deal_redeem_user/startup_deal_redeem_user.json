@@ -10,6 +10,7 @@
   "start_up_deal_id",
   "redeem_code",
   "redeem_status",
+  "disabled",
   "column_break_dbau",
   "service_provider_name",
   "redeem_url",
@@ -71,12 +72,18 @@
    "fieldtype": "Link",
    "label": "Redeem User",
    "options": "User"
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-02-24 19:20:28.193653",
+ "modified": "2024-03-04 10:46:34.712651",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Startup Deal Redeem User",

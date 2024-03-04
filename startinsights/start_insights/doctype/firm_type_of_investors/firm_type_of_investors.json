@@ -6,7 +6,9 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "firm_type"
+  "firm_type",
+  "column_break_zwwi",
+  "disabled"
  ],
  "fields": [
   {
@@ -16,12 +18,22 @@
    "label": "Firm Type",
    "reqd": 1,
    "unique": 1
+  },
+  {
+   "fieldname": "column_break_zwwi",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
   }
  ],
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-28 12:42:40.268110",
+ "modified": "2024-03-04 10:44:30.853721",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Firm Type of Investors",

@@ -12,6 +12,7 @@
   "column_break_ysws",
   "service_name",
   "date",
+  "disabled",
   "section_break_nbtb",
   "pitch_craft_document_table"
  ],
@@ -59,11 +60,17 @@
    "fieldtype": "Table",
    "label": "Pitch Craft Document Table",
    "options": "Pitch Craft Document Table"
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-23 16:42:10.180350",
+ "modified": "2024-03-04 10:49:04.395887",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Pitch Craft Documents Application",

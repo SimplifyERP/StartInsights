@@ -9,6 +9,7 @@
   "company_details_section",
   "legal_name",
   "founded_year",
+  "disabled",
   "column_break_bwnr",
   "website",
   "company_logo",
@@ -154,11 +155,17 @@
    "fieldname": "executive_summary",
    "fieldtype": "Attach",
    "label": "Executive Summary"
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-22 14:41:30.810911",
+ "modified": "2024-03-04 10:49:45.485143",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Investment Deals",

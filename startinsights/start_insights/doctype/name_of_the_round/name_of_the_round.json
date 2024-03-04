@@ -6,7 +6,9 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "round_name"
+  "round_name",
+  "column_break_vhcq",
+  "disabled"
  ],
  "fields": [
   {
@@ -16,11 +18,21 @@
    "label": "Round Name",
    "reqd": 1,
    "unique": 1
+  },
+  {
+   "fieldname": "column_break_vhcq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-27 12:36:48.290970",
+ "modified": "2024-03-04 10:45:52.134938",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Name of the Round",
