@@ -1,9 +1,19 @@
 # Copyright (c) 2024, Suriya and contributors
 # For license information, please see license.txt
 
-# import frappe
+import frappe
 from frappe.model.document import Document
 
 
 class ProfileApplication(Document):
-	pass
+	def after_insert(self):
+		# Check if the user_name already exists in Customer doctype
+		if not frappe.db.exists("Customer", {"user_name": self.user_id}):
+			new_customer = frappe.new_doc("Customer")
+			new_customer.customer_name = self.full_name
+			new_customer.custom_user_name = self.user_id
+			new_customer.customer_type = "Individual"
+			new_customer.customer_group = self.type_of_user
+			new_customer.save(ignore_permissions=True)
+			frappe.db.commit()
+			
