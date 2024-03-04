@@ -17,7 +17,8 @@
   "pre_money_valuation",
   "dilution_for_this_round",
   "creation_person_id",
-  "color_code"
+  "color_code",
+  "disabled"
  ],
  "fields": [
   {
@@ -83,11 +84,17 @@
    "fieldname": "color_code",
    "fieldtype": "Data",
    "label": "Color Code"
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-23 17:25:32.555899",
+ "modified": "2024-03-04 10:41:00.180172",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Round-wise Overview",

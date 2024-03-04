@@ -27,7 +27,8 @@
   "pre_money_valuation",
   "dilution_for_this_round_",
   "color_code",
-  "user"
+  "user",
+  "disabled"
  ],
  "fields": [
   {
@@ -146,11 +147,17 @@
    "label": "User",
    "options": "User",
    "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-27 15:37:26.824371",
+ "modified": "2024-03-04 10:45:30.923346",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Captable Management",

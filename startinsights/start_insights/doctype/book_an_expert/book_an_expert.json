@@ -15,6 +15,7 @@
   "designation",
   "pricing",
   "expert_mail_id",
+  "disabled",
   "description_section",
   "short_description",
   "expert_description_section",
@@ -183,6 +184,12 @@
    "label": "Expert Mail ID",
    "options": "Email",
    "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -193,7 +200,7 @@
    "link_fieldname": "book_an_expert"
   }
  ],
- "modified": "2024-02-16 19:12:43.377234",
+ "modified": "2024-03-04 10:50:52.886779",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Book an Expert",

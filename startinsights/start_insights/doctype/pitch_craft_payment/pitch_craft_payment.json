@@ -11,6 +11,7 @@
   "service_booked_date",
   "payment_id",
   "payment_method",
+  "disabled",
   "column_break_iyfo",
   "payment_status",
   "pitch_craft_id",
@@ -112,12 +113,18 @@
    "fieldtype": "Data",
    "label": "My Service Status",
    "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-03-04 10:20:05.105617",
+ "modified": "2024-03-04 10:38:45.990775",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Pitch Craft Payment",

@@ -10,6 +10,7 @@
   "column_break_hjmh",
   "pitch_craft_id",
   "pitch_craft_service_name",
+  "disabled",
   "column_break_yhoo",
   "assign_user",
   "date"
@@ -62,11 +63,17 @@
    "fieldname": "column_break_hjmh",
    "fieldtype": "Column Break",
    "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-05 17:26:07.795509",
+ "modified": "2024-03-04 10:52:16.815234",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Pitch Craft Assign",

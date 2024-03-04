@@ -12,6 +12,7 @@
   "column_break_qtmp",
   "shared_user",
   "expiry_date",
+  "disabled",
   "documents_section",
   "pitch_deck",
   "pitch_deck_doc_type",
@@ -110,11 +111,17 @@
    "fieldtype": "Date",
    "label": "Expiry Date",
    "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-22 18:10:50.313109",
+ "modified": "2024-03-04 10:49:23.967887",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Pitch Room",

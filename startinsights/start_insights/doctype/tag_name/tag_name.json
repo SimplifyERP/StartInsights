@@ -5,7 +5,9 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "tag_name"
+  "tag_name",
+  "column_break_zclm",
+  "disabled"
  ],
  "fields": [
   {
@@ -14,11 +16,21 @@
    "in_list_view": 1,
    "label": "Tag Name",
    "reqd": 1
+  },
+  {
+   "fieldname": "column_break_zclm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-28 18:22:39.667148",
+ "modified": "2024-03-04 10:43:06.656887",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Tag Name",

@@ -6,7 +6,9 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "invested_round"
+  "invested_round",
+  "column_break_dydz",
+  "disabled"
  ],
  "fields": [
   {
@@ -14,11 +16,21 @@
    "fieldtype": "Data",
    "label": "Invested Round ",
    "unique": 1
+  },
+  {
+   "fieldname": "column_break_dydz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-08 12:35:47.885840",
+ "modified": "2024-03-04 10:51:15.860269",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Invested Round",
