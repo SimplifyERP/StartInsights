@@ -12,7 +12,7 @@ def pitch_craft_list():
 	image_url = ""
 	plain_text_short_description = ""
 	try:
-		pitch_craft_list = frappe.db.get_all('Pitch Craft',{'pitch_craft_status':"Unsaved"},['name','service_name','pricing','short_description','pitch_craft_image'],order_by='idx ASC')
+		pitch_craft_list = frappe.db.get_all('Pitch Craft',{'disabled':0},['name','service_name','pricing','short_description','pitch_craft_image'],order_by='idx ASC')
 		formatted_pitch_craft_list = []
 		for pitch_craft in pitch_craft_list:
 			plain_text_short_description = html2text.html2text(pitch_craft.short_description).strip()
@@ -38,7 +38,7 @@ def get_my_services_pitch_craft():
 	image_url = ""
 	plain_text_short_description = ""
 	try:
-		pitch_craft_list = frappe.db.get_all('Pitch Craft',{'pitch_craft_status':"Saved"},['name','service_name','pricing','short_description','pitch_craft_image'],order_by='idx ASC')
+		pitch_craft_list = frappe.db.get_all('Pitch Craft Payment',{'pitch_craft_status':"Saved"},['name','service_name','pricing','short_description','pitch_craft_image'],order_by='idx ASC')
 		formatted_pitch_craft_list = []
 		for pitch_craft in pitch_craft_list:
 			plain_text_short_description = html2text.html2text(pitch_craft.short_description).strip()
@@ -168,6 +168,7 @@ def make_pitch_craft_payment(pitch_craft_id, user, payment_id, amount, date):
 		new_pitch_craft_payment.pitch_craft_id = pitch_craft_id
 		new_pitch_craft_payment.service_booked_date = service_booked_date
 		new_pitch_craft_payment.payment_status = "Paid"
+		new_pitch_craft_payment.my_service_status = "Saved"
 		new_pitch_craft_payment.payment_id = payment_id
 		new_pitch_craft_payment.amount = amount
 		new_pitch_craft_payment.login_user = user

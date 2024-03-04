@@ -9,6 +9,7 @@
   "banner_details_section",
   "banner_name",
   "description",
+  "disabled",
   "column_break_nzzb",
   "type_of_banner",
   "default_banner_image",
@@ -65,6 +66,7 @@
    "label": "Banner Details"
   },
   {
+   "depends_on": "eval:doc.type_of_banner == \"Ad Copy\"",
    "fieldname": "section_break_jlkg",
    "fieldtype": "Section Break",
    "label": "Ad Dates"
@@ -81,7 +83,7 @@
    "reqd": 1
   },
   {
-   "depends_on": "eval:doc.type_of_banner == \"GIF\"",
+   "depends_on": "eval:doc.type_of_banner == \"Ad Copy\"",
    "fieldname": "ad_end_date_time",
    "fieldtype": "Datetime",
    "label": "Ad End Date Time",
@@ -91,12 +93,18 @@
    "fieldname": "ad_start_date_time",
    "fieldtype": "Datetime",
    "label": "Ad Start Date Time"
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
   }
  ],
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-02 14:15:09.347665",
+ "modified": "2024-03-02 19:26:47.604644",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "DashBoard Banner",

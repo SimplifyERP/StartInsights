@@ -11,7 +11,7 @@
   "pitch_craft_image",
   "column_break_sxhw",
   "pricing",
-  "pitch_craft_status",
+  "disabled",
   "description_section",
   "short_description",
   "overview_tab",
@@ -130,12 +130,10 @@
    "fieldtype": "Section Break"
   },
   {
-   "default": "Unsaved",
-   "fieldname": "pitch_craft_status",
-   "fieldtype": "Select",
-   "label": "Pitch Craft Status",
-   "options": "\nSaved\nUnsaved",
-   "read_only": 1
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -150,7 +148,7 @@
    "link_fieldname": "pitch_craft_id"
   }
  ],
- "modified": "2024-02-24 17:11:29.701789",
+ "modified": "2024-03-04 10:17:03.243696",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Pitch Craft",
