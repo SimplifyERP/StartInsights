@@ -73,9 +73,9 @@ def get_search_investors_list(page_no,country,funding_stage,amount):
     
 # calculate the page count of given data
 def calculate_count(page_count):
-    if page_count <= 0:
+    if int(page_count) <= 0:
         return None, None  # Handle invalid page counts
     # Calculate min and max counts
-    min_count = (page_count - 1) * 10
+    min_count = (int(page_count) - 1) * 10
     max_count = min_count + 10
     return min_count, max_count
