@@ -77,5 +77,5 @@ def calculate_count(page_count):
         return None, None  # Handle invalid page counts
     # Calculate min and max counts
     min_count = (int(page_count) - 1) * 10
-    max_count = min_count + 10
+    max_count = min_count + 8
     return min_count, max_count
