@@ -8,7 +8,7 @@ from startinsights.custom import get_domain_name
 
 # pitch craft service details view
 @frappe.whitelist()
-def pitch_craft_list():
+def pitch_craft_list(user_id):
 	image_url = ""
 	plain_text_short_description = ""
 	try:
@@ -28,29 +28,30 @@ def pitch_craft_list():
 				'short_description': plain_text_short_description,
 			}
 			formatted_pitch_craft_list.append(pitch_craft_details)
-		my_services = get_my_services_pitch_craft()    
+		my_services = get_my_services_pitch_craft(user_id)    
 		return {"status": True, "services_list": formatted_pitch_craft_list,"my_services":my_services}
 	except Exception as e:
 		return {"status": False, "message": str(e)}
 
 
-def get_my_services_pitch_craft():
+def get_my_services_pitch_craft(user_id):
 	image_url = ""
 	plain_text_short_description = ""
 	try:
-		pitch_craft_list = frappe.db.get_all('Pitch Craft Payment',{'pitch_craft_status':"Saved"},['name','service_name','pricing','short_description','pitch_craft_image'],order_by='idx ASC')
+		pitch_craft_list = frappe.db.get_all('Pitch Craft Payment',{'login_user':user_id,'my_service_status':"Saved"},['name','pitch_craft_id'],order_by='idx ASC')
 		formatted_pitch_craft_list = []
 		for pitch_craft in pitch_craft_list:
-			plain_text_short_description = html2text.html2text(pitch_craft.short_description).strip()
+			get_pitch_craft_details = frappe.get_doc("Pitch Craft",pitch_craft.pitch_craft_id)
+			plain_text_short_description = html2text.html2text(get_pitch_craft_details.short_description).strip()
 			if pitch_craft.pitch_craft_image:
-				image_url = get_domain_name() + pitch_craft.pitch_craft_image
+				image_url = get_domain_name() + get_pitch_craft_details.pitch_craft_image
 			else:
 				image_url = ""    
 			pitch_craft_details = {
-				'id': pitch_craft.name,
-				'service_name': pitch_craft.service_name,
+				'id': pitch_craft.pitch_craft_id,
+				'service_name': get_pitch_craft_details.service_name,
 				"pitch_craft_image":image_url,
-				'pricing': pitch_craft.pricing,
+				'pricing': get_pitch_craft_details.pricing,
 				'short_description': plain_text_short_description,
 			}
 			formatted_pitch_craft_list.append(pitch_craft_details)
@@ -160,7 +161,7 @@ def pitch_craft_service_details(name):
 		return {"status": False}
 	
 @frappe.whitelist()
-def make_pitch_craft_payment(pitch_craft_id, user, payment_id, amount, date):
+def make_pitch_craft_payment(pitch_craft_id,user,payment_id,amount, date):
 	try:
 		service_booked_date = datetime.strptime(date, "%d-%m-%Y").date()
 
@@ -172,17 +173,16 @@ def make_pitch_craft_payment(pitch_craft_id, user, payment_id, amount, date):
 		new_pitch_craft_payment.payment_id = payment_id
 		new_pitch_craft_payment.amount = amount
 		new_pitch_craft_payment.login_user = user
-		new_pitch_craft_payment.insert(ignore_permissions=True)
+		new_pitch_craft_payment.save(ignore_permissions=True)
 
 		new_pitch_craft_doc_app = frappe.new_doc("Pitch Craft Documents Application")
 		new_pitch_craft_doc_app.pitch_craft_service = pitch_craft_id
 		new_pitch_craft_doc_app.pitch_craft_payment_id = new_pitch_craft_payment.name
 		new_pitch_craft_doc_app.date = service_booked_date
 		new_pitch_craft_doc_app.user = user
-		new_pitch_craft_doc_app.insert(ignore_permissions=True)
+		new_pitch_craft_doc_app.save(ignore_permissions=True)
 
 		new_pitch_craft_payment.submit()
-		frappe.db.set_value("Pitch Craft", pitch_craft_id, 'pitch_craft_status', "Saved")
 		frappe.db.commit()
 
 		return {"status": True, "message": "New Pitch Craft Payment Submitted"}
@@ -192,14 +192,14 @@ def make_pitch_craft_payment(pitch_craft_id, user, payment_id, amount, date):
 @frappe.whitelist()
 def get_pitch_craft_payment_details(user_id,pitch_craft_id):
 	try:
-		get_payment_details = frappe.db.get_all("Pitch Craft Payment",{'login_user':user_id,'pitch_craft_id':pitch_craft_id},['payment_id','service_booked_date','amount'],order_by='idx ASC')
+		get_payment_details = frappe.db.get_all("Pitch Craft Payment",{'login_user':user_id,'pitch_craft_id':pitch_craft_id},['name','payment_id','service_booked_date','amount'],order_by='idx ASC')
 		format_payment = []
 		for payment in get_payment_details:
 			pitch_craft_payment_details = {
+				"id":payment.name,
 				"payment_id":payment.payment_id,
 				"payment_date":format_date(payment.service_booked_date),
 				"amount_paid":payment.amount,
-				# "payment_method":payment.payment_method or " "
 			}
 			format_payment.append(pitch_craft_payment_details)
 		return {"status":True,"pitch_craft_payment_details":format_payment}    
