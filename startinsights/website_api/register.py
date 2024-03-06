@@ -38,7 +38,7 @@ def create_account_against_lead(full_name,mobile_no,email_id):
         else:
             status = False
             message = "User Already Created"
-        return {"status":status,"user_details":user_details or message}
+        return {"status":status,"message":message,"user_details":user_details}
     except Exception as e:
         return {"status":False,"message":e}
 
@@ -108,7 +108,7 @@ def create_register_account(user_id,user_type,password):
         else:
             status = False
             message = "Given User ID not Created"    
-        return {'status': status,"user_details":user_details or message}
+        return {"status":status,"message":message,"user_details":user_details}
     except Exception as e:
         status = False
         return {'status': status, 'message': str(e)}
