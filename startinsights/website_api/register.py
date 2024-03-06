@@ -7,6 +7,7 @@ from datetime import datetime
 def create_account_against_lead(full_name,mobile_no,email_id):
     message = ""
     status = ""
+    user_details = []
     try:
         if not frappe.db.exists("User",{'name':email_id,'enabled':1}):
             new_user = frappe.new_doc("User")
@@ -61,6 +62,7 @@ def create_lead(full_name,mobile_no,email_id):
 # Creating a new user in user list
 @frappe.whitelist()
 def create_register_account(user_id,user_type,password):
+    user_details = []
     status = ""
     message = ""
     try:
