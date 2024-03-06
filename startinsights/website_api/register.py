@@ -24,13 +24,20 @@ def create_account_against_lead(full_name,mobile_no,email_id):
             })
             new_user.save(ignore_permissions=True)
             frappe.db.commit()
+
             create_lead(full_name,mobile_no,new_user.email)
+
+            get_user_details = frappe.get_doc("User",email_id)
+            user_details = {
+                "user_id":get_user_details.name,
+                "full_name":get_user_details.first_name,
+                "mobile_no":get_user_details.phone
+            }
             status = True
-            message = "User and Lead Created"
         else:
             status = False
             message = "User Already Created"
-        return {"status":status,"message":message}
+        return {"status":status,"user_details":user_details or message}
     except Exception as e:
         return {"status":False,"message":e}
 
@@ -70,9 +77,7 @@ def create_register_account(user_id,user_type,password):
             })
             get_user.save(ignore_permissions=True)
             frappe.db.commit()
-            status = True
-            message = "User Updated"
-
+            
             if not frappe.db.exists("Profile Application",{'name':user_id}):
                 new_profile = frappe.new_doc("Profile Application")
                 new_profile.user_id = user_id
@@ -89,13 +94,27 @@ def create_register_account(user_id,user_type,password):
 
             else:
                 message = "Please Contact Support Team" 
+            get_user_details = frappe.get_doc("User",user_id)
+            profile_details = frappe.get_doc("Profile Application",new_profile.name)
+            user_details = {
+                "user_id":get_user_details.name,
+                "full_name":get_user_details.first_name,
+                "mobile_no":get_user_details.phone,
+                "type_of_user":profile_details.customer_group
+            }
             status = True
-            message = "New User has been Created"
         else:
             status = False
             message = "Given User ID not Created"    
-        return {'status': status,"message":message}
+        return {'status': status,"user_details":user_details or message}
     except Exception as e:
         status = False
         return {'status': status, 'message': str(e)}
     
+
+@frappe.whitelist()
+def social_register_account_create():
+    try:
+        pass
+    except Exception as e:
+        return {"status":False,"message":e}
