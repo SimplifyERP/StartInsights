@@ -53,7 +53,7 @@ def create_lead(full_name,mobile_no,email_id):
 
 # Creating a new user in user list
 @frappe.whitelist()
-def create_register_account(user_id,login_type,user_type,password,linkedin,company_name):
+def create_register_account(user_id,user_type,password):
     status = ""
     message = ""
     try:
@@ -78,9 +78,6 @@ def create_register_account(user_id,login_type,user_type,password,linkedin,compa
                 new_profile.user_id = user_id
                 new_profile.email_id = user_id
                 new_profile.phone_no = get_user.phone
-                new_profile.linkedin = linkedin
-                new_profile.company_name = company_name
-                new_profile.login_type = login_type
                 new_profile.customer_group = user_type
                 new_profile.save(ignore_permissions=True)
                 frappe.db.commit()
