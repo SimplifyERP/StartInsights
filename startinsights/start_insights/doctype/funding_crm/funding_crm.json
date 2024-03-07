@@ -11,6 +11,7 @@
   "full_name",
   "section_break_pzze",
   "type_of_investor",
+  "search_investor_favourite",
   "search_investor_id",
   "user_created_investor",
   "column_break_dtof",
@@ -43,14 +44,7 @@
    "fieldname": "type_of_investor",
    "fieldtype": "Select",
    "label": "Type of Investor",
-   "options": "\nSearch Investors\nUser Created Investors"
-  },
-  {
-   "depends_on": "eval:doc.type_of_investor == \"Search Investors\"",
-   "fieldname": "search_investor_id",
-   "fieldtype": "Link",
-   "label": "Search Investor ID",
-   "options": "Search Investors"
+   "options": "\nSearch Investors Favourites\nUser Created Investors"
   },
   {
    "depends_on": "eval:doc.type_of_investor == \"User Created Investors\"",
@@ -65,17 +59,19 @@
   },
   {
    "depends_on": "eval:doc.search_investor_id",
-   "fetch_from": "search_investor_id.investor_title",
+   "fetch_from": "search_investor_favourite.investor_title",
    "fieldname": "investor_title",
    "fieldtype": "Data",
-   "label": "Investor Title"
+   "label": "Investor Title",
+   "read_only": 1
   },
   {
    "depends_on": "eval:doc.type_of_investor == \"User Created Investors\"",
    "fetch_from": "user_created_investor.investor_name",
    "fieldname": "investor_name",
    "fieldtype": "Data",
-   "label": "Investor Name"
+   "label": "Investor Name",
+   "read_only": 1
   },
   {
    "fetch_from": ".investor_status",
@@ -83,11 +79,26 @@
    "fieldtype": "Select",
    "label": "Funding CRM Status",
    "options": "\nSORTLIST\nCONTACTED\nPITCHED\nDILIGENCE\nWON\nLOST"
+  },
+  {
+   "depends_on": "eval:doc.type_of_investor == \"Search Investors Favourites\"",
+   "fieldname": "search_investor_favourite",
+   "fieldtype": "Link",
+   "label": "Search Investor Favourite",
+   "options": "Search Investors Favourites"
+  },
+  {
+   "fetch_from": "search_investor_favourite.investors",
+   "fieldname": "search_investor_id",
+   "fieldtype": "Link",
+   "label": "Search Investor ID",
+   "options": "Search Investors",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-07 10:48:29.515933",
+ "modified": "2024-03-07 15:16:29.948249",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Funding CRM",

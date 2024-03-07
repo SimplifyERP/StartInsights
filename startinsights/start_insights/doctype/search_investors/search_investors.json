@@ -14,6 +14,7 @@
   "column_break_ltlr",
   "investor_logo",
   "investor_website",
+  "recommended_investors_count",
   "about_investor_tab",
   "investor_overview_section",
   "about_us",
@@ -164,12 +165,17 @@
    "fieldname": "investor_verified",
    "fieldtype": "Check",
    "label": "Investor Verified"
+  },
+  {
+   "fieldname": "recommended_investors_count",
+   "fieldtype": "Int",
+   "label": "Recommended Investors Count"
   }
  ],
  "image_field": "investor_logo",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-06 15:57:27.804501",
+ "modified": "2024-03-07 15:04:59.111609",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Search Investors",

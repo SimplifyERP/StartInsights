@@ -425,7 +425,7 @@ def get_max_funding_count(user_id):
     diligence_investor_count = frappe.db.sql(""" SELECT COUNT(name) AS diligence_count FROM `tabFunding CRM` WHERE user_id = %s AND funding_crm_status = 'DILIGENCE'""", (user_id,), as_dict=1) or 0
     won_investor_count = frappe.db.sql(""" SELECT COUNT(name) AS won_count FROM `tabFunding CRM` WHERE user_id = %s AND funding_crm_status = 'WON'""", (user_id,), as_dict=1) or 0
     lost_investor_count = frappe.db.sql(""" SELECT COUNT(name) AS lost_count FROM `tabFunding CRM` WHERE user_id = %s AND funding_crm_status = 'LOST'""", (user_id,), as_dict=1) or 0
-    max_count_funding_count = max(sortlist_count[0]['sortlist_count'], contacted_investor_count[0]['contacted_count'],pitched_investor_count[0]['pitched_count'],won_investor_count[0]['won_count'],lost_investor_count[0]['lost_count'])
+    max_count_funding_count = max(sortlist_count[0]['sortlist_count'], contacted_investor_count[0]['contacted_count'],pitched_investor_count[0]['pitched_count'],diligence_investor_count[0]['diligence_count'],won_investor_count[0]['won_count'],lost_investor_count[0]['lost_count'])
     return max_count_funding_count
 
 
