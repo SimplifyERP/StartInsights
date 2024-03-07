@@ -53,6 +53,7 @@ def get_search_investors_list(page_no,country,funding_stage,amount):
                 investors_list = {
                     "id":investors_details.name,
                     "name":investors_details.name,
+                    "favourites_status":False,
                     "title":investors_details.investor_title,
                     "logo":image_url,
                     "contact_no":investors_details.contact_no,
@@ -162,7 +163,35 @@ def remove_favourites_investors(user_id,investor_id,status):
 
 @frappe.whitelist()
 def get_recommended_search_investors():
+    search_investors = []
     try:
-        search_investors_list = frappe.db.sql(""" SELECT * FROM `tabSearch Investors` ORDER BY recommended_investors_count DESC """)
+        search_investors_list = frappe.db.sql(""" SELECT name FROM `tabSearch Investors` ORDER BY recommended_investors_count DESC """,as_dict=1)
+        for investors_details in search_investors_list:
+            if investors_details.investor_logo:
+                image_url = get_domain_name() + investors_details.get('investor_logo')
+            else:
+                image_url = ""    
+            fund_rasing = frappe.db.get_all("Investor Funding Stages",{'parent':investors_details.name},['funding_stages'])
+
+            investors_list = {
+                "id":investors_details.name,
+                "name":investors_details.name,
+                "title":investors_details.investor_title,
+                "logo":image_url,
+                "contact_no":investors_details.contact_no,
+                "investor_verified":investors_details.investor_verified,
+                "linkedin":investors_details.investor_linkedin,
+                "website":investors_details.investor_website,
+                "about_us":investors_details.about_us,
+                "value_add":investors_details.value_add,
+                "firm_type":investors_details.firm_type,
+                "hq":investors_details.hq or "",
+                "funding_requirements":investors_details.funding_requirements,
+                "funding_stages_table":fund_rasing,          
+                "min_check_size":investors_details.min_check_size,
+                "max_check_size":investors_details.max_check_size
+            }
+            search_investors.append(investors_list) 
+        return {"status":True,"message":search_investors_list}
     except Exception as e:
         return {"status":False,"message":e}
