@@ -10,6 +10,7 @@
   "investor_title",
   "investor_linkedin",
   "disabled",
+  "investor_verified",
   "column_break_ltlr",
   "investor_logo",
   "investor_website",
@@ -157,12 +158,18 @@
    "fieldname": "disabled",
    "fieldtype": "Check",
    "label": "Disabled"
+  },
+  {
+   "default": "0",
+   "fieldname": "investor_verified",
+   "fieldtype": "Check",
+   "label": "Investor Verified"
   }
  ],
  "image_field": "investor_logo",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-02 10:06:15.225860",
+ "modified": "2024-03-06 15:57:27.804501",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Search Investors",

@@ -1,0 +1,113 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "FUND-CRM-.#####",
+ "creation": "2024-03-06 10:13:49.521328",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "user_id",
+  "column_break_cwzw",
+  "full_name",
+  "section_break_pzze",
+  "type_of_investor",
+  "search_investor_id",
+  "user_created_investor",
+  "column_break_dtof",
+  "investor_title",
+  "investor_name",
+  "funding_crm_status"
+ ],
+ "fields": [
+  {
+   "fieldname": "user_id",
+   "fieldtype": "Link",
+   "label": "User ID",
+   "options": "User"
+  },
+  {
+   "fieldname": "column_break_cwzw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "user_id.first_name",
+   "fieldname": "full_name",
+   "fieldtype": "Data",
+   "label": "Full Name"
+  },
+  {
+   "fieldname": "section_break_pzze",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "type_of_investor",
+   "fieldtype": "Select",
+   "label": "Type of Investor",
+   "options": "\nSearch Investors\nUser Created Investors"
+  },
+  {
+   "depends_on": "eval:doc.type_of_investor == \"Search Investors\"",
+   "fieldname": "search_investor_id",
+   "fieldtype": "Link",
+   "label": "Search Investor ID",
+   "options": "Search Investors"
+  },
+  {
+   "depends_on": "eval:doc.type_of_investor == \"User Created Investors\"",
+   "fieldname": "user_created_investor",
+   "fieldtype": "Link",
+   "label": "User Created Investor",
+   "options": "User Created Investors"
+  },
+  {
+   "fieldname": "column_break_dtof",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.search_investor_id",
+   "fetch_from": "search_investor_id.investor_title",
+   "fieldname": "investor_title",
+   "fieldtype": "Data",
+   "label": "Investor Title"
+  },
+  {
+   "depends_on": "eval:doc.type_of_investor == \"User Created Investors\"",
+   "fetch_from": "user_created_investor.investor_name",
+   "fieldname": "investor_name",
+   "fieldtype": "Data",
+   "label": "Investor Name"
+  },
+  {
+   "fetch_from": ".investor_status",
+   "fieldname": "funding_crm_status",
+   "fieldtype": "Select",
+   "label": "Funding CRM Status",
+   "options": "\nSORTLIST\nCONTACTED\nPITCHED\nDILIGENCE\nWON\nLOST"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-03-07 10:48:29.515933",
+ "modified_by": "Administrator",
+ "module": "START INSIGHTS",
+ "name": "Funding CRM",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

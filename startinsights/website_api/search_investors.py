@@ -55,6 +55,8 @@ def get_search_investors_list(page_no,country,funding_stage,amount):
                     "name":investors_details.name,
                     "title":investors_details.investor_title,
                     "logo":image_url,
+                    "contact_no":investors_details.contact_no,
+                    "investor_verified":investors_details.investor_verified,
                     "linkedin":investor.investor_linkedin,
                     "website":investor.investor_website,
                     "about_us":investor.about_us,
@@ -76,6 +78,85 @@ def calculate_count(page_count):
     if int(page_count) <= 0:
         return None, None  # Handle invalid page counts
     # Calculate min and max counts
-    min_count = (int(page_count) - 1) * 10
+    min_count = (int(page_count) - 1) * 8
     max_count = min_count + 8
     return min_count, max_count
+
+
+
+@frappe.whitelist()
+def set_investors_favourites(user_id,investor_id):
+    status = ""
+    message = ""
+    try:
+        if not frappe.db.exists("Search Investors Favourites",{'user_id':user_id,'investors':investor_id}):
+            new_favourite_investor = frappe.new_doc("Search Investors Favourites")
+            new_favourite_investor.user_id = user_id
+            new_favourite_investor.investors = investor_id
+            new_favourite_investor.favourites_status = 1
+            new_favourite_investor.save(ignore_permissions=True)
+            frappe.db.commit()
+
+            status = True
+            message = "Investor Favourite Created"
+        else:
+            get_favourites = frappe.db.get_value("Search Investors Favourites",{'user_id':user_id,'investors':investor_id},['name'])
+            update_favourites = frappe.get_doc("Search Investors Favourites",get_favourites)
+            update_favourites.favourites_status = 1
+            update_favourites.save(ignore_permissions=True)
+            frappe.db.commit()
+
+            status = True
+            message = "Investor Favourite Updated"
+        return {"status":status,"message":message}    
+    except Exception as e:
+        return {"status":False,"message":e}
+
+
+@frappe.whitelist()
+def get_favourite_investors(user_id,status,page_no):
+    try:
+        search_investors_list = []
+        page_no_calulate = calculate_count(page_no)
+        favourite_investors_list = frappe.db.sql(""" SELECT investors FROM `tabSearch Investors Favourites` WHERE user_id = %s AND favourites_status = %s  ORDER BY name ASC LIMIT %s OFFSET %s """, (user_id,status,page_no_calulate[1], page_no_calulate[0]), as_dict=True)
+        for favourite in favourite_investors_list:
+            get_search_investors_list = frappe.get_doc("Search Investors",favourite.investors)
+            if get_search_investors_list.investor_logo:
+                image_url = get_domain_name() + get_search_investors_list.get('investor_logo')
+            else:
+                image_url = ""    
+            fund_rasing = frappe.db.get_all("Investor Funding Stages",{'parent':get_search_investors_list.name},['funding_stages'])
+            investors_list = {
+                "id":get_search_investors_list.name,
+                "name":get_search_investors_list.name,
+                "favourites_status":True,
+                "title":get_search_investors_list.investor_title,
+                "logo":image_url,
+                "investor_verified":get_search_investors_list.investor_verified,
+                "linkedin":get_search_investors_list.investor_linkedin,
+                "website":get_search_investors_list.investor_website,
+                "about_us":get_search_investors_list.about_us,
+                "value_add":get_search_investors_list.value_add,
+                "firm_type":get_search_investors_list.firm_type,
+                "hq":get_search_investors_list.hq or "",
+                "funding_requirements":get_search_investors_list.funding_requirements,
+                "funding_stages_table":fund_rasing,          
+                "min_check_size":get_search_investors_list.min_check_size,
+                "max_check_size":get_search_investors_list.max_check_size
+            }
+            search_investors_list.append(investors_list)
+        return {"status":True,"search_investors_list":search_investors_list}
+    except Exception as e:
+        return {"status":False,"message":e}
+
+@frappe.whitelist()
+def remove_favourites_investors(user_id,investor_id,status):
+    try:
+        get_favourites = frappe.db.get_value("Search Investors Favourites",{'user_id':user_id,'investors':investor_id},['name'])
+        update_favourites = frappe.get_doc("Search Investors Favourites",get_favourites)
+        update_favourites.favourites_status = status
+        update_favourites.save(ignore_permissions=True)
+        frappe.db.commit()
+        return {"status":True,"message":"favourite removed"}
+    except Exception as e:
+        return {"status":False,"message":e}
