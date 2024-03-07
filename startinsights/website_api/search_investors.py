@@ -152,11 +152,17 @@ def get_favourite_investors(user_id,status,page_no):
 @frappe.whitelist()
 def remove_favourites_investors(user_id,investor_id,status):
     try:
-        get_favourites = frappe.db.get_value("Search Investors Favourites",{'user_id':user_id,'investors':investor_id},['name'])
-        update_favourites = frappe.get_doc("Search Investors Favourites",get_favourites)
-        update_favourites.favourites_status = status
-        update_favourites.save(ignore_permissions=True)
-        frappe.db.commit()
-        return {"status":True,"message":"favourite removed"}
+        get_favourite = frappe.db.get_value("Search Investors Favourites",{'user_id':user_id,'investors':investor_id},['name'])
+        frappe.db.set_value("Search Investors Favourites",get_favourite,"favourites_status",status)
+        return {"status":True,"favourite_status":"favourite removed"}
+    except Exception as e:
+        return {"status":False,"message":e}
+
+
+
+@frappe.whitelist()
+def get_recommended_search_investors():
+    try:
+        search_investors_list = frappe.db.sql(""" SELECT * FROM `tabSearch Investors` ORDER BY recommended_investors_count DESC """)
     except Exception as e:
         return {"status":False,"message":e}

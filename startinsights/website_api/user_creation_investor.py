@@ -9,25 +9,22 @@ def create_investor(user_id,investor_name,investor_email,firm_name,investor_stat
     status = ""
     message = ""
     try:
-        if not frappe.db.exists('User Created Investors',{'creation_user':user_id,'investor_name':investor_name,'investor_status':investor_status}):
-            new_investor = frappe.new_doc("User Created Investors")
-            new_investor.investor_name = investor_name
-            new_investor.investor_email = investor_email
-            new_investor.firm_name = firm_name
-            new_investor.investor_status = investor_status
-            new_investor.amount = amount
-            new_investor.contact_no = contact_no or ""
-            new_investor.notes = notes
-            new_investor.creation_user = user_id
-            new_investor.save(ignore_permissions=True)
-            frappe.db.commit()
-            frappe.db.set_value("User Created Investors",new_investor.name,'owner',user_id)
+        new_investor = frappe.new_doc("User Created Investors")
+        new_investor.investor_name = investor_name
+        new_investor.investor_email = investor_email
+        new_investor.firm_name = firm_name
+        new_investor.investor_status = investor_status
+        new_investor.amount = amount
+        new_investor.contact_no = contact_no or ""
+        new_investor.notes = notes
+        new_investor.creation_user = user_id
+        new_investor.save(ignore_permissions=True)
+        frappe.db.commit()
+        frappe.db.set_value("User Created Investors",new_investor.name,'owner',user_id)
 
-            status = True
-            message = "New Investor Created"
-        else:
-            status = True
-            message = "Investor Already Created Either Update the status or Add New Investor"      
+        status = True
+        message = "New Investor Created"
+        
         return {"status":status,"message":message}
     except Exception as e:
         return {"status":False,"message":e}

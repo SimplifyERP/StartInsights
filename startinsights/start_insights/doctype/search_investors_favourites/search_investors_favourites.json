@@ -67,8 +67,13 @@
   }
  ],
  "index_web_pages_for_search": 1,
- "links": [],
- "modified": "2024-03-05 18:20:39.577206",
+ "links": [
+  {
+   "link_doctype": "Funding CRM",
+   "link_fieldname": "search_investor_favourite"
+  }
+ ],
+ "modified": "2024-03-07 14:35:23.637194",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Search Investors Favourites",
