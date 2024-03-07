@@ -11,9 +11,9 @@
   "firm_name",
   "disabled",
   "column_break_aqfo",
-  "status",
+  "investor_status",
   "amount",
-  "first_contact",
+  "contact_no",
   "creation_user",
   "section_break_ctqy",
   "notes"
@@ -22,7 +22,9 @@
   {
    "fieldname": "investor_name",
    "fieldtype": "Data",
-   "label": "Investor Name"
+   "in_list_view": 1,
+   "label": "Investor Name",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_aqfo",
@@ -44,11 +46,6 @@
    "label": "Amount"
   },
   {
-   "fieldname": "first_contact",
-   "fieldtype": "Date",
-   "label": "First Contact"
-  },
-  {
    "fieldname": "section_break_ctqy",
    "fieldtype": "Section Break"
   },
@@ -56,12 +53,6 @@
    "fieldname": "notes",
    "fieldtype": "Small Text",
    "label": "Notes"
-  },
-  {
-   "fieldname": "status",
-   "fieldtype": "Select",
-   "label": "Status",
-   "options": "\nIn Shortlist\nTo be Contacted\nReached Out\nPitched\nDiligence\nFunding Secured\nInvestor said no"
   },
   {
    "default": "0",
@@ -76,11 +67,28 @@
    "label": "Creation User",
    "options": "User",
    "read_only": 1
+  },
+  {
+   "fieldname": "investor_status",
+   "fieldtype": "Select",
+   "label": "Investor Status",
+   "options": "\nSORTLIST\nCONTACTED\nPITCHED\nDILIGENCE\nWON\nLOST"
+  },
+  {
+   "fieldname": "contact_no",
+   "fieldtype": "Data",
+   "label": "Contact No",
+   "options": "Phone"
   }
  ],
  "index_web_pages_for_search": 1,
- "links": [],
- "modified": "2024-02-28 19:19:59.519534",
+ "links": [
+  {
+   "link_doctype": "Funding CRM",
+   "link_fieldname": "user_created_investor"
+  }
+ ],
+ "modified": "2024-03-07 10:48:22.504689",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "User Created Investors",
