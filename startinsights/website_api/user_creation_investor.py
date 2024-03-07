@@ -16,7 +16,7 @@ def create_investor(user_id,investor_name,investor_email,firm_name,investor_stat
             new_investor.firm_name = firm_name
             new_investor.investor_status = investor_status
             new_investor.amount = amount
-            new_investor.contact_no = contact_no
+            new_investor.contact_no = contact_no or ""
             new_investor.notes = notes
             new_investor.creation_user = user_id
             new_investor.save(ignore_permissions=True)
@@ -45,7 +45,7 @@ def get_user_created_investors_list(user_id):
                 "investor_name":investors.investor_name,
                 "investor_email":investors.investor_email,
                 "firm_name":investors.firm_name,
-                "status":investors.status,
+                "status":investors.investor_status,
                 "amount":investors.amount,
                 "contact_no":investors.contact_no,
                 "notes":investors.notes
