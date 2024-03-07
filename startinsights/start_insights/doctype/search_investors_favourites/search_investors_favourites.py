@@ -7,10 +7,10 @@ from frappe.model.document import Document
 
 class SearchInvestorsFavourites(Document):
 	def after_insert(self):
-		if not frappe.db.exists("Funding CRM",{"user_id":self.user_id,"type_of_investor":"User Created Investors","user_created_investor":self.name}):
+		if not frappe.db.exists("Funding CRM",{"user_id":self.user_id,"type_of_investor":"Search Investors Favourites","search_investor_favourite":self.name}):
 			new_crm = frappe.new_doc("Funding CRM")
 			new_crm.user_id = self.user_id
-			new_crm.type_of_investor = "Search Investors"
+			new_crm.type_of_investor = "Search Investors Favourites"
 			new_crm.funding_crm_status = "SORTLIST"
 			new_crm.search_investor_favourite = self.name
 			new_crm.save(ignore_permissions=True)
