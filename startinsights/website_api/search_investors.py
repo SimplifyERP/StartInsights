@@ -17,8 +17,8 @@ def get_search_investors_list(page_no,funding_stage,user_id):
             search_investors_list = frappe.db.sql(""" SELECT si.* FROM `tabSearch Investors` si  LEFT JOIN `tabInvestor Funding Stages` fs ON si.name = fs.parent 
                             WHERE fs.funding_stages IN %s ORDER BY name ASC LIMIT %s OFFSET %s """, (funding_stages_tuple,page_no_calulate[1], page_no_calulate[0]), as_dict=True)
         for investors_details in search_investors_list: 
-            favourite_investor = frappe.db.get_value("Search Investors Favourites",{"user_id":user_id,"investors":investors_details.name},['name'])
-            if favourite_investor:
+            favourite_investor = frappe.db.get_value("Search Investors Favourites",{"user_id":user_id,"investors":investors_details.name},['favourites_status'])
+            if favourite_investor == 1:
                 favourites_status = True
             else:
                 favourites_status = False    
