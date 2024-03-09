@@ -438,7 +438,7 @@ def update_funding_crm(investor_id,user_id,investor_status,type_of_investor):
     message = ""
     try:
         if type_of_investor == "Search Investors":
-            funding_crm_search_investor = frappe.db.get_value("Funding CRM",{"user_id":user_id,"type_of_investor":type_of_investor,"search_investor_id":investor_id},['name'])
+            funding_crm_search_investor = frappe.db.get_value("Funding CRM",{"user_id":user_id,"type_of_investor":"Search Investors Favourites","search_investor_id":investor_id},['name'])
             frappe.db.set_value("Funding CRM",funding_crm_search_investor,"funding_crm_status",investor_status)
             get_investor_status = frappe.get_doc("Funding CRM",funding_crm_search_investor)
             status = True
