@@ -9,7 +9,7 @@ class ProfileApplication(Document):
 	def after_insert(self):
 		# Check if the user_name already exists in Customer doctype
 		if not frappe.db.exists("Customer", {"user_name": self.user_id}):
-			get_lead = frappe.db.get_value("Lead",{'lead_owner':self.user_id},['name'])
+			get_lead = frappe.db.get_value("Lead",{'email_id':self.user_id},['name'])
 			if get_lead: 
 				new_customer = frappe.new_doc("Customer")
 				new_customer.customer_name = self.full_name
@@ -20,4 +20,6 @@ class ProfileApplication(Document):
 				new_customer.custom_profile_id = self.name
 				new_customer.save(ignore_permissions=True)
 				frappe.db.commit()
+				frappe.db.set_value("Lead",get_lead,"custom_customer_group",self.customer_group)
+				
 				
