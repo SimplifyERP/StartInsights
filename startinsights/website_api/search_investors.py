@@ -11,7 +11,7 @@ def get_search_investors_list(page_no,funding_stage,user_id):
         funding_stages_tuple = tuple(funding_stage)
         investors_count = frappe.db.count("Search Investors",{"disabled":0})
         page_no_calulate = calculate_count(page_no)
-        if not funding_stage:
+        if not funding_stage == []:
             search_investors_list = frappe.db.sql(""" SELECT * FROM `tabSearch Investors` ORDER BY name ASC LIMIT %s OFFSET %s """, (page_no_calulate[1], page_no_calulate[0]), as_dict=True)
         else:
             search_investors_list = frappe.db.sql(""" SELECT si.* FROM `tabSearch Investors` si  LEFT JOIN `tabInvestor Funding Stages` fs ON si.name = fs.parent 
