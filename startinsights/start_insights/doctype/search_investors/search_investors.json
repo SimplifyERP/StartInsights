@@ -169,13 +169,14 @@
   {
    "fieldname": "recommended_investors_count",
    "fieldtype": "Int",
-   "label": "Recommended Investors Count"
+   "label": "Recommended Investors Count",
+   "read_only": 1
   }
  ],
  "image_field": "investor_logo",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-07 15:04:59.111609",
+ "modified": "2024-03-08 10:41:00.032587",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Search Investors",
