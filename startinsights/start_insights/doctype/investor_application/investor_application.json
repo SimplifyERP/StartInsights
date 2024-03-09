@@ -1,0 +1,116 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:email_id",
+ "creation": "2024-03-08 14:15:04.080842",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_tlau",
+  "email_id",
+  "column_break_kkop",
+  "full_name",
+  "amended_from",
+  "section_break_ghkx",
+  "type_of_user",
+  "verify_code_email_sent",
+  "column_break_oydb",
+  "verify_code",
+  "verify_code_status"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_tlau",
+   "fieldtype": "Section Break",
+   "label": "User Details"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Investor Application",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "column_break_kkop",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "user_id.first_name",
+   "fieldname": "full_name",
+   "fieldtype": "Data",
+   "label": "Full Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_ghkx",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "type_of_user",
+   "fieldtype": "Link",
+   "label": "Type of User",
+   "options": "Customer Group"
+  },
+  {
+   "fieldname": "column_break_oydb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "verify_code",
+   "fieldtype": "Data",
+   "label": "Verify Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "label": "Email ID",
+   "unique": 1
+  },
+  {
+   "fieldname": "verify_code_status",
+   "fieldtype": "Select",
+   "label": "Verify Code Status",
+   "options": "\nNot In Use\nExpired",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "verify_code_email_sent",
+   "fieldtype": "Check",
+   "label": "Verify Code Email Sent",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-03-08 18:06:44.947264",
+ "modified_by": "Administrator",
+ "module": "START INSIGHTS",
+ "name": "Investor Application",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
