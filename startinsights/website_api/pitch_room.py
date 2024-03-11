@@ -6,6 +6,7 @@ from frappe.utils.file_manager import save_file
 from datetime import datetime
 from frappe.utils import now, getdate, today, format_date
 from startinsights.custom import get_domain_name
+from frappe import _, get_doc
 
 
 # Creating a new pitch room list
@@ -269,3 +270,56 @@ def get_users_with_role():
 if __name__ == "__main__":
     students_users = get_users_with_role()
     print(f"Users with the role 'Students': {students_users}")
+
+
+@frappe.whitelist()
+def pitch_room_doc_upload(name, pitch_room_documents_upload):
+    try:
+        pitch_room = frappe.get_doc('Pitch Room', name)
+        pitch_room_details = []
+        plain_text_short_description = html2text.html2text(pitch_room.about_startup).strip()
+        if pitch_room.cover_image:
+            image_url = get_domain_name() + pitch_room.cover_image
+        else:
+            image_url = ""
+        pitch_room_detail = {
+            'id': pitch_room.name,
+            'room_name': pitch_room.room_name,
+            "cover_image": image_url,
+            'about_startup': plain_text_short_description,
+        }
+        pitch_room_details.append(pitch_room_detail)
+        # Check if the number of existing documents exceeds 10
+        if len(pitch_room.pitch_room_documents_upload) + len(pitch_room_documents_upload) > 10:
+            return {"status": False, "message": "Cannot upload more than 10 documents."}
+        for document in pitch_room_documents_upload:
+            document_type = document.get("document_type")
+            attach = document.get("attach")
+            if document_type in ["pdf", "xlsx", "docx"]:
+                file_name_inside = f"{pitch_room.name.replace(' ', '_')}document.{document_type}"
+                attach_converted_url = base64.b64decode(attach)
+                new_file_inside = frappe.new_doc('File')
+                new_file_inside.file_name = file_name_inside
+                new_file_inside.content = attach_converted_url
+                new_file_inside.attached_to_doctype = "Pitch Room"
+                new_file_inside.attached_to_name = pitch_room.name
+                new_file_inside.attached_to_field = "attach" 
+                new_file_inside.is_private = 0
+                new_file_inside.save(ignore_permissions=True)
+                frappe.db.commit()
+                pitch_room.append("pitch_room_documents_upload", {
+                    "document_type": document_type,
+                    "attach": new_file_inside.file_url
+                })
+                pitch_room.save(ignore_permissions=True)
+                frappe.db.commit()
+            
+            else:
+                return {"status": False, "message": "The given document type is not supported."}
+
+        return {"status": True, "message": "Documents uploaded successfully.", "pitch_room_details": pitch_room_details}
+    except Exception as e:
+        frappe.log_error(frappe.get_traceback(), _("Error in pitch room documents upload"))
+        return {"status": False, "message": str(e)}
+
+

@@ -26,6 +26,8 @@
   "shared_user",
   "column_break_bnki",
   "expiry_date",
+  "section_break_lqhy",
+  "pitch_room_documents_upload",
   "pitch_room_notes_tab",
   "notes"
  ],
@@ -144,12 +146,22 @@
    "fieldname": "notes",
    "fieldtype": "Small Text",
    "label": "Notes"
+  },
+  {
+   "fieldname": "section_break_lqhy",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "pitch_room_documents_upload",
+   "fieldtype": "Table",
+   "label": "Pitch Room Documents Upload",
+   "options": "Pitch Craft Document Table"
   }
  ],
  "image_field": "cover_image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-09 12:08:39.990328",
+ "modified": "2024-03-11 15:13:02.557491",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Pitch Room",
