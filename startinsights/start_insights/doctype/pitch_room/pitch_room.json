@@ -8,35 +8,33 @@
  "field_order": [
   "room_details_section",
   "room_name",
-  "description",
-  "column_break_qtmp",
-  "shared_user",
-  "expiry_date",
+  "cover_image",
   "disabled",
+  "column_break_qtmp",
+  "about_startup",
+  "user_id",
   "documents_section",
-  "pitch_deck",
   "pitch_deck_doc_type",
+  "pitch_deck",
   "column_break_zbrc",
-  "projections",
   "projection_doc_type",
+  "projections",
   "column_break_dkgo",
+  "executive_summary_doc_type",
   "executive_summary",
-  "executive_summary_doc_type"
+  "section_break_ygta",
+  "shared_user",
+  "column_break_bnki",
+  "expiry_date",
+  "pitch_room_notes_tab",
+  "notes"
  ],
  "fields": [
   {
    "fieldname": "room_name",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Room Name",
-   "read_only": 1
-  },
-  {
-   "fieldname": "description",
-   "fieldtype": "Small Text",
-   "in_list_view": 1,
-   "label": "Description",
-   "read_only": 1
+   "label": "Room Name"
   },
   {
    "fieldname": "documents_section",
@@ -59,20 +57,17 @@
   {
    "fieldname": "pitch_deck",
    "fieldtype": "Attach",
-   "label": "Pitch Deck",
-   "read_only": 1
+   "label": "Pitch Deck"
   },
   {
    "fieldname": "projections",
    "fieldtype": "Attach",
-   "label": "Projections",
-   "read_only": 1
+   "label": "Projections"
   },
   {
    "fieldname": "executive_summary",
    "fieldtype": "Attach",
-   "label": "Executive Summary",
-   "read_only": 1
+   "label": "Executive Summary"
   },
   {
    "fieldname": "column_break_qtmp",
@@ -82,46 +77,79 @@
    "fieldname": "shared_user",
    "fieldtype": "Link",
    "label": "Shared User",
-   "options": "User",
-   "read_only": 1
+   "options": "User"
   },
   {
    "fieldname": "pitch_deck_doc_type",
    "fieldtype": "Select",
    "label": "Pitch Deck Doc Type",
-   "options": "\nxlsx\npdf\ndocx",
-   "read_only": 1
+   "options": "\nxlsx\npdf\ndocx"
   },
   {
    "fieldname": "projection_doc_type",
    "fieldtype": "Select",
    "label": "Projection Doc Type",
-   "options": "\nxlsx\npdf\ndocx",
-   "read_only": 1
+   "options": "\nxlsx\npdf\ndocx"
   },
   {
    "fieldname": "executive_summary_doc_type",
    "fieldtype": "Select",
    "label": "Executive Summary Doc Type",
-   "options": "\nxlsx\npdf\ndocx",
-   "read_only": 1
+   "options": "\nxlsx\npdf\ndocx"
   },
   {
    "fieldname": "expiry_date",
    "fieldtype": "Date",
-   "label": "Expiry Date",
-   "read_only": 1
+   "label": "Expiry Date"
   },
   {
    "default": "0",
    "fieldname": "disabled",
    "fieldtype": "Check",
    "label": "Disabled"
+  },
+  {
+   "fieldname": "about_startup",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "About Startup"
+  },
+  {
+   "fieldname": "cover_image",
+   "fieldtype": "Attach Image",
+   "label": "Cover Image"
+  },
+  {
+   "fieldname": "section_break_ygta",
+   "fieldtype": "Section Break",
+   "label": "Shared Details"
+  },
+  {
+   "fieldname": "column_break_bnki",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "user_id",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "User ID",
+   "options": "User"
+  },
+  {
+   "fieldname": "pitch_room_notes_tab",
+   "fieldtype": "Tab Break",
+   "label": "Pitch Room Notes"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
   }
  ],
+ "image_field": "cover_image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-04 10:49:23.967887",
+ "modified": "2024-03-09 12:08:39.990328",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Pitch Room",
