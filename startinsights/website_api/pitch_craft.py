@@ -9,12 +9,18 @@ from startinsights.custom import get_domain_name
 # pitch craft service details view
 @frappe.whitelist()
 def pitch_craft_list(user_id):
+	purchase_status = False
 	image_url = ""
 	plain_text_short_description = ""
 	try:
 		pitch_craft_list = frappe.db.get_all('Pitch Craft',{'disabled':0},['name','service_name','pricing','short_description','pitch_craft_image'],order_by='idx ASC')
 		formatted_pitch_craft_list = []
 		for pitch_craft in pitch_craft_list:
+			get_purchase_service = frappe.db.get_value("Pitch Craft Payment",{"login_user":user_id,"pitch_craft_id":pitch_craft.name},['name'])
+			if get_purchase_service:
+				purchase_status = True
+			else:
+				purchase_status = False	
 			plain_text_short_description = html2text.html2text(pitch_craft.short_description).strip()
 			if pitch_craft.pitch_craft_image:
 				image_url = get_domain_name() + pitch_craft.pitch_craft_image
@@ -22,6 +28,7 @@ def pitch_craft_list(user_id):
 				image_url = ""    
 			pitch_craft_details = {
 				'id': pitch_craft.name,
+				'purchase_status':purchase_status,
 				'service_name': pitch_craft.service_name,
 				"pitch_craft_image":image_url,
 				'pricing': pitch_craft.pricing,
@@ -49,6 +56,7 @@ def get_my_services_pitch_craft(user_id):
 				image_url = ""    
 			pitch_craft_details = {
 				'id': pitch_craft.pitch_craft_id,
+				'purchase_status':True,
 				'service_name': get_pitch_craft_details.service_name,
 				"pitch_craft_image":image_url,
 				'pricing': get_pitch_craft_details.pricing,
