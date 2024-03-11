@@ -89,13 +89,15 @@ def create_account(full_name,mobile_no,email_id,password,type_of_user):
             else:
                 message = "Given User is Not Registered"
         else:
-            create_investor_verify_code(full_name,email_id,type_of_user)
-            get_investor_application = frappe.db.get_value("Investor Application",{"email_id":email_id},['full_name','email_id','type_of_user'])
+            create_investor_verify_code(full_name,email_id,type_of_user,mobile_no,password)
+            get_investor_application = frappe.get_doc("Investor Application",{"email_id":email_id})
             status = True
             user_details = {
-                "full_name":get_investor_application[0],
-                "email_id":get_investor_application[1],
-                "type_of_user":get_investor_application[2]
+                "full_name":get_investor_application.full_name,
+                "email_id":get_investor_application.email_id,
+                "type_of_user":get_investor_application.type_of_user,
+                "mobile_no":get_investor_application.mobile_no,
+                "password":get_investor_application.password
             } 
         return {"status":status,"message":message,"user_details":user_details}
     except Exception as e:
@@ -103,7 +105,7 @@ def create_account(full_name,mobile_no,email_id,password,type_of_user):
         return {'status': status, 'message': str(e)}
 
 #create the investor type of user in investor appilcation for verify code creation
-def create_investor_verify_code(full_name,email_id,type_of_user):
+def create_investor_verify_code(full_name,email_id,type_of_user,mobile_no,password):
     verify_code_automatic = generate_verification_code(length=6)
     if not frappe.db.exists("Investor Application",{"email_id":email_id}):
         new_verify_code = frappe.new_doc("Investor Application")
@@ -111,6 +113,8 @@ def create_investor_verify_code(full_name,email_id,type_of_user):
         new_verify_code.full_name = full_name
         new_verify_code.type_of_user = type_of_user
         new_verify_code.verify_code = verify_code_automatic
+        new_verify_code.mobile_no = mobile_no
+        new_verify_code.password = password
         new_verify_code.verify_code_status = "Not In Use"
         new_verify_code.save(ignore_permissions=True)
         frappe.db.commit()
