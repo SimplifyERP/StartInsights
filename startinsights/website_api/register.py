@@ -129,6 +129,7 @@ def generate_verification_code(length=6):
 def create_investors_account(verify_code,full_name,mobile_no,email_id,password,type_of_user):
     status = ""
     message = ""
+    user_details = []
     try:
         get_investor_application = frappe.db.exists("Investor Application",{'email_id':email_id})
         if get_investor_application:

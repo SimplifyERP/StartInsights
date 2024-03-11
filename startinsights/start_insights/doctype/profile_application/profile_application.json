@@ -15,10 +15,11 @@
   "profile_password",
   "column_break_fedy",
   "full_name",
-  "company_name",
   "designation",
-  "profile_image",
   "customer_group",
+  "company_name",
+  "website",
+  "profile_image",
   "disabled"
  ],
  "fields": [
@@ -43,9 +44,8 @@
   },
   {
    "fieldname": "designation",
-   "fieldtype": "Link",
-   "label": "Designation",
-   "options": "Designation"
+   "fieldtype": "Data",
+   "label": "Designation"
   },
   {
    "fieldname": "profile_image",
@@ -98,6 +98,11 @@
    "fieldtype": "Link",
    "label": "Customer Group",
    "options": "Customer Group"
+  },
+  {
+   "fieldname": "website",
+   "fieldtype": "Data",
+   "label": "Website"
   }
  ],
  "image_field": "profile_image",
@@ -108,7 +113,7 @@
    "link_fieldname": "custom_profile_id"
   }
  ],
- "modified": "2024-03-04 15:11:29.890553",
+ "modified": "2024-03-09 15:37:04.029364",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Profile Application",
