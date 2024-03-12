@@ -74,6 +74,11 @@ def set_investors_favourites(user_id,investor_id):
             new_favourite_investor.save(ignore_permissions=True)
             frappe.db.commit()
 
+            get_search_investors = frappe.get_doc("Search Investors",investor_id)
+            get_search_investors.recommended_investors_count = get_search_investors.recommended_investors_count + 1
+            get_search_investors.save(ignore_permissions=True)
+            frappe.db.commit()
+
             status = True
             message = "Investor Favourite Created"
         else:
@@ -140,7 +145,7 @@ def remove_favourites_investors(user_id,investor_id,status):
 def get_recommended_search_investors():
     search_investors = []
     try:
-        search_investors_list = frappe.db.sql(""" SELECT * FROM `tabSearch Investors` ORDER BY recommended_investors_count DESC LIMIT 4 """,as_dict=1)
+        search_investors_list = frappe.db.sql(""" SELECT * FROM `tabSearch Investors` WHERE recommended_investors_count > 0  ORDER BY recommended_investors_count DESC LIMIT 4 """,as_dict=1)
         for investors_details in search_investors_list:
             if investors_details.investor_logo:
                 image_url = get_domain_name() + investors_details.get('investor_logo')
