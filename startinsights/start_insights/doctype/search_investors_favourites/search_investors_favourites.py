@@ -16,7 +16,4 @@ class SearchInvestorsFavourites(Document):
 			new_crm.save(ignore_permissions=True)
 			frappe.db.commit()
 
-			get_search_investors_recommended_count = frappe.db.get_value("Search Investors",{'name':self.investors},["recommended_investors_count"])
-			if get_search_investors_recommended_count:
-				add_shortlist_count = get_search_investors_recommended_count + 1
-				frappe.db.set_value("Search Investors",self.investors,"recommended_investors_count",add_shortlist_count)
+			
