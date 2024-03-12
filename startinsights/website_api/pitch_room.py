@@ -272,11 +272,12 @@ if __name__ == "__main__":
     print(f"Users with the role 'Students': {students_users}")
 
 
+# documents upload for child table
 @frappe.whitelist()
 def pitch_room_doc_upload(name, pitch_room_documents_upload):
+    pitch_room_details = []
     try:
         pitch_room = frappe.get_doc('Pitch Room', name)
-        pitch_room_details = []
         plain_text_short_description = html2text.html2text(pitch_room.about_startup).strip()
         if pitch_room.cover_image:
             image_url = get_domain_name() + pitch_room.cover_image
@@ -291,7 +292,7 @@ def pitch_room_doc_upload(name, pitch_room_documents_upload):
         pitch_room_details.append(pitch_room_detail)
         # Check if the number of existing documents exceeds 10
         if len(pitch_room.pitch_room_documents_upload) + len(pitch_room_documents_upload) > 10:
-            return {"status": False, "message": "Cannot upload more than 10 documents."}
+            return {"status": False, "message": "Cannot upload more than 10 documents.", "pitch_room_details": []}  # Changed here
         for document in pitch_room_documents_upload:
             document_type = document.get("document_type")
             attach = document.get("attach")
@@ -313,13 +314,9 @@ def pitch_room_doc_upload(name, pitch_room_documents_upload):
                 })
                 pitch_room.save(ignore_permissions=True)
                 frappe.db.commit()
-            
             else:
-                return {"status": False, "message": "The given document type is not supported."}
-
+                return {"status": False, "message": "The given document type is not supported.", "pitch_room_details": pitch_room_details}
         return {"status": True, "message": "Documents uploaded successfully.", "pitch_room_details": pitch_room_details}
     except Exception as e:
         frappe.log_error(frappe.get_traceback(), _("Error in pitch room documents upload"))
-        return {"status": False, "message": str(e)}
-
-
+        return {"status": False, "message": str(e), "pitch_room_details": pitch_room_details}
