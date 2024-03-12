@@ -1,0 +1,117 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-03-11 19:17:17.556771",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_qtom",
+  "user",
+  "column_break_bzle",
+  "full_name",
+  "service_details_section",
+  "service_id",
+  "service_status",
+  "column_break_vsjb",
+  "service_name",
+  "service_payment_details_section",
+  "service_payment_id",
+  "column_break_qgnc",
+  "service_booked_date"
+ ],
+ "fields": [
+  {
+   "fieldname": "service_id",
+   "fieldtype": "Link",
+   "label": "Service ID",
+   "options": "Services"
+  },
+  {
+   "fieldname": "column_break_vsjb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "service_id.service_name",
+   "fieldname": "service_name",
+   "fieldtype": "Data",
+   "label": "Service Name"
+  },
+  {
+   "fieldname": "service_details_section",
+   "fieldtype": "Section Break",
+   "label": "Service Details"
+  },
+  {
+   "fieldname": "service_payment_details_section",
+   "fieldtype": "Section Break",
+   "label": "Service Payment Details"
+  },
+  {
+   "fieldname": "service_payment_id",
+   "fieldtype": "Link",
+   "label": "Service Payment ID",
+   "options": "Service Payment"
+  },
+  {
+   "fieldname": "column_break_qgnc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "service_payment_id.service_booked_date",
+   "fieldname": "service_booked_date",
+   "fieldtype": "Date",
+   "label": "Service Booked Date"
+  },
+  {
+   "fieldname": "section_break_qtom",
+   "fieldtype": "Section Break",
+   "label": "User Details"
+  },
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "User",
+   "options": "User"
+  },
+  {
+   "fieldname": "column_break_bzle",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "user.first_name",
+   "fieldname": "full_name",
+   "fieldtype": "Data",
+   "label": "Full Name"
+  },
+  {
+   "fieldname": "service_status",
+   "fieldtype": "Select",
+   "label": "Service Status",
+   "options": "\nOn Going\nHold\nCompleted"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-03-11 19:23:06.378751",
+ "modified_by": "Administrator",
+ "module": "START INSIGHTS",
+ "name": "My Services",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

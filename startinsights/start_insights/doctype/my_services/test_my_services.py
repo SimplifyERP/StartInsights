@@ -5,5 +5,5 @@
 from frappe.tests.utils import FrappeTestCase
 
 
-class TestPitchCraftPayment(FrappeTestCase):
+class TestMyServices(FrappeTestCase):
 	pass

@@ -1,14 +1,14 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "PC-.####",
+ "autoname": "format:SERVICE-{service_name}-{#####}",
  "creation": "2024-01-09 14:38:54.761298",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
   "card_view_section",
   "service_name",
-  "pitch_craft_image",
+  "service_image",
   "column_break_sxhw",
   "pricing",
   "disabled",
@@ -47,7 +47,7 @@
    "fieldname": "documents_required",
    "fieldtype": "Table",
    "label": "Documents Required",
-   "options": "Pitch Craft Documents Table"
+   "options": "Service Documents"
   },
   {
    "fieldname": "deliverables",
@@ -65,7 +65,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Service Name",
-   "options": "Pitch Craft Service List",
+   "options": "Service List",
    "reqd": 1
   },
   {
@@ -110,49 +110,47 @@
    "reqd": 1
   },
   {
-   "fieldname": "pitch_craft_image",
-   "fieldtype": "Attach Image",
-   "label": "Pitch Craft Image",
-   "reqd": 1
-  },
-  {
    "fieldname": "amended_from",
    "fieldtype": "Link",
    "label": "Amended From",
    "no_copy": 1,
-   "options": "Pitch Craft",
+   "options": "Services",
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
   },
   {
    "fieldname": "section_break_xypp",
-   "fieldtype": "Section Break"
+   "fieldtype": "Section Break",
+   "label": "Service Documents"
   },
   {
    "default": "0",
    "fieldname": "disabled",
    "fieldtype": "Check",
    "label": "Disabled"
+  },
+  {
+   "fieldname": "service_image",
+   "fieldtype": "Attach Image",
+   "label": "Service Image",
+   "reqd": 1
   }
  ],
+ "image_field": "service_image",
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [
   {
-   "link_doctype": "Pitch Craft Assign",
-   "link_fieldname": "pitch_craft_id"
-  },
-  {
-   "link_doctype": "Pitch Craft Payment",
-   "link_fieldname": "pitch_craft_id"
+   "link_doctype": "Service Payment",
+   "link_fieldname": "service_id"
   }
  ],
- "modified": "2024-03-04 10:17:03.243696",
+ "modified": "2024-03-11 17:49:36.400190",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
- "name": "Pitch Craft",
- "naming_rule": "Expression (old style)",
+ "name": "Services",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
