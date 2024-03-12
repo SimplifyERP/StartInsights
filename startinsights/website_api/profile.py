@@ -15,17 +15,18 @@ def update_profile(full_name,mobile_no,email_id,designation,company_name,linkedi
         get_user.save(ignore_permissions=True)
         frappe.db.commit()
         #getting the profile image as base64 and converted create in a file doctype for user doctype
-        file_name_inside = f"{get_user.first_name.replace(' ', '_')}profile_image.png"
-        new_file_inside = frappe.new_doc('File')
-        new_file_inside.file_name = file_name_inside
-        new_file_inside.content = profile_image_decode
-        new_file_inside.attached_to_doctype = "User"
-        new_file_inside.attached_to_name = get_user.name
-        new_file_inside.attached_to_field = "user_image"
-        new_file_inside.is_private = 0
-        new_file_inside.save(ignore_permissions=True)
-        frappe.db.commit()
-        frappe.db.set_value("User",get_user.name,'user_image',new_file_inside.file_url)
+        if profile_image:
+            file_name_inside = f"{get_user.first_name.replace(' ', '_')}profile_image.png"
+            new_file_inside = frappe.new_doc('File')
+            new_file_inside.file_name = file_name_inside
+            new_file_inside.content = profile_image_decode
+            new_file_inside.attached_to_doctype = "User"
+            new_file_inside.attached_to_name = get_user.name
+            new_file_inside.attached_to_field = "user_image"
+            new_file_inside.is_private = 0
+            new_file_inside.save(ignore_permissions=True)
+            frappe.db.commit()
+            frappe.db.set_value("User",get_user.name,'user_image',new_file_inside.file_url)
         #another update of Profile application
         get_profile = frappe.get_doc("Profile Application",email_id)
         get_profile.full_name = full_name
@@ -39,17 +40,18 @@ def update_profile(full_name,mobile_no,email_id,designation,company_name,linkedi
         get_profile.save(ignore_permissions=True)
         frappe.db.commit()
         #getting the profile image as base64 and converted create in a file doctype for Profile Application doctype
-        file_name_inside = f"{get_profile.full_name.replace(' ', '_')}profile.png"
-        new_file_inside = frappe.new_doc('File')
-        new_file_inside.file_name = file_name_inside
-        new_file_inside.content = profile_image_decode
-        new_file_inside.attached_to_doctype = "Profile Application"
-        new_file_inside.attached_to_name = get_profile.name
-        new_file_inside.attached_to_field = "profile_image"
-        new_file_inside.is_private = 0
-        new_file_inside.save(ignore_permissions=True)
-        frappe.db.commit()
-        frappe.db.set_value("Profile Application",get_profile.name,'profile_image',new_file_inside.file_url)
+        if profile_image:
+            file_name_inside = f"{get_profile.full_name.replace(' ', '_')}profile.png"
+            new_file_inside = frappe.new_doc('File')
+            new_file_inside.file_name = file_name_inside
+            new_file_inside.content = profile_image_decode
+            new_file_inside.attached_to_doctype = "Profile Application"
+            new_file_inside.attached_to_name = get_profile.name
+            new_file_inside.attached_to_field = "profile_image"
+            new_file_inside.is_private = 0
+            new_file_inside.save(ignore_permissions=True)
+            frappe.db.commit()
+            frappe.db.set_value("Profile Application",get_profile.name,'profile_image',new_file_inside.file_url)
         #after getting the Profile Details updated in application and returning the data
         get_updated_profile_data = frappe.get_doc("Profile Application",email_id)
         if get_updated_profile_data.profile_image:

@@ -1,22 +1,23 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "PITCH-PAYT-.####",
+ "autoname": "SERVICE-PAYT-.####",
  "creation": "2024-02-09 12:26:13.861345",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
   "section_break_j00p",
-  "pitch_craft_service_name",
+  "service_id",
   "service_booked_date",
-  "payment_id",
-  "payment_method",
   "disabled",
   "column_break_iyfo",
-  "payment_status",
-  "pitch_craft_id",
-  "amount",
+  "service_name",
   "my_service_status",
+  "service_payment_details_section",
+  "amount",
+  "payment_id",
+  "column_break_ahye",
+  "payment_status",
   "user_details_section",
   "login_user",
   "column_break_pzjh",
@@ -27,15 +28,7 @@
   {
    "fieldname": "section_break_j00p",
    "fieldtype": "Section Break",
-   "label": "Pitch Craft Service Booking Details"
-  },
-  {
-   "fetch_from": "pitch_craft_id.service_name",
-   "fieldname": "pitch_craft_service_name",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "in_standard_filter": 1,
-   "label": "Pitch Craft Service Name"
+   "label": "Service Booking Details"
   },
   {
    "fieldname": "service_booked_date",
@@ -52,13 +45,6 @@
   {
    "fieldname": "column_break_iyfo",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "pitch_craft_id",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Pitch Craft ID",
-   "options": "Pitch Craft"
   },
   {
    "fieldname": "amount",
@@ -91,7 +77,7 @@
    "fieldtype": "Link",
    "label": "Amended From",
    "no_copy": 1,
-   "options": "Pitch Craft Payment",
+   "options": "Service Payment",
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
@@ -104,11 +90,6 @@
    "label": "Payment Status"
   },
   {
-   "fieldname": "payment_method",
-   "fieldtype": "Data",
-   "label": "Payment Method"
-  },
-  {
    "fieldname": "my_service_status",
    "fieldtype": "Data",
    "label": "My Service Status",
@@ -119,15 +100,39 @@
    "fieldname": "disabled",
    "fieldtype": "Check",
    "label": "Disabled"
+  },
+  {
+   "fieldname": "service_id",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Service ID",
+   "options": "Services"
+  },
+  {
+   "fetch_from": "service_id.service_name",
+   "fieldname": "service_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Service Name"
+  },
+  {
+   "fieldname": "service_payment_details_section",
+   "fieldtype": "Section Break",
+   "label": "Service Payment Details"
+  },
+  {
+   "fieldname": "column_break_ahye",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-03-04 10:38:45.990775",
+ "modified": "2024-03-11 17:11:34.855354",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
- "name": "Pitch Craft Payment",
+ "name": "Service Payment",
  "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [

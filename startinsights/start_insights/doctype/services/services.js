@@ -1,11 +1,11 @@
 // Copyright (c) 2024, Suriya and contributors
 // For license information, please see license.txt
-frappe.ui.form.on("Pitch Craft", {
+frappe.ui.form.on("Services", {
     // refresh(frm) {
     //     if (frm.doc.docstatus == 1) {
     //         frm.add_custom_button(__("Assign to"), function () {
     //             let d = new frappe.ui.Dialog({
-    //                 title: __("Pitch Craft Assign"),
+    //                 title: __("Services Assign"),
     //                 fields: [
     //                     {
     //                         fieldname: "assign_user", fieldtype: "Table",

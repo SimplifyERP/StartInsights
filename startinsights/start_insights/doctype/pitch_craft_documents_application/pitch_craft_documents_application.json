@@ -21,7 +21,7 @@
    "fieldname": "pitch_craft_service",
    "fieldtype": "Link",
    "label": "PItch Craft ID",
-   "options": "Pitch Craft"
+   "options": "Services"
   },
   {
    "fieldname": "column_break_ysws",
@@ -49,7 +49,7 @@
    "fieldname": "pitch_craft_payment_id",
    "fieldtype": "Link",
    "label": "Pitch Craft Payment ID",
-   "options": "Pitch Craft Payment"
+   "options": "Service Payment"
   },
   {
    "fieldname": "section_break_nbtb",
@@ -70,7 +70,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-04 10:49:04.395887",
+ "modified": "2024-03-11 16:55:46.699333",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Pitch Craft Documents Application",

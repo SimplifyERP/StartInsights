@@ -26,7 +26,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Pitch Craft ID",
-   "options": "Pitch Craft",
+   "options": "Services",
    "read_only": 1,
    "reqd": 1
   },
@@ -73,7 +73,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-04 10:52:16.815234",
+ "modified": "2024-03-11 15:37:40.791665",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Pitch Craft Assign",

@@ -8,7 +8,7 @@ from frappe import _
 
 
 
-class PitchCraft(Document):
+class Services(Document):
     pass
 
 @frappe.whitelist()
@@ -18,11 +18,11 @@ def set_assign_users(user_list_str,id,service_name):
         users = []
         for item in user_list['assign_user']:
             users.append(item['user'])
-            if not frappe.db.exists("Pitch Craft Assign",{'pitch_craft_id':id}):
+            if not frappe.db.exists("Pitch Craft Assign",{'services_id':id}):
                 new_pitch_assign = frappe.new_doc("Pitch Craft Assign")
-                new_pitch_assign.pitch_craft_id = id
+                new_pitch_assign.services_id = id
                 new_pitch_assign.assign_user = item['user']
-                new_pitch_assign.pitch_craft_service_name = service_name
+                new_pitch_assign.services_service_name = service_name
                 new_pitch_assign.save(ignore_permissions=True)
                 new_pitch_assign.submit()
                 frappe.db.commit()
