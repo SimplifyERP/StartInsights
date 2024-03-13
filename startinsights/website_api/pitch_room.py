@@ -321,6 +321,8 @@ def pitch_room_doc_upload(name, pitch_room_documents_upload):
         frappe.log_error(frappe.get_traceback(), _("Error in pitch room documents upload"))
         return {"status": False, "message": str(e), "pitch_room_details": pitch_room_details}
 
+
+
 # pitch room shared user added in child table
 @frappe.whitelist()
 def shared_user_added(user_id, user_names, pitch_room_id):
