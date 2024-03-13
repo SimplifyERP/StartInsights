@@ -33,7 +33,7 @@ def service_list(user_id):
 			#response	
 			service_details = {
 				"id": service.name,
-				"service_payment_id":"",
+				"my_service_id":"",
 				'purchase_status':purchase_status,
 				"service_name": service.service_name,
 				"service_image":image_url,
@@ -63,7 +63,7 @@ def get_my_services_list(user_id):
 	format_deliverables = ""
 	image_url = ""
 	try:
-		service_payment = frappe.db.get_all('Service Payment',{'login_user':user_id,'my_service_status':"Saved"},['name','service_id'],order_by='idx ASC')
+		service_payment = frappe.db.get_all('My Services',{'user':user_id,'my_service_status':"Saved"},['name','service_id'],order_by='idx ASC')
 		service_payment_list = []
 		for payment in service_payment:
 			#by passing the service id to get all service details
@@ -80,7 +80,7 @@ def get_my_services_list(user_id):
 				image_url = ""    
 			service_details = {
 				"id": payment.service_id,
-				"service_payment_id":payment.name,
+				"my_service_id":payment.name,
 				'purchase_status':True,
 				"service_name": service_details.service_name,
 				"service_image":image_url,
@@ -91,7 +91,7 @@ def get_my_services_list(user_id):
 				"deliverables":format_deliverables,
 				"documents":[]
 			}
-			service_documents = frappe.db.get_all("Service Documents",{'parent':payment.name},['documents_required'],order_by='idx ASC')
+			service_documents = frappe.db.get_all("Service Documents",{'parent':payment.service_id},['documents_required'],order_by='idx ASC')
 			for documents in service_documents:
 				service_details['documents'].append({
 					"documents":documents.documents_required
@@ -110,16 +110,41 @@ def create_service_payment(service_id,user,payment_id,amount,date):
 		new_service_payment.service_id = service_id
 		new_service_payment.service_booked_date = service_date_format
 		new_service_payment.payment_status = "Paid"
-		new_service_payment.my_service_status = "Saved"
 		new_service_payment.payment_id = payment_id
 		new_service_payment.amount = amount
 		new_service_payment.login_user = user
 		new_service_payment.save(ignore_permissions=True)
 		frappe.db.commit()
 		frappe.db.set_value("Service Payment",new_service_payment.name,'owner',user)
+
+		create_my_services(user,service_id,new_service_payment.name)
+
 		return {"status": True, "message":"Service Payment Created"}
 	except Exception as e:
 		return {"status": False, "message": str(e)}
+
+#create a my service list for user wise
+def create_my_services(user,service_id,name):
+	try:
+		get_process = frappe.db.get_all("Process Steps",{"parent":service_id},['steps','tat','status'],order_by='idx ASC')
+		my_service = frappe.new_doc("My Services")
+		my_service.user = user
+		my_service.service_id = service_id
+		my_service.service_status = "Under Progress"
+		my_service.service_payment_id = name
+		my_service.my_service_status = "Saved"
+		for service in get_process:
+			my_service.append("process_steps",{
+				"steps":service.get("steps"),
+				"tat":service.get("tat"),
+				"status":service.get("status")
+			})
+		my_service.save(ignore_permissions=True)
+		frappe.db.commit()
+		frappe.db.set_value("My Services",my_service.name,'owner',user)
+		return {"status":True,"message":"My Service Created"}
+	except Exception as e:
+		return {"status":False,"message":e}
 
 #the below method id get the service payment details
 @frappe.whitelist()
@@ -140,4 +165,66 @@ def get_service_payment_details(user_id,payment_id):
 		return {"status":False,"message":e}
 	
 
-	
+@frappe.whitelist()
+def get_my_service_details(user_id,my_service_id):
+	image_url = ""
+	user_image = ""
+	assigned_user = []
+	process_status = False
+	try:
+		my_service_list = []
+		my_service = frappe.get_doc("My Services",my_service_id)
+		get_master_services = frappe.get_doc("Services",my_service.service_id)
+		if get_master_services.service_image:
+				image_url = get_domain_name() + get_master_services.service_image
+		else:
+			image_url = ""    
+		format_short_description = html2text.html2text(get_master_services.short_description).strip() or ""
+		format_benefits = html2text.html2text(get_master_services.benefits).strip() or ""
+		format_description = html2text.html2text(get_master_services.description).strip() or ""
+		format_deliverables = html2text.html2text(get_master_services.deliverables).strip() or ""
+		my_service_details = {
+			"id": my_service.name,
+			'purchase_status':True,
+			"service_name": get_master_services.service_name,
+			"service_image":image_url,
+			"pricing": get_master_services.pricing,
+			"short_description": format_short_description,
+			"benefits":format_benefits,
+			"description":format_description,
+			"deliverables":format_deliverables,
+			"documents":[],
+			"service_status":my_service.service_status,
+			"service_tracking":[]
+		}
+		service_documents = frappe.db.get_all("Service Documents",{'parent':get_master_services.name},['documents_required'],order_by='idx ASC')
+		for documents in service_documents:
+			my_service_details['documents'].append({
+					"documents":documents.documents_required
+				})
+		my_service_documents = frappe.db.get_all("Process Steps",{'parent':my_service.name},['steps','tat','status'],order_by='idx ASC')
+		for documents in my_service_documents:
+			if documents.status == "Completed":
+				process_status = True
+			else:
+				process_status = False	
+			my_service_details["service_tracking"].append({
+				"steps":documents.steps,
+				"tat":documents.tat,
+				"current_status":documents.status,
+				"status":process_status
+			})
+		if my_service.assigned_user_image:
+			user_image = get_domain_name() +  my_service.assigned_user_image
+		else:
+			user_image = ""	
+		assigned_user = {
+			"user_name":my_service.assigned_user,
+			"designation":my_service.designation,
+			"mobile_no":my_service.mobile_no,
+			"image":user_image
+		}				
+		my_service_list.append(my_service_details)
+		return {"status":True,"my_service_details":my_service_list,"assigned_user":assigned_user}
+	except Exception as e:
+		return {"status":False,"message":e}

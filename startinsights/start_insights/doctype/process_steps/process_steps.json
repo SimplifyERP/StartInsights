@@ -6,28 +6,38 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "type_of_service_tracking",
-  "service_tracking_status"
+  "steps",
+  "tat",
+  "status"
  ],
  "fields": [
   {
-   "fieldname": "type_of_service_tracking",
+   "fieldname": "steps",
    "fieldtype": "Data",
-   "label": "Type of Service Tracking"
+   "in_list_view": 1,
+   "label": "Steps"
   },
   {
-   "fieldname": "service_tracking_status",
+   "fieldname": "tat",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "TAT"
+  },
+  {
+   "fieldname": "status",
    "fieldtype": "Select",
-   "label": "Service Tracking Status"
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "\nUnder Progress\nCompleted"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-03-11 19:40:45.068944",
+ "modified": "2024-03-12 14:49:59.506512",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
- "name": "Service Trackings",
+ "name": "Process Steps",
  "owner": "Administrator",
  "permissions": [],
  "sort_field": "modified",

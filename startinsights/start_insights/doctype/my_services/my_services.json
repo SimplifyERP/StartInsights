@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "format:{MS}-{service_name}-{#####}",
  "creation": "2024-03-11 19:17:17.556771",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -14,10 +15,20 @@
   "service_status",
   "column_break_vsjb",
   "service_name",
+  "my_service_status",
   "service_payment_details_section",
   "service_payment_id",
   "column_break_qgnc",
-  "service_booked_date"
+  "service_booked_date",
+  "process_tab",
+  "process_steps",
+  "assigned_user_tab",
+  "assigned_user",
+  "designation",
+  "assigned_user_image",
+  "column_break_whue",
+  "user_name",
+  "mobile_no"
  ],
  "fields": [
   {
@@ -87,15 +98,72 @@
    "fieldname": "service_status",
    "fieldtype": "Select",
    "label": "Service Status",
-   "options": "\nOn Going\nHold\nCompleted"
+   "options": "\nUnder Progress\nHold\nCompleted"
+  },
+  {
+   "fieldname": "process_tab",
+   "fieldtype": "Tab Break",
+   "label": "Process"
+  },
+  {
+   "fieldname": "process_steps",
+   "fieldtype": "Table",
+   "label": "Process Steps",
+   "options": "Process Steps"
+  },
+  {
+   "fieldname": "assigned_user_tab",
+   "fieldtype": "Tab Break",
+   "label": "Assigned User"
+  },
+  {
+   "fieldname": "assigned_user",
+   "fieldtype": "Link",
+   "label": "Assigned User",
+   "options": "User"
+  },
+  {
+   "fieldname": "column_break_whue",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "assigned_user.first_name",
+   "fieldname": "user_name",
+   "fieldtype": "Data",
+   "label": "User Name"
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Link",
+   "label": "Designation",
+   "options": "Designation"
+  },
+  {
+   "fetch_from": "assigned_user.phone",
+   "fieldname": "mobile_no",
+   "fieldtype": "Data",
+   "label": "Mobile No"
+  },
+  {
+   "fieldname": "my_service_status",
+   "fieldtype": "Data",
+   "label": "My Service Status",
+   "options": "Saved"
+  },
+  {
+   "fetch_from": "assigned_user.cover_image",
+   "fieldname": "assigned_user_image",
+   "fieldtype": "Attach Image",
+   "label": "Assigned User Image"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-11 19:23:06.378751",
+ "modified": "2024-03-13 16:15:07.303023",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "My Services",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {

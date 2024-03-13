@@ -12,7 +12,6 @@
   "disabled",
   "column_break_iyfo",
   "service_name",
-  "my_service_status",
   "service_payment_details_section",
   "amount",
   "payment_id",
@@ -90,12 +89,6 @@
    "label": "Payment Status"
   },
   {
-   "fieldname": "my_service_status",
-   "fieldtype": "Data",
-   "label": "My Service Status",
-   "read_only": 1
-  },
-  {
    "default": "0",
    "fieldname": "disabled",
    "fieldtype": "Check",
@@ -129,7 +122,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-03-11 17:11:34.855354",
+ "modified": "2024-03-13 14:49:41.190111",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Service Payment",

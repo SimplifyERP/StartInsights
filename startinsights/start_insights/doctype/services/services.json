@@ -24,7 +24,9 @@
   "deliverables",
   "amended_from",
   "section_break_xypp",
-  "documents_required"
+  "documents_required",
+  "section_break_solg",
+  "process_steps"
  ],
  "fields": [
   {
@@ -135,6 +137,16 @@
    "fieldtype": "Attach Image",
    "label": "Service Image",
    "reqd": 1
+  },
+  {
+   "fieldname": "section_break_solg",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "process_steps",
+   "fieldtype": "Table",
+   "label": "Process Steps",
+   "options": "Process Steps"
   }
  ],
  "image_field": "service_image",
@@ -144,9 +156,13 @@
   {
    "link_doctype": "Service Payment",
    "link_fieldname": "service_id"
+  },
+  {
+   "link_doctype": "My Services",
+   "link_fieldname": "service_id"
   }
  ],
- "modified": "2024-03-11 17:49:36.400190",
+ "modified": "2024-03-13 14:46:07.933441",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Services",
