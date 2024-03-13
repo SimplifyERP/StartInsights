@@ -12,6 +12,7 @@
   "phone_no",
   "linkedin",
   "login_type",
+  "disabled",
   "profile_password",
   "auth_code",
   "column_break_fedy",
@@ -20,8 +21,7 @@
   "customer_group",
   "company_name",
   "website",
-  "profile_image",
-  "disabled"
+  "profile_image"
  ],
  "fields": [
   {
@@ -119,7 +119,7 @@
    "link_fieldname": "custom_profile_id"
   }
  ],
- "modified": "2024-03-12 16:07:22.279309",
+ "modified": "2024-03-13 10:42:54.218369",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Profile Application",
