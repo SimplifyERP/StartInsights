@@ -16,9 +16,7 @@
   "short_description",
   "overview_tab",
   "overview_section",
-  "benefits",
-  "section_break_mkiu",
-  "description",
+  "about_service",
   "process_tab",
   "section_break_edpw",
   "deliverables",
@@ -32,18 +30,6 @@
   {
    "fieldname": "overview_section",
    "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "benefits",
-   "fieldtype": "Text Editor",
-   "label": "Benefits ",
-   "reqd": 1
-  },
-  {
-   "fieldname": "description",
-   "fieldtype": "Text Editor",
-   "label": "Description ",
-   "reqd": 1
   },
   {
    "fieldname": "documents_required",
@@ -90,10 +76,6 @@
    "fieldname": "process_tab",
    "fieldtype": "Tab Break",
    "label": "Process"
-  },
-  {
-   "fieldname": "section_break_mkiu",
-   "fieldtype": "Section Break"
   },
   {
    "fieldname": "section_break_edpw",
@@ -147,6 +129,12 @@
    "fieldtype": "Table",
    "label": "Process Steps",
    "options": "Process Steps"
+  },
+  {
+   "fieldname": "about_service",
+   "fieldtype": "Text Editor",
+   "label": "About Service",
+   "reqd": 1
   }
  ],
  "image_field": "service_image",
@@ -162,7 +150,7 @@
    "link_fieldname": "service_id"
   }
  ],
- "modified": "2024-03-13 14:46:07.933441",
+ "modified": "2024-03-13 18:55:31.852959",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Services",

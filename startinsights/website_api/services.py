@@ -11,6 +11,9 @@ from startinsights.custom import get_domain_name
 def service_list(user_id):
 	purchase_status = False
 	image_url = ""
+	format_short_description = ""
+	format_about_service = ""
+	format_deliverables = ""
 	try:
 		service_list = frappe.db.get_all('Services',{'disabled':0},["*"],order_by='idx ASC')
 		service_list_format = []
@@ -21,10 +24,9 @@ def service_list(user_id):
 			else:
 				purchase_status = False	
 			#the below format is giving the text editor field data removed html tags
-			format_short_description = html2text.html2text(service.short_description).strip() or ""
-			format_benefits = html2text.html2text(service.benefits).strip() or ""
-			format_description = html2text.html2text(service.description).strip() or ""
-			format_deliverables = html2text.html2text(service.deliverables).strip() or ""
+			format_short_description = html2text.html2text(service.short_description or "").strip() 
+			format_about_service = html2text.html2text(service.about_service or "").strip() 
+			format_deliverables = html2text.html2text(service.deliverables or "").strip() 
 			#added the domain name with image url
 			if service.service_image:
 				image_url = get_domain_name() + service.service_image
@@ -39,8 +41,7 @@ def service_list(user_id):
 				"service_image":image_url,
 				"pricing": service.pricing,
 				"short_description": format_short_description,
-				"benefits":format_benefits,
-				"description":format_description,
+				"about_service":format_about_service,
 				"deliverables":format_deliverables,
 				"documents":[]
 			}
@@ -58,8 +59,7 @@ def service_list(user_id):
 #by using this method for my service list for separate user
 def get_my_services_list(user_id):
 	format_short_description = ""
-	format_benefits = ""
-	format_description = ""
+	format_about_service = ""
 	format_deliverables = ""
 	image_url = ""
 	try:
@@ -69,10 +69,9 @@ def get_my_services_list(user_id):
 			#by passing the service id to get all service details
 			service_details = frappe.get_doc("Services",payment.service_id)
 			#by getting the text editor data to remove the html tags
-			format_short_description = html2text.html2text(service_details.short_description).strip() or ""
-			format_benefits = html2text.html2text(service_details.benefits).strip() or ""
-			format_description = html2text.html2text(service_details.description).strip() or ""
-			format_deliverables = html2text.html2text(service_details.deliverables).strip() or ""
+			format_short_description = html2text.html2text(service_details.short_description or "").strip() 
+			format_about_service = html2text.html2text(service_details.about_service or "").strip() 
+			format_deliverables = html2text.html2text(service_details.deliverables or "").strip() 
 			#by concedation the domain name and image url path to show image or anything
 			if service_details.service_image:
 				image_url = get_domain_name() + service_details.service_image
@@ -86,8 +85,7 @@ def get_my_services_list(user_id):
 				"service_image":image_url,
 				"pricing": service_details.pricing,
 				"short_description": format_short_description,
-				"benefits":format_benefits,
-				"description":format_description,
+				"about_service":format_about_service,
 				"deliverables":format_deliverables,
 				"documents":[]
 			}
@@ -145,32 +143,18 @@ def create_my_services(user,service_id,name):
 		return {"status":True,"message":"My Service Created"}
 	except Exception as e:
 		return {"status":False,"message":e}
-
-#the below method id get the service payment details
-@frappe.whitelist()
-def get_service_payment_details(user_id,payment_id):
-	try:
-		get_service_payment = frappe.db.get_all("Service Payment",{"name":payment_id,"login_user":user_id},['name','payment_id','service_booked_date','amount'],order_by='idx ASC')
-		payment_list = []
-		for payment in get_service_payment:
-			service_payment_details = {
-				"id":payment.name,
-				"payment_id":payment.payment_id,
-				"payment_date":format_date(payment.service_booked_date),
-				"amount_paid":payment.amount,
-			}
-			payment_list.append(service_payment_details)
-		return {"status":True,"service_payment_details":payment_list}    
-	except Exception as e:
-		return {"status":False,"message":e}
 	
-
+#getting the my service details
 @frappe.whitelist()
-def get_my_service_details(user_id,my_service_id):
+def get_my_service_details(my_service_id):
 	image_url = ""
 	user_image = ""
 	assigned_user = []
+	payment_details = []
 	process_status = False
+	format_short_description = ""
+	format_about_service = ""
+	format_deliverables = ""
 	try:
 		my_service_list = []
 		my_service = frappe.get_doc("My Services",my_service_id)
@@ -179,10 +163,9 @@ def get_my_service_details(user_id,my_service_id):
 				image_url = get_domain_name() + get_master_services.service_image
 		else:
 			image_url = ""    
-		format_short_description = html2text.html2text(get_master_services.short_description).strip() or ""
-		format_benefits = html2text.html2text(get_master_services.benefits).strip() or ""
-		format_description = html2text.html2text(get_master_services.description).strip() or ""
-		format_deliverables = html2text.html2text(get_master_services.deliverables).strip() or ""
+		format_short_description = html2text.html2text(get_master_services.short_description or "").strip() 
+		format_about_service = html2text.html2text(get_master_services.about_service or "").strip() 
+		format_deliverables = html2text.html2text(get_master_services.deliverables or "").strip()
 		my_service_details = {
 			"id": my_service.name,
 			'purchase_status':True,
@@ -190,8 +173,7 @@ def get_my_service_details(user_id,my_service_id):
 			"service_image":image_url,
 			"pricing": get_master_services.pricing,
 			"short_description": format_short_description,
-			"benefits":format_benefits,
-			"description":format_description,
+			"about_service":format_about_service,
 			"deliverables":format_deliverables,
 			"documents":[],
 			"service_status":my_service.service_status,
@@ -219,12 +201,26 @@ def get_my_service_details(user_id,my_service_id):
 		else:
 			user_image = ""	
 		assigned_user = {
-			"user_name":my_service.assigned_user,
-			"designation":my_service.designation,
-			"mobile_no":my_service.mobile_no,
+			"user_name":my_service.assigned_user or "",
+			"designation":my_service.designation or "",
+			"mobile_no":my_service.mobile_no or "",
 			"image":user_image
-		}				
+		}	
+		payment_details = get_service_payment_details(my_service.service_payment_id)			
 		my_service_list.append(my_service_details)
-		return {"status":True,"my_service_details":my_service_list,"assigned_user":assigned_user}
+		return {"status":True,"my_service_details":my_service_list,"assigned_user":assigned_user,"payment_details":payment_details}
 	except Exception as e:
 		return {"status":False,"message":e}
+	
+#getting the service purchase details
+def get_service_payment_details(service_payment_id):
+	service_payment_details = []
+	get_service_payment = frappe.db.get_all("Service Payment",{"name":service_payment_id},['name','payment_id','service_booked_date','amount'],order_by='idx ASC')
+	for payment in get_service_payment:
+		service_payment_details = {
+			"id":payment.name,
+			"payment_id":payment.payment_id,
+			"payment_date":format_date(payment.service_booked_date),
+			"amount_paid":payment.amount,
+		}
+	return service_payment_details
