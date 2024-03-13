@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class ServiceTrackings(Document):
+class AssignedUser(Document):
 	pass

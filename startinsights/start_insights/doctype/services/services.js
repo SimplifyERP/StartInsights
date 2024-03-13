@@ -1,6 +1,9 @@
 // Copyright (c) 2024, Suriya and contributors
 // For license information, please see license.txt
 frappe.ui.form.on("Services", {
+    // validate:function(Frm){
+        
+    // }
     // refresh(frm) {
     //     if (frm.doc.docstatus == 1) {
     //         frm.add_custom_button(__("Assign to"), function () {
