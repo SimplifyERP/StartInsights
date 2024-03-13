@@ -28,6 +28,7 @@
   "expiry_date",
   "section_break_lqhy",
   "pitch_room_documents_upload",
+  "shared_users",
   "pitch_room_notes_tab",
   "notes"
  ],
@@ -133,7 +134,6 @@
   {
    "fieldname": "user_id",
    "fieldtype": "Link",
-   "hidden": 1,
    "label": "User ID",
    "options": "User"
   },
@@ -156,12 +156,18 @@
    "fieldtype": "Table",
    "label": "Pitch Room Documents Upload",
    "options": "Pitch Craft Document Table"
+  },
+  {
+   "fieldname": "shared_users",
+   "fieldtype": "Table",
+   "label": "Shared Users",
+   "options": "Shared User"
   }
  ],
  "image_field": "cover_image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-11 15:13:02.557491",
+ "modified": "2024-03-13 14:44:16.518023",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Pitch Room",

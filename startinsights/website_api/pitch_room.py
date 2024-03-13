@@ -320,3 +320,31 @@ def pitch_room_doc_upload(name, pitch_room_documents_upload):
     except Exception as e:
         frappe.log_error(frappe.get_traceback(), _("Error in pitch room documents upload"))
         return {"status": False, "message": str(e), "pitch_room_details": pitch_room_details}
+
+# pitch room shared user added in child table
+@frappe.whitelist()
+def shared_user_added(user_id, user_names, pitch_room_id):
+    try:
+        pitch_room = frappe.get_doc('Pitch Room', pitch_room_id)
+        if pitch_room.user_id == user_id:
+            for name in user_names:
+                user = frappe.get_doc("User", {"first_name": name.strip()})
+                if user:
+                    pitch_room.append("shared_users", {
+                        "user_name": name.strip(),
+                        "user_id": user.name
+                    })
+                else:
+                    frappe.log_error(f"User '{name}' not found")
+
+            if pitch_room.get("shared_users"):
+                pitch_room.save()
+                frappe.db.commit()
+                return {"status": True, "message": "Users added successfully"}
+            else:
+                return {"status": False, "message": "No valid users provided"}
+        else:
+            return {"status": False, "message": "Unauthorized user for this pitch room"}
+    except Exception as e:
+        frappe.log_error(frappe.get_traceback(), _("Error in pitch room documents upload"))
+        return {"status": False, "message": str(e)}
