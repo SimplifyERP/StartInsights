@@ -50,31 +50,23 @@ def generate_auth_code(length=6):
 
 #new password generate and set in user and profile application auth_code empty
 @frappe.whitelist()
-def change_password(user_id,password,auth_code):
+def change_password(password,auth_code):
 	status = ""
 	message = ""
 	try:
-		get_user = frappe.db.exists('User', {'name': user_id, 'enabled': 1})
-		if get_user:
-		# Check if the provided auth_code matches the one in Profile application Document
-			profile = frappe.get_doc("Profile Application", {"name": user_id})
-			if profile:
-				if auth_code == profile.auth_code:
-					frappe.db.set_value("Profile Application",profile.name,"profile_password",password)
-					frappe.db.set_value("User",user_id,"new_password",password)
-					frappe.db.set_value("Profile Application",profile.name,"auth_code","")
-					status = True
-					message = "Password Reset Successfully"
-				else:
-					status = False
-					message = "Give Auth Code is Not Validate"	
-			else:
-				status = False
-				message = "Profile Not Created"
+		get_auth_code = frappe.db.get_all("Profile Application",{'auth_code':auth_code},['name'])
+		if get_auth_code:
+			frappe.db.set_value("Profile Application",get_auth_code,"profile_password",password)
+			frappe.db.set_value("User",get_auth_code,"new_password",password)
+			frappe.db.set_value("Profile Application",get_auth_code,"auth_code","")
+			status = True
+			message = "Password Reset Successfully"
 		else:
 			status = False
-			message = "User Not Created"				
+			message = "Auth Code is not Validate"
 		return {"status":status,"message":message}
 	except Exception as e:
 		return {"status":False,"message":e}
+
+
 
