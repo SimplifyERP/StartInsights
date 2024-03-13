@@ -99,6 +99,7 @@ def get_my_services_list(user_id):
 	except Exception as e:
 		return e
 	
+
 #the below is user get the service after payment creation
 @frappe.whitelist()
 def create_service_payment(service_id,user,payment_id,amount,date):

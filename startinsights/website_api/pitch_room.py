@@ -83,7 +83,7 @@ def pitch_room_list(user_id):
     except Exception as e:
         return {"status": False,"message":e}
 
-
+#first given dict will be empty
 def get_pitch_room_details_empty():
     pitch_room_details = {
         'id':"",
