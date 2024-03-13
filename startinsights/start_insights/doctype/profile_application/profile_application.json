@@ -13,6 +13,7 @@
   "linkedin",
   "login_type",
   "profile_password",
+  "auth_code",
   "column_break_fedy",
   "full_name",
   "designation",
@@ -103,6 +104,11 @@
    "fieldname": "website",
    "fieldtype": "Data",
    "label": "Website"
+  },
+  {
+   "fieldname": "auth_code",
+   "fieldtype": "Data",
+   "label": " Auth Code"
   }
  ],
  "image_field": "profile_image",
@@ -113,7 +119,7 @@
    "link_fieldname": "custom_profile_id"
   }
  ],
- "modified": "2024-03-09 15:37:04.029364",
+ "modified": "2024-03-12 16:07:22.279309",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Profile Application",
