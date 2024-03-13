@@ -64,7 +64,8 @@ def pitch_room_list(user_id):
             if pitch_room.cover_image:
                 image_url = get_domain_name() + pitch_room.cover_image
             else:
-                image_url = ""    
+                image_url = ""  
+            
             pitch_room_details = {
                 'id': pitch_room.name,
                 "cover_image":image_url,
@@ -72,11 +73,26 @@ def pitch_room_list(user_id):
                 'company_name':company_name,
                 'about_startup': pitch_room.about_startup,
             }
+            get_pitch_room_list.append(get_pitch_room_details_empty())
             get_pitch_room_list.append(pitch_room_details)
+
+        if not get_pitch_room_list:  # If the list is empty, add default details
+            get_pitch_room_list.append(get_pitch_room_details_empty())
+            
         return {"status": True, "pitch_room_details":get_pitch_room_list}
     except Exception as e:
         return {"status": False,"message":e}
 
+
+def get_pitch_room_details_empty():
+    pitch_room_details = {
+        'id':"",
+        "cover_image":"",
+        'room_name':"",
+        'company_name':"",
+        'about_startup':"",
+    }
+    return pitch_room_details
 
 
 

@@ -18,6 +18,7 @@
   "my_service_status",
   "service_payment_details_section",
   "service_payment_id",
+  "payment_id",
   "column_break_qgnc",
   "service_booked_date",
   "process_tab",
@@ -155,11 +156,17 @@
    "fieldname": "assigned_user_image",
    "fieldtype": "Attach Image",
    "label": "Assigned User Image"
+  },
+  {
+   "fetch_from": "service_payment_id.payment_id",
+   "fieldname": "payment_id",
+   "fieldtype": "Data",
+   "label": "Payment ID"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-13 16:15:07.303023",
+ "modified": "2024-03-13 17:54:47.210886",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "My Services",
