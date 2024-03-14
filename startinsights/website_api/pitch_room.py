@@ -323,9 +323,10 @@ def pitch_room_doc_upload(name, pitch_room_documents_upload):
 
 
 
+
 # pitch room shared user added in child table
 @frappe.whitelist()
-def shared_user_added(user_id, user_names, pitch_room_id):
+def shared_user(user_id, user_names, pitch_room_id):
     try:
         pitch_room = frappe.get_doc('Pitch Room', pitch_room_id)
         if pitch_room.user_id == user_id:
