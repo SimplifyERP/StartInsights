@@ -13,24 +13,15 @@
   "column_break_qtmp",
   "about_startup",
   "user_id",
-  "documents_section",
-  "pitch_deck_doc_type",
-  "pitch_deck",
-  "column_break_zbrc",
-  "projection_doc_type",
-  "projections",
-  "column_break_dkgo",
-  "executive_summary_doc_type",
-  "executive_summary",
-  "section_break_ygta",
-  "shared_user",
-  "column_break_bnki",
-  "expiry_date",
-  "section_break_lqhy",
+  "documents_upload_tab",
+  "mutiple_documents_upload_section",
   "pitch_room_documents_upload",
-  "shared_users",
   "pitch_room_notes_tab",
-  "notes"
+  "room_notes_section",
+  "notes",
+  "shared_users_tab",
+  "users_section",
+  "shared_users"
  ],
  "fields": [
   {
@@ -40,70 +31,13 @@
    "label": "Room Name"
   },
   {
-   "fieldname": "documents_section",
-   "fieldtype": "Section Break",
-   "label": "Upload Documents"
-  },
-  {
-   "fieldname": "column_break_zbrc",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "column_break_dkgo",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "room_details_section",
    "fieldtype": "Section Break",
    "label": "Room Details"
   },
   {
-   "fieldname": "pitch_deck",
-   "fieldtype": "Attach",
-   "label": "Pitch Deck"
-  },
-  {
-   "fieldname": "projections",
-   "fieldtype": "Attach",
-   "label": "Projections"
-  },
-  {
-   "fieldname": "executive_summary",
-   "fieldtype": "Attach",
-   "label": "Executive Summary"
-  },
-  {
    "fieldname": "column_break_qtmp",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "shared_user",
-   "fieldtype": "Link",
-   "label": "Shared User",
-   "options": "User"
-  },
-  {
-   "fieldname": "pitch_deck_doc_type",
-   "fieldtype": "Select",
-   "label": "Pitch Deck Doc Type",
-   "options": "\nxlsx\npdf\ndocx"
-  },
-  {
-   "fieldname": "projection_doc_type",
-   "fieldtype": "Select",
-   "label": "Projection Doc Type",
-   "options": "\nxlsx\npdf\ndocx"
-  },
-  {
-   "fieldname": "executive_summary_doc_type",
-   "fieldtype": "Select",
-   "label": "Executive Summary Doc Type",
-   "options": "\nxlsx\npdf\ndocx"
-  },
-  {
-   "fieldname": "expiry_date",
-   "fieldtype": "Date",
-   "label": "Expiry Date"
   },
   {
    "default": "0",
@@ -123,33 +57,21 @@
    "label": "Cover Image"
   },
   {
-   "fieldname": "section_break_ygta",
-   "fieldtype": "Section Break",
-   "label": "Shared Details"
-  },
-  {
-   "fieldname": "column_break_bnki",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "user_id",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "User ID",
    "options": "User"
   },
   {
    "fieldname": "pitch_room_notes_tab",
    "fieldtype": "Tab Break",
-   "label": "Pitch Room Notes"
+   "label": "Notes"
   },
   {
    "fieldname": "notes",
    "fieldtype": "Small Text",
    "label": "Notes"
-  },
-  {
-   "fieldname": "section_break_lqhy",
-   "fieldtype": "Section Break"
   },
   {
    "fieldname": "pitch_room_documents_upload",
@@ -162,12 +84,37 @@
    "fieldtype": "Table",
    "label": "Shared Users",
    "options": "Shared Users"
+  },
+  {
+   "fieldname": "documents_upload_tab",
+   "fieldtype": "Tab Break",
+   "label": "Documents Upload"
+  },
+  {
+   "fieldname": "shared_users_tab",
+   "fieldtype": "Tab Break",
+   "label": "Shared Users"
+  },
+  {
+   "fieldname": "mutiple_documents_upload_section",
+   "fieldtype": "Section Break",
+   "label": "Mutiple Documents Upload"
+  },
+  {
+   "fieldname": "room_notes_section",
+   "fieldtype": "Section Break",
+   "label": "Room Notes"
+  },
+  {
+   "fieldname": "users_section",
+   "fieldtype": "Section Break",
+   "label": "Users"
   }
  ],
  "image_field": "cover_image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-14 11:22:03.608960",
+ "modified": "2024-03-14 15:11:23.627331",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Pitch Room",
