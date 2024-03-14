@@ -21,14 +21,14 @@ def user_login(username, password):
                 user_details = {
                     "user_name": profile.user_id,
                     "full_name": profile.full_name,
-                    "user_email": profile.email_id,
-                    "company_name":profile.company_name,
-                    "phone_no": profile.phone_no,
+                    "user_email": profile.email_id or "",
+                    "company_name":profile.company_name or "",
+                    "phone_no": profile.phone_no or "",
                     "designation":profile.designation or "",
-                    "linkedin":profile.linkedin,
+                    "linkedin":profile.linkedin or "",
                     "profile_image":image_url or "",
                     "login_type":profile.login_type or "",
-                    "role": profile.customer_group ,
+                    "role": profile.customer_group or "",
                 }
             else:
                 message = "please contact support team" 
