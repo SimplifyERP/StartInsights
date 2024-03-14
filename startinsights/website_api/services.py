@@ -203,7 +203,7 @@ def get_my_service_details(my_service_id):
 		else:
 			user_image = ""	
 		assigned_user = {
-			"user_name":my_service.assigned_user or "",
+			"user_name":my_service.user_name or "",
 			"designation":my_service.designation or "",
 			"mobile_no":my_service.mobile_no or "",
 			"image":user_image
