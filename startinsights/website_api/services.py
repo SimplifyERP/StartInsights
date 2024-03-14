@@ -35,7 +35,6 @@ def service_list(user_id):
 			#response	
 			service_details = {
 				"id": service.name,
-				"my_service_id":"",
 				'purchase_status':purchase_status,
 				"service_name": service.service_name,
 				"service_image":image_url,
@@ -62,28 +61,28 @@ def get_my_services_list(user_id):
 	format_about_service = ""
 	format_deliverables = ""
 	image_url = ""
+	service_details = []
 	try:
 		service_payment = frappe.db.get_all('My Services',{'user':user_id,'my_service_status':"Saved"},['name','service_id'],order_by='idx ASC')
 		service_payment_list = []
 		for payment in service_payment:
 			#by passing the service id to get all service details
-			service_details = frappe.get_doc("Services",payment.service_id)
+			service_detail = frappe.get_doc("Services",payment.service_id)
 			#by getting the text editor data to remove the html tags
-			format_short_description = html2text.html2text(service_details.short_description or "").strip() 
-			format_about_service = html2text.html2text(service_details.about_service or "").strip() 
-			format_deliverables = html2text.html2text(service_details.deliverables or "").strip() 
+			format_short_description = html2text.html2text(service_detail.short_description or "").strip() 
+			format_about_service = html2text.html2text(service_detail.about_service or "").strip() 
+			format_deliverables = html2text.html2text(service_detail.deliverables or "").strip() 
 			#by concedation the domain name and image url path to show image or anything
-			if service_details.service_image:
-				image_url = get_domain_name() + service_details.service_image
+			if service_detail.service_image:
+				image_url = get_domain_name() + service_detail.service_image
 			else:
 				image_url = ""    
 			service_details = {
-				"id": payment.service_id,
-				"my_service_id":payment.name,
+				"id": payment.name,
 				'purchase_status':True,
-				"service_name": service_details.service_name,
+				"service_name": service_detail.service_name,
 				"service_image":image_url,
-				"pricing": service_details.pricing,
+				"pricing": service_detail.pricing,
 				"short_description": format_short_description,
 				"about_service":format_about_service,
 				"deliverables":format_deliverables,
