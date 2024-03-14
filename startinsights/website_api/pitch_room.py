@@ -71,7 +71,7 @@ def pitch_room_list(user_id):
                 "cover_image":image_url,
                 'room_name': pitch_room.room_name,
                 'company_name':company_name,
-                'about_startup': pitch_room.about_startup,
+                'about_startup': pitch_room.about_startup or "",
             }
             get_pitch_room_list.append(get_pitch_room_details_empty())
             get_pitch_room_list.append(pitch_room_details)
