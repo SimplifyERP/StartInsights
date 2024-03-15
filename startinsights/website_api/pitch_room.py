@@ -50,12 +50,12 @@ def create_pitch_room(cover_image,pitch_room_name,about_startup,user_id):
 
 # pitch room details view
 @frappe.whitelist()
-def get_room_details(user_id,room_id):
+def get_room_details(user_id):
     doc_url = ""
     image_url = ""
     company_name = ""
     try:
-        get_pitch_room = frappe.db.get_all('Pitch Room',{'name':room_id,'user_id':user_id},['name','room_name','cover_image','about_startup'], order_by='idx ASC')
+        get_pitch_room = frappe.db.get_all('Pitch Room',{'user_id':user_id},['name','room_name','cover_image','about_startup'], order_by='idx ASC')
         get_pitch_room_list = []
         for pitch_room in get_pitch_room:
             get_company_name = frappe.db.get_value("Profile Application",{'user_id':user_id},['company_name'])
