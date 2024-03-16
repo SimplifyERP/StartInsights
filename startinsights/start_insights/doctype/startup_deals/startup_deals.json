@@ -32,7 +32,7 @@
   },
   {
    "fieldname": "attach_image",
-   "fieldtype": "Attach",
+   "fieldtype": "Attach Image",
    "label": "Attach Image"
   },
   {
@@ -121,9 +121,10 @@
    "label": "Disabled"
   }
  ],
+ "image_field": "attach_image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-04 10:47:14.749313",
+ "modified": "2024-03-16 20:26:57.852639",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Startup Deals",
