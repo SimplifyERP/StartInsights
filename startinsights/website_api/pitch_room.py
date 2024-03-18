@@ -204,7 +204,7 @@ def pitch_room_doc_upload(room_id,pitch_room_documents,notes):
 def get_users_with_role():
     user_type = "Investors"
     image_url = ""
-    get_profile_details = frappe.db.get_all("Profile Application",{"type_of_user":user_type},['*'])
+    get_profile_details = frappe.db.get_all("Profile Application",{"customer_group":user_type},['*'])
     format_user = []
     for profile in get_profile_details:
         if profile.profile_image:
