@@ -57,6 +57,7 @@ def get_room_details(user_id):
     try:
         get_pitch_room = frappe.db.get_all('Pitch Room',{'user_id':user_id},['name','room_name','cover_image','about_startup'], order_by='idx ASC')
         get_pitch_room_list = []
+        get_pitch_room_list.append(get_pitch_room_details_empty())
         for pitch_room in get_pitch_room:
             get_company_name = frappe.db.get_value("Profile Application",{'user_id':user_id},['company_name'])
             if get_company_name:
@@ -96,7 +97,7 @@ def get_room_details(user_id):
                     "user_name": users.user_name
                 })    
 
-            get_pitch_room_list.append(get_pitch_room_details_empty())
+            
             get_pitch_room_list.append(pitch_room_details)
 
         if not get_pitch_room_list:  # If the list is empty, add default details
