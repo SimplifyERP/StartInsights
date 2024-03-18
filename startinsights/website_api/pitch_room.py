@@ -172,28 +172,54 @@ def pitch_room_doc_upload(room_id,pitch_room_documents,notes):
         return {"status": False, "message": str(e), "pitch_room_details": pitch_room_details}
 
 
-@frappe.whitelist()
-def shared_user(user_id,user_names,pitch_room_id):
-    try:
-        pitch_room = frappe.get_doc('Pitch Room',pitch_room_id)
-        if pitch_room.user_id == user_id:
-            for name in user_names:
-                user = frappe.get_doc("User", {"first_name": name.strip()})
-                if user:
-                    pitch_room.append("shared_users", {
-                        "user_name": name.strip(),
-                        "user_id": user.name
-                    })
-                else:
-                    frappe.log_error(f"User '{name}' not found")
+# @frappe.whitelist()
+# def shared_user(user_id,user_names,pitch_room_id):
+#     try:
+#         pitch_room = frappe.get_doc('Pitch Room',pitch_room_id)
+#         if pitch_room.user_id == user_id:
+#             for name in user_names:
+#                 user = frappe.get_doc("User", {"first_name": name.strip()})
+#                 if user:
+#                     pitch_room.append("shared_users", {
+#                         "user_name": name.strip(),
+#                         "user_id": user.name
+#                     })
+#                 else:
+#                     frappe.log_error(f"User '{name}' not found")
 
-            if pitch_room.get("shared_users"):
-                pitch_room.save()
-                frappe.db.commit()
-                return {"status": True, "message": "Users added successfully"}
-            else:
-                return {"status": False, "message": "No valid users provided"}
+#             if pitch_room.get("shared_users"):
+#                 pitch_room.save()
+#                 frappe.db.commit()
+#                 return {"status": True, "message": "Users added successfully"}
+#             else:
+#                 return {"status": False, "message": "No valid users provided"}
+#         else:
+#             return {"status": False, "message": "Unauthorized user for this pitch room"}
+#     except Exception as e:
+#         return {"status": False, "message":e}
+
+
+
+@frappe.whitelist()
+def get_users_with_role():
+    user_type = "Investors"
+    image_url = ""
+    get_profile_details = frappe.db.get_all("Profile Application",{"type_of_user":user_type},['*'])
+    format_user = []
+    for profile in get_profile_details:
+        if profile.profile_image:
+            image_url = get_domain_name() + profile.profile_image
         else:
-            return {"status": False, "message": "Unauthorized user for this pitch room"}
-    except Exception as e:
-        return {"status": False, "message":e}
+            image_url = ""    
+        user_role = {
+            "user_id":profile.user_id,
+            "full_name":profile.full_name,
+            "profile_image":image_url or "",
+            "email_id":profile.email_id,
+            "designation":profile.designation or ""
+        }
+        format_user.append(user_role)
+    return {"status":True,"user_role":format_user}
+if __name__ == "__main__":
+    students_users = get_users_with_role()
+    print(f"Users with the role 'Students': {students_users}")
