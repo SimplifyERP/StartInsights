@@ -173,30 +173,20 @@ def pitch_room_doc_upload(room_id,pitch_room_documents,notes):
 
 
 #shared user id append in child table 
-
 @frappe.whitelist()
 def shared_user(user_ids, notes, pitch_room_id):
     try:
         pitch_room = frappe.get_doc('Pitch Room', pitch_room_id)
         for user_id in user_ids:
-            user = frappe.get_doc("User", {"email": user_id.strip()})
-            if user:
-                pitch_room.append("shared_users", {
-                    "user_id": user_id.strip(),
-                })
-            else:
-                return {"status": False, "message": "User with ID '{user_id}' not found"}
+            pitch_room.append("shared_users",{
+                "user_id":user_id
+            })
         pitch_room.notes = notes
-        if pitch_room.get("shared_users"):
-            pitch_room.save()
-            frappe.db.commit()
-            return {"status": True, "message": "Users added successfully"}
-        else:
-            return {"status": False, "message": "No valid users provided"}
-
+        pitch_room.save(ignore_permissions=True)
+        frappe.db.commit()
+        return {"status":True,"messsage":"Users Created Successfully"}
     except Exception as e:
         return {"status": False, "message": str(e)}
-
 
 @frappe.whitelist()
 def get_users_with_role():
