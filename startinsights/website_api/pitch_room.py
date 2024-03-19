@@ -126,8 +126,10 @@ def get_pitch_room_details_empty():
 def pitch_room_doc_upload(room_id,pitch_room_documents,notes):
     pitch_room_details = []
     try:
-        pitch_room = frappe.get_doc('Pitch Room',room_id)
-        plain_text_short_description = html2text.html2text(pitch_room.about_startup).strip()
+        pitch_room = frappe.get_doc('Pitch Room', room_id)
+        plain_text_short_description = ""
+        if pitch_room.about_startup:
+            plain_text_short_description = html2text.html2text(pitch_room.about_startup).strip()
         if pitch_room.cover_image:
             image_url = get_domain_name() + pitch_room.cover_image
         else:
@@ -139,7 +141,7 @@ def pitch_room_doc_upload(room_id,pitch_room_documents,notes):
             'about_startup': plain_text_short_description,
         }
         pitch_room_details.append(pitch_room_detail)
-        # Check if the number of existing documents exceeds 10
+        # # Check if the number of existing documents exceeds 10
         if len(pitch_room.pitch_room_documents_upload) + len(pitch_room_documents) > 10:
             return {"status": False, "message": "Cannot upload more than 10 documents.", "pitch_room_details": []}  # Changed here
         for document in pitch_room_documents:
@@ -170,7 +172,6 @@ def pitch_room_doc_upload(room_id,pitch_room_documents,notes):
     except Exception as e:
         frappe.log_error(frappe.get_traceback(), _("Error in pitch room documents upload"))
         return {"status": False, "message": str(e), "pitch_room_details": pitch_room_details}
-
 
 #shared user id append in child table 
 @frappe.whitelist()
