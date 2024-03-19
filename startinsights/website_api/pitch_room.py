@@ -172,32 +172,30 @@ def pitch_room_doc_upload(room_id,pitch_room_documents,notes):
         return {"status": False, "message": str(e), "pitch_room_details": pitch_room_details}
 
 
-# @frappe.whitelist()
-# def shared_user(user_id,user_names,pitch_room_id):
-#     try:
-#         pitch_room = frappe.get_doc('Pitch Room',pitch_room_id)
-#         if pitch_room.user_id == user_id:
-#             for name in user_names:
-#                 user = frappe.get_doc("User", {"first_name": name.strip()})
-#                 if user:
-#                     pitch_room.append("shared_users", {
-#                         "user_name": name.strip(),
-#                         "user_id": user.name
-#                     })
-#                 else:
-#                     frappe.log_error(f"User '{name}' not found")
+#shared user id append in child table 
 
-#             if pitch_room.get("shared_users"):
-#                 pitch_room.save()
-#                 frappe.db.commit()
-#                 return {"status": True, "message": "Users added successfully"}
-#             else:
-#                 return {"status": False, "message": "No valid users provided"}
-#         else:
-#             return {"status": False, "message": "Unauthorized user for this pitch room"}
-#     except Exception as e:
-#         return {"status": False, "message":e}
+@frappe.whitelist()
+def shared_user(user_ids, notes, pitch_room_id):
+    try:
+        pitch_room = frappe.get_doc('Pitch Room', pitch_room_id)
+        for user_id in user_ids:
+            user = frappe.get_doc("User", {"email": user_id.strip()})
+            if user:
+                pitch_room.append("shared_users", {
+                    "user_id": user_id.strip(),
+                })
+            else:
+                return {"status": False, "message": "User with ID '{user_id}' not found"}
+        pitch_room.notes = notes
+        if pitch_room.get("shared_users"):
+            pitch_room.save()
+            frappe.db.commit()
+            return {"status": True, "message": "Users added successfully"}
+        else:
+            return {"status": False, "message": "No valid users provided"}
 
+    except Exception as e:
+        return {"status": False, "message": str(e)}
 
 
 @frappe.whitelist()
