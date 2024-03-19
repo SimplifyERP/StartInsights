@@ -4,7 +4,7 @@ import html2text
 import base64
 from frappe.utils.file_manager import save_file
 from datetime import datetime
-from frappe.utils import now, getdate, today, format_date
+from frappe.utils import now, getdate, today, format_date,format_time
 from startinsights.custom import get_domain_name
 from frappe import _, get_doc
 
@@ -221,3 +221,78 @@ def get_users_with_role():
 if __name__ == "__main__":
     students_users = get_users_with_role()
     print(f"Users with the role 'Students': {students_users}")
+
+
+@frappe.whitelist()
+def get_pitch_room_share_list(pitch_room_id):
+    doc_url = ""
+    image_url = ""
+    company_name = ""
+    try:
+        get_pitch_room = frappe.db.get_all('Pitch Room',{'name':pitch_room_id},['*'], order_by='idx ASC')
+        get_pitch_room_list = []
+        for room in get_pitch_room:
+            get_company_name = frappe.db.get_value("Profile Application",{'user_id':room.user_id},['company_name'])
+            if get_company_name:
+                company_name = get_company_name
+            else:
+                company_name = ""    
+
+            if room.cover_image:
+                image_url = get_domain_name() + room.cover_image
+            else:
+                image_url = ""
+
+            pitch_room_details = {
+                "id": room.name,
+                "cover_image":image_url,
+                "room_name": room.room_name,
+                "company_name":company_name,
+                "about_startup": room.about_startup or "",
+                "notes":room.notes or "",
+                "documents":[],
+                "shared_users":[]
+            }
+
+            get_documents = frappe.db.get_all("Pitch Craft Document Table",{'parent':room.name},['document_type','attach'],order_by='idx ASC')
+            for documents in get_documents:
+                #the below to get the file creation date and tie
+                get_file = frappe.db.get_value("File",{"attached_to_doctype":"Pitch Room","attached_to_name":room.name},['creation'])
+                #the below method is to get the session 
+                session = check_am_pm(format_time(get_file))
+                if documents.attach:
+                    doc_url = get_domain_name() + documents.attach
+                else:
+                    doc_url = ""    
+                pitch_room_details["documents"].append({
+                    "document_type":documents.document_type,
+                    "attach": doc_url,
+                    "created_date":format_date(get_file),
+                    "created_time":format_time(get_file),
+                    "session":session
+                })
+
+            get_share_users = frappe.db.get_all("Shared Users",{'parent':room.name},['user_id','user_name'],order_by='idx ASC')
+            for users in get_share_users:
+                pitch_room_details["shared_users"].append({
+                    "user_id":users.user_id,
+                    "user_name": users.user_name
+                })    
+
+            get_pitch_room_list.append(pitch_room_details)
+        return {"status":True,"pitch_room_details":get_pitch_room_list}    
+    except Exception as e:
+        return {"status":False,"message":e}
+    
+#pass the time and get the session of AM or PM
+def check_am_pm(session_time):
+    try:
+        # Parse the time string
+        time_obj = datetime.strptime(session_time, "%H:%M")
+        # Check if the hour is less than 12, if yes, it's AM, otherwise PM
+        if time_obj.hour < 12:
+            return "AM"
+        else:
+            return "PM"
+    except ValueError:
+        return "Invalid time format"
