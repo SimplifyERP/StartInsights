@@ -124,7 +124,6 @@ def get_pitch_room_details_empty():
 # documents upload for child table
 @frappe.whitelist()
 def pitch_room_doc_upload(room_id,pitch_room_documents,notes):
-    pitch_room_details = []
     status = ""
     message = ""
     try:
