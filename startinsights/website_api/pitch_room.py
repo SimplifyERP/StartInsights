@@ -123,48 +123,50 @@ def get_pitch_room_details_empty():
 
 # documents upload for child table
 @frappe.whitelist()
-def pitch_room_doc_upload(room_id,pitch_room_documents,notes):
-    status = ""
-    message = ""
+def pitch_room_doc_upload(room_id, pitch_room_documents, notes):
     try:
         pitch_room = frappe.get_doc('Pitch Room', room_id)
-        if len(pitch_room.pitch_room_documents_upload) + len(pitch_room_documents) > 10:
-            status = False
-            message = "Only 10 Documents Attach"
-        else:
-            for document in pitch_room_documents:
-                document_type = document.get("document_type")
-                attach = document.get("attach")
-                if document_type in ["pdf","xlsx","docx","doc","png","jpg","jpeg"]:
-                    file_name_inside = document.get("name")
-                    attach_converted_url = base64.b64decode(attach)
-                    new_file_inside = frappe.new_doc('File')
-                    new_file_inside.file_name = file_name_inside
-                    new_file_inside.content = attach_converted_url
-                    new_file_inside.attached_to_doctype = "Pitch Room"
-                    new_file_inside.attached_to_name = pitch_room.name
-                    new_file_inside.attached_to_field = "attach" 
-                    new_file_inside.is_private = 0
-                    new_file_inside.save(ignore_permissions=True)
-                    frappe.db.commit()
+        total_documents = len(pitch_room.pitch_room_documents_upload) + len(pitch_room_documents)
+        
+        # if total_documents > 10:
+        #     return {"status": False, "message": "Only 10 Documents Allowed"}
 
-                    pitch_room_doc_upload = frappe.get_doc('Pitch Room', room_id)
-                    pitch_room_doc_upload.append("pitch_room_documents_upload", {
-                        "document_type": document_type,
-                        "attach": new_file_inside.file_url
-                    })
-                    pitch_room_doc_upload.notes = notes
-                    pitch_room_doc_upload.save(ignore_permissions=True)
-                    frappe.db.commit()
+        for document in pitch_room_documents:
+            if not isinstance(document, dict):
+                return {"status": False, "message": "Invalid document format"}
 
-                    status = True
-                    message = "Document Upload Successfully"
-                else:
-                    status = False
-                    message = "The Given Document Type is not in database"
-        return {"status":status,"message":message}
+            document_type = document.get("document_type")
+            if not document_type or document_type.lower() not in ["pdf", "xlsx", "docx", "doc", "png", "jpg", "jpeg"]:
+                return {"status": False, "message": "Invalid Document Type"}
+
+            attach = document.get("attach")
+            if not attach:
+                return {"status": False, "message": "Attachment missing"}
+
+            file_name = document.get("name")
+            attach_content = base64.b64decode(attach)
+            
+            new_file = frappe.new_doc('File')
+            new_file.file_name = file_name
+            new_file.content = attach_content
+            new_file.attached_to_doctype = "Pitch Room"
+            new_file.attached_to_name = pitch_room.name
+            new_file.is_private = 0
+            new_file.save(ignore_permissions=True)
+
+            pitch_room.append("pitch_room_documents_upload", {
+                "document_type": document_type,
+                "attach": new_file.file_url
+            })
+
+        pitch_room.notes = notes
+        pitch_room.save(ignore_permissions=True)
+        frappe.db.commit()
+
+        return {"status": True, "message": "Documents Uploaded Successfully"}
+
     except Exception as e:
-        return {"status":False,"message":e}
+        return {"status": False, "message": str(e)}
 
 #shared user id append in child table 
 @frappe.whitelist()
