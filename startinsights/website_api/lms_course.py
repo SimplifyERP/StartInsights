@@ -234,7 +234,7 @@ def get_favourite_courses(user_id,status):
                 
             }
             learn_list.append(listed_courses)
-        return {"status":True,"course_list":learn_list}
+        return {"status":True,"courses_list":learn_list}
     except Exception as e:
         return {"status":False,"message":e}
 
