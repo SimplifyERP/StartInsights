@@ -14,6 +14,7 @@ def get_events(user_id):
     try:
         events = frappe.db.get_all("SI Events",{"disabled":0},['*'])
         live_event_list = []
+        recorded_event_list = []
         for event in events:
             if event.type_of_event == "Live Event":
                 if event.live_event_image:
@@ -47,8 +48,9 @@ def get_events(user_id):
                     "title":event.record_event_title,
                     "event_url":event.youtube_link or ""
                 }
+                recorded_event_list.append(recorded_event)
                 status = True
-        return {"status":status,"live_event":live_event_list,"recorded_event":recorded_event}        
+        return {"status":status,"live_event":live_event_list,"recorded_event":recorded_event_list}        
     except Exception as e:
         return {"status":False,"message":e}
 
