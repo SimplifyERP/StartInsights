@@ -1,0 +1,144 @@
+{
+ "actions": [],
+ "autoname": "format:{EVENT}-{type_of_event}-{#####}",
+ "creation": "2024-03-25 09:44:13.855441",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "event_type_section",
+  "type_of_event",
+  "column_break_ncjw",
+  "disabled",
+  "live_event_details_section",
+  "live_event_image",
+  "live_event_date",
+  "column_break_ybxj",
+  "live_event_title",
+  "live_event_time",
+  "section_break_tyhg",
+  "live_event_speakers",
+  "section_break_sgxr",
+  "record_event_image",
+  "youtube_link",
+  "column_break_ffaz",
+  "record_event_title"
+ ],
+ "fields": [
+  {
+   "fieldname": "type_of_event",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Type of Event",
+   "options": "\nLive Event\nRecorded Event",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.type_of_event == \"Live Event\"",
+   "fieldname": "live_event_details_section",
+   "fieldtype": "Section Break",
+   "label": "Live Event Details"
+  },
+  {
+   "fieldname": "live_event_image",
+   "fieldtype": "Attach Image",
+   "label": "Live Event Image"
+  },
+  {
+   "fieldname": "column_break_ybxj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "live_event_title",
+   "fieldtype": "Data",
+   "label": "Live Event Title"
+  },
+  {
+   "fieldname": "live_event_date",
+   "fieldtype": "Date",
+   "label": "Live Event Date"
+  },
+  {
+   "fieldname": "live_event_time",
+   "fieldtype": "Time",
+   "label": "Live Event Time"
+  },
+  {
+   "fieldname": "event_type_section",
+   "fieldtype": "Section Break",
+   "label": "Event Type"
+  },
+  {
+   "depends_on": "eval:doc.type_of_event == \"Live Event\"",
+   "fieldname": "section_break_tyhg",
+   "fieldtype": "Section Break",
+   "label": "Speakers"
+  },
+  {
+   "fieldname": "live_event_speakers",
+   "fieldtype": "Table",
+   "label": "Live Event Speakers",
+   "options": "Event Speakers Table"
+  },
+  {
+   "depends_on": "eval:doc.type_of_event == \"Recorded Event\"",
+   "fieldname": "section_break_sgxr",
+   "fieldtype": "Section Break",
+   "label": "Recorded Event"
+  },
+  {
+   "fieldname": "record_event_image",
+   "fieldtype": "Attach Image",
+   "label": "Record Event Image"
+  },
+  {
+   "fieldname": "column_break_ffaz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "record_event_title",
+   "fieldtype": "Data",
+   "label": "Record Event Title"
+  },
+  {
+   "fieldname": "youtube_link",
+   "fieldtype": "Data",
+   "label": "YouTube Link",
+   "options": "\nURL\n"
+  },
+  {
+   "fieldname": "column_break_ncjw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-03-25 10:58:46.431784",
+ "modified_by": "Administrator",
+ "module": "START INSIGHTS",
+ "name": "SI Events",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

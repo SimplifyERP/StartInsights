@@ -1,0 +1,81 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "RE-EVENT-.####",
+ "creation": "2024-03-25 11:47:18.902663",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "user_id",
+  "column_break_yewt",
+  "full_name",
+  "event_details_section",
+  "event_id",
+  "column_break_jvqg",
+  "event_title"
+ ],
+ "fields": [
+  {
+   "fieldname": "user_id",
+   "fieldtype": "Link",
+   "label": "User ID",
+   "options": "User"
+  },
+  {
+   "fieldname": "column_break_yewt",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "user_id.first_name",
+   "fieldname": "full_name",
+   "fieldtype": "Data",
+   "label": "Full Name"
+  },
+  {
+   "fieldname": "event_details_section",
+   "fieldtype": "Section Break",
+   "label": "Event Details"
+  },
+  {
+   "fieldname": "event_id",
+   "fieldtype": "Link",
+   "label": "Event ID",
+   "options": "SI Events"
+  },
+  {
+   "fieldname": "column_break_jvqg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "event_id.live_event_title",
+   "fieldname": "event_title",
+   "fieldtype": "Data",
+   "label": "Event Title"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-03-25 12:54:58.371250",
+ "modified_by": "Administrator",
+ "module": "START INSIGHTS",
+ "name": "Registered Event",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
