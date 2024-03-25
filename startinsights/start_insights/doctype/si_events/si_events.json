@@ -1,6 +1,6 @@
 {
  "actions": [],
- "autoname": "format:{EVENT}-{type_of_event}-{#####}",
+ "autoname": "format:{ET}-{type_of_event}-{#####}",
  "creation": "2024-03-25 09:44:13.855441",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -11,17 +11,19 @@
   "disabled",
   "live_event_details_section",
   "live_event_image",
-  "live_event_date",
+  "event_start_date_time",
+  "live_event_description",
   "column_break_ybxj",
   "live_event_title",
-  "live_event_time",
+  "event_end_date_time",
   "section_break_tyhg",
   "live_event_speakers",
   "section_break_sgxr",
   "record_event_image",
   "youtube_link",
   "column_break_ffaz",
-  "record_event_title"
+  "record_event_title",
+  "recorded_description"
  ],
  "fields": [
   {
@@ -51,16 +53,6 @@
    "fieldname": "live_event_title",
    "fieldtype": "Data",
    "label": "Live Event Title"
-  },
-  {
-   "fieldname": "live_event_date",
-   "fieldtype": "Date",
-   "label": "Live Event Date"
-  },
-  {
-   "fieldname": "live_event_time",
-   "fieldtype": "Time",
-   "label": "Live Event Time"
   },
   {
    "fieldname": "event_type_section",
@@ -114,11 +106,31 @@
    "fieldname": "disabled",
    "fieldtype": "Check",
    "label": "Disabled"
+  },
+  {
+   "fieldname": "event_end_date_time",
+   "fieldtype": "Datetime",
+   "label": "Event End Date Time"
+  },
+  {
+   "fieldname": "live_event_description",
+   "fieldtype": "Small Text",
+   "label": "Live Event Description"
+  },
+  {
+   "fieldname": "recorded_description",
+   "fieldtype": "Small Text",
+   "label": "Recorded Description"
+  },
+  {
+   "fieldname": "event_start_date_time",
+   "fieldtype": "Datetime",
+   "label": "Event Start Date Time"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-25 10:58:46.431784",
+ "modified": "2024-03-25 15:41:17.089138",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "SI Events",

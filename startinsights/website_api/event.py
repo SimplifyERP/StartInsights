@@ -12,7 +12,7 @@ def get_events(user_id):
     recorded_event_image_url = ""
     is_registered = False
     try:
-        events = frappe.db.get_all("SI Events",{"disabled":0},['*'])
+        events = frappe.db.get_all("SI Events",{"disabled":0},['*'],order_by='idx ASC')
         live_event_list = []
         recorded_event_list = []
         for event in events:
@@ -21,19 +21,24 @@ def get_events(user_id):
                     live_event_image_url = get_domain_name() + event.live_event_image
                 else:
                     live_event_image_url = ""    
-                session = check_am_pm(format_time(event.live_event_time))
+                start_time_change = change_time_format(format_time(event.event_start_date_time))
+                end_time_change = change_time_format(format_time(event.event_end_date_time))
                 if frappe.db.exists("Registered Event",{"user_id":user_id,"event_id":event.name}):
                     is_registered = True
                 else:
                     is_registered = False    
-                speakers_table = frappe.db.get_all("Event Speakers Table",{"parent":event.name},['speakers_name'])
+                speakers_table = frappe.db.get_all("Event Speakers Table",{"parent":event.name},['speakers_name',"description"],order_by='idx ASC')
                 live_event = {
+                    "id":event.name,
+                    "event_id":event.name,
                     "event_image":live_event_image_url,
                     "title":event.live_event_title,
-                    "event_date":format_date(event.live_event_date),
-                    "event_time":format_time(event.live_event_time),
-                    "event_session":session,
+                    "event_start_date":format_date(event.event_start_date_time),
+                    "event_end_date":format_date(event.event_end_date_time),
+                    "event_start_time":start_time_change,
+                    "event_end_time":end_time_change,
                     "is_registered":is_registered,
+                    "description":event.live_event_description,
                     "event_speakers":speakers_table
                 }
                 live_event_list.append(live_event)
@@ -46,7 +51,8 @@ def get_events(user_id):
                 recorded_event = {
                     "event_image":recorded_event_image_url,
                     "title":event.record_event_title,
-                    "event_url":event.youtube_link or ""
+                    "event_url":event.youtube_link or "",
+                    "description":event.recorded_description
                 }
                 recorded_event_list.append(recorded_event)
                 status = True
@@ -88,3 +94,8 @@ def check_am_pm(session_time):
             return "PM"
     except ValueError:
         return "Invalid time format"
+
+def change_time_format(time_change):
+    time_obj = datetime.strptime(time_change, "%H:%M")    
+    time_12hr = time_obj.strftime("%I:%M %p")
+    return time_12hr
