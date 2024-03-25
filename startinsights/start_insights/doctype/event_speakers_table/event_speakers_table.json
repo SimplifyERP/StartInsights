@@ -1,0 +1,31 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-03-25 09:48:25.963890",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "speakers_name"
+ ],
+ "fields": [
+  {
+   "fieldname": "speakers_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Speakers Name"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-03-25 09:48:44.275191",
+ "modified_by": "Administrator",
+ "module": "START INSIGHTS",
+ "name": "Event Speakers Table",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
