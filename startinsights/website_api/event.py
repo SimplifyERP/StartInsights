@@ -49,6 +49,8 @@ def get_events(user_id):
                 else:
                     recorded_event_image_url = "" 
                 recorded_event = {
+                    "id":event.name,
+                    "event_id":event.name,
                     "event_image":recorded_event_image_url,
                     "title":event.record_event_title,
                     "event_url":event.youtube_link or "",
