@@ -1,0 +1,47 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-03-25 14:28:33.030064",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "notes_section",
+  "pitch_room_notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "notes_section",
+   "fieldtype": "Section Break",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "pitch_room_notes",
+   "fieldtype": "Small Text",
+   "label": "Pitch Room Notes"
+  }
+ ],
+ "hide_toolbar": 1,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2024-03-25 14:29:02.708346",
+ "modified_by": "Administrator",
+ "module": "START INSIGHTS",
+ "name": "Pitch Room Notes",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

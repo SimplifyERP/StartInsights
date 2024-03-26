@@ -26,7 +26,7 @@ def create_pitch_room(cover_image,pitch_room_name,about_startup,user_id):
             frappe.db.commit()
             frappe.db.set_value("Pitch Room",new_room.name,'owner',user_id)
 
-            file_name_inside = f"{new_room.name.replace(' ', '_')}cover_imgae.jpg"
+            file_name_inside = f"{pitch_room_name.replace(' ', '_')}cover_imgae.jpg"
             new_file_inside = frappe.new_doc('File')
             new_file_inside.file_name = file_name_inside
             new_file_inside.content = cover_image_converted_image
@@ -75,18 +75,19 @@ def get_room_details(user_id):
                 "room_name": pitch_room.room_name,
                 "company_name":company_name,
                 "about_startup": pitch_room.about_startup or "",
-                "notes":pitch_room.notes or "",
+                "notes":get_room_notes() or "",
                 "documents":[],
                 "shared_users":[]
             }
             #get the documents upload child table list
-            get_documents = frappe.db.get_all("Pitch Craft Document Table",{'parent':pitch_room.name},['document_type','attach'],order_by='idx ASC')
+            get_documents = frappe.db.get_all("Pitch Craft Document Table",{'parent':pitch_room.name},['name','document_type','attach'],order_by='idx ASC')
             for documents in get_documents:
                 if documents.attach:
                     doc_url = get_domain_name() + documents.attach
                 else:
                     doc_url = ""    
                 pitch_room_details["documents"].append({
+                    "doc_id":documents.name,
                     "document_type":documents.document_type,
                     "attach": doc_url
                 })
@@ -97,9 +98,7 @@ def get_room_details(user_id):
                     "user_name": users.user_name
                 })    
 
-            
             get_pitch_room_list.append(pitch_room_details)
-
         if not get_pitch_room_list:  # If the list is empty, add default details
             get_pitch_room_list.append(get_pitch_room_details_empty())
             
@@ -123,61 +122,73 @@ def get_pitch_room_details_empty():
 
 # documents upload for child table
 @frappe.whitelist()
-def pitch_room_doc_upload(room_id, pitch_room_documents, notes):
+def pitch_room_update(room_id,room_name,about_startup,cover_image,upload_doc,users_shared):
     try:
-        pitch_room = frappe.get_doc('Pitch Room', room_id)
-        total_documents = len(pitch_room.pitch_room_documents_upload) + len(pitch_room_documents)
-        
-        # if total_documents > 10:
-        #     return {"status": False, "message": "Only 10 Documents Allowed"}
-
-        for document in pitch_room_documents:
-            if not isinstance(document, dict):
-                return {"status": False, "message": "Invalid document format"}
-
-            document_type = document.get("document_type")
-            if not document_type or document_type.lower() not in ["pdf", "xlsx", "docx", "doc", "png", "jpg", "jpeg"]:
-                return {"status": False, "message": "Invalid Document Type"}
-
-            attach = document.get("attach")
-            if not attach:
-                return {"status": False, "message": "Attachment missing"}
-
-            file_name = document.get("name")
-            attach_content = base64.b64decode(attach)
-            
-            new_file = frappe.new_doc('File')
-            new_file.file_name = file_name
-            new_file.content = attach_content
-            new_file.attached_to_doctype = "Pitch Room"
-            new_file.attached_to_name = pitch_room.name
-            new_file.is_private = 0
-            new_file.save(ignore_permissions=True)
-
-            pitch_room.append("pitch_room_documents_upload", {
-                "document_type": document_type,
-                "attach": new_file.file_url
+        base64_to_image = base64.b64decode(cover_image)
+        get_room = frappe.get_doc("Pitch Room",room_id)
+        get_room.room_name = room_name
+        get_room.about_startup = about_startup
+        get_room.set("shared_users",[])
+        for user_id in users_shared:
+            get_room.append("shared_users",{
+                "user_id":user_id
             })
-
-        pitch_room.notes = notes
-        pitch_room.save(ignore_permissions=True)
+        get_room.save(ignore_permissions=True)
         frappe.db.commit()
 
-        return {"status": True, "message": "Documents Uploaded Successfully"}
-
+        if base64_to_image:
+            file_name_inside = f"{room_name.replace(' ', '_')}cover_imgae.jpg"
+            new_file_inside = frappe.new_doc('File')
+            new_file_inside.file_name = file_name_inside
+            new_file_inside.content = base64_to_image
+            new_file_inside.attached_to_doctype = "Pitch Room"
+            new_file_inside.attached_to_name = get_room.name
+            new_file_inside.attached_to_field = "cover_image"
+            new_file_inside.is_private = 0
+            new_file_inside.save(ignore_permissions=True)
+            frappe.db.commit()
+            frappe.db.set_value("Pitch Room",get_room.name,'cover_image',new_file_inside.file_url)
+        upload_pitch_room_doc(upload_doc,room_id)    
+        return {"status":True,"message":"Room Updated"}
     except Exception as e:
         return {"status": False, "message": str(e)}
 
+def upload_pitch_room_doc(upload_doc,room_id):
+    for document in upload_doc:
+        document_type = document.get("document_type")
+        doc_name = document.get("name")
+        attach = document.get("attach")
+        if document_type in ["pdf","docx","doc","xlsx","png","jpg","jpeg"]:
+            file_name_inside = doc_name
+            attach_converted_url = base64.b64decode(attach)
+            new_file_inside = frappe.new_doc('File')
+            new_file_inside.file_name = file_name_inside
+            new_file_inside.content = attach_converted_url
+            new_file_inside.attached_to_doctype = "Pitch Room"
+            new_file_inside.attached_to_name = room_id
+            new_file_inside.attached_to_field = "attach" 
+            new_file_inside.is_private = 0
+            new_file_inside.save(ignore_permissions=True)
+            frappe.db.commit()
+            
+            doc_upload_room = frappe.get_doc("Pitch Room",room_id)
+            doc_upload_room.append("pitch_room_documents_upload",{
+                "document_type":document_type,
+                "attach":new_file_inside.file_url
+            })
+            doc_upload_room.save(ignore_permissions=True)
+            frappe.db.commit()
+
+
 #shared user id append in child table 
 @frappe.whitelist()
-def shared_user(user_ids, notes, pitch_room_id):
+def shared_user(user_ids, pitch_room_id):
     try:
         pitch_room = frappe.get_doc('Pitch Room', pitch_room_id)
         for user_id in user_ids:
             pitch_room.append("shared_users",{
                 "user_id":user_id
             })
-        pitch_room.notes = notes
         pitch_room.save(ignore_permissions=True)
         frappe.db.commit()
         return {"status":True,"messsage":"Users Created Successfully"}
@@ -235,7 +246,7 @@ def get_pitch_room_share_list(pitch_room_id):
                 "room_name": room.room_name,
                 "company_name":company_name,
                 "about_startup": room.about_startup or "",
-                "notes":room.notes or "",
+                "notes": get_room_notes() or "",
                 "documents":[],
                 "shared_users":[]
             }
@@ -245,7 +256,6 @@ def get_pitch_room_share_list(pitch_room_id):
                 #the below to get the file creation date and tie
                 get_file = frappe.db.get_value("File",{"attached_to_doctype":"Pitch Room","attached_to_name":room.name},['creation'])
                 #the below method is to get the session 
-                session = check_am_pm(format_time(get_file))
                 if documents.attach:
                     doc_url = get_domain_name() + documents.attach
                 else:
@@ -254,8 +264,7 @@ def get_pitch_room_share_list(pitch_room_id):
                     "document_type":documents.document_type,
                     "attach": doc_url,
                     "created_date":format_date(get_file),
-                    "created_time":format_time(get_file),
-                    "session":session
+                    "created_time":change_time_format(format_time(get_file)),
                 })
 
             get_share_users = frappe.db.get_all("Shared Users",{'parent':room.name},['user_id','user_name'],order_by='idx ASC')
@@ -282,3 +291,14 @@ def check_am_pm(session_time):
             return "PM"
     except ValueError:
         return "Invalid time format"
+
+#get the room notes by default for all
+def get_room_notes():
+    notes  = frappe.db.get_single_value("Pitch Room Notes","pitch_room_notes")
+    return notes
+
+#time change to 24 Hr to 12 Hr
+def change_time_format(time_change):
+    time_obj = datetime.strptime(time_change, "%H:%M")    
+    time_12hr = time_obj.strftime("%I:%M %p")
+    return time_12hr

@@ -16,9 +16,6 @@
   "documents_upload_tab",
   "mutiple_documents_upload_section",
   "pitch_room_documents_upload",
-  "pitch_room_notes_tab",
-  "room_notes_section",
-  "notes",
   "shared_users_tab",
   "users_section",
   "shared_users"
@@ -59,19 +56,9 @@
   {
    "fieldname": "user_id",
    "fieldtype": "Link",
-   "hidden": 1,
    "label": "User ID",
-   "options": "User"
-  },
-  {
-   "fieldname": "pitch_room_notes_tab",
-   "fieldtype": "Tab Break",
-   "label": "Notes"
-  },
-  {
-   "fieldname": "notes",
-   "fieldtype": "Small Text",
-   "label": "Notes"
+   "options": "User",
+   "read_only": 1
   },
   {
    "fieldname": "pitch_room_documents_upload",
@@ -101,11 +88,6 @@
    "label": "Mutiple Documents Upload"
   },
   {
-   "fieldname": "room_notes_section",
-   "fieldtype": "Section Break",
-   "label": "Room Notes"
-  },
-  {
    "fieldname": "users_section",
    "fieldtype": "Section Break",
    "label": "Users"
@@ -114,7 +96,7 @@
  "image_field": "cover_image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-14 15:11:23.627331",
+ "modified": "2024-03-26 10:12:56.068885",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Pitch Room",
