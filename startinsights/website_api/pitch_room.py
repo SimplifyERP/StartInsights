@@ -81,17 +81,21 @@ def get_room_details(user_id):
                 "shared_users":[]
             }
             #get the documents upload child table list
-            get_documents = frappe.db.get_all("Pitch Craft Document Table",{'parent':pitch_room.name},['name','document_type','attach'],order_by='idx ASC')
+            get_documents = frappe.db.get_all("Pitch Craft Document Table",{'parent':pitch_room.name},['name','doc_name','document_type','attach'],order_by='idx ASC')
             for documents in get_documents:
+                get_file = frappe.db.get_value("File",{"attached_to_doctype":"Pitch Room","attached_to_name":pitch_room.name},['creation'])
                 if documents.attach:
                     doc_url = get_domain_name() + documents.attach
                 else:
                     doc_url = ""    
                 pitch_room_details["documents"].append({
                     "doc_id":documents.name,
-                    # "doc_name":documents.
+                    "doc_name":documents.doc_name,
                     "document_type":documents.document_type,
-                    "attach": doc_url
+                    "attach": doc_url,
+                    "is_upload":True,
+                    "created_date":format_date(get_file),
+                    "created_time":change_time_format(format_time(get_file)),
                 })
             get_share_users = frappe.db.get_all("Shared Users",{'parent':pitch_room.name},['user_id','user_name'],order_by='idx ASC')
             for users in get_share_users:
@@ -234,67 +238,67 @@ if __name__ == "__main__":
     print(f"Users with the role 'Students': {students_users}")
 
 
-@frappe.whitelist()
-def get_pitch_room_share_list(pitch_room_id):
-    doc_url = ""
-    image_url = ""
-    company_name = ""
-    try:
-        get_pitch_room = frappe.db.get_all('Pitch Room',{'name':pitch_room_id},['*'], order_by='idx ASC')
-        get_pitch_room_list = []
-        for room in get_pitch_room:
-            get_company_name = frappe.db.get_value("Profile Application",{'user_id':room.user_id},['company_name'])
-            if get_company_name:
-                company_name = get_company_name
-            else:
-                company_name = ""    
+# @frappe.whitelist()
+# def get_pitch_room_share_list(pitch_room_id):
+#     doc_url = ""
+#     image_url = ""
+#     company_name = ""
+#     try:
+#         get_pitch_room = frappe.db.get_all('Pitch Room',{'name':pitch_room_id},['*'], order_by='idx ASC')
+#         get_pitch_room_list = []
+#         for room in get_pitch_room:
+#             get_company_name = frappe.db.get_value("Profile Application",{'user_id':room.user_id},['company_name'])
+#             if get_company_name:
+#                 company_name = get_company_name
+#             else:
+#                 company_name = ""    
 
-            if room.cover_image:
-                image_url = get_domain_name() + room.cover_image
-            else:
-                image_url = ""
+#             if room.cover_image:
+#                 image_url = get_domain_name() + room.cover_image
+#             else:
+#                 image_url = ""
 
-            pitch_room_details = {
-                "id": room.name,
-                "cover_image":image_url,
-                "room_name": room.room_name,
-                "company_name":company_name,
-                "about_startup": room.about_startup or "",
-                "notes": get_room_notes() or "",
-                "documents":[],
-                "shared_users":[]
-            }
+#             pitch_room_details = {
+#                 "id": room.name,
+#                 "cover_image":image_url,
+#                 "room_name": room.room_name,
+#                 "company_name":company_name,
+#                 "about_startup": room.about_startup or "",
+#                 "notes": get_room_notes() or "",
+#                 "documents":[],
+#                 "shared_users":[]
+#             }
 
-            get_documents = frappe.db.get_all("Pitch Craft Document Table",{'parent':room.name},['name','doc_name','document_type','attach'],order_by='idx ASC')
-            for documents in get_documents:
-                #the below to get the file creation date and tie
-                get_file = frappe.db.get_value("File",{"attached_to_doctype":"Pitch Room","attached_to_name":room.name},['creation'])
-                #the below method is to get the session 
-                if documents.attach:
-                    doc_url = get_domain_name() + documents.attach
-                else:
-                    doc_url = ""    
-                pitch_room_details["documents"].append({
-                    "doc_id":documents.name,
-                    "doc_name":documents.doc_name,
-                    "document_type":documents.document_type,
-                    "attach": doc_url,
-                    "is_upload":True,
-                    "created_date":format_date(get_file),
-                    "created_time":change_time_format(format_time(get_file)),
-                })
+#             get_documents = frappe.db.get_all("Pitch Craft Document Table",{'parent':room.name},['name','doc_name','document_type','attach'],order_by='idx ASC')
+#             for documents in get_documents:
+#                 #the below to get the file creation date and tie
+#                 get_file = frappe.db.get_value("File",{"attached_to_doctype":"Pitch Room","attached_to_name":room.name},['creation'])
+#                 #the below method is to get the session 
+#                 if documents.attach:
+#                     doc_url = get_domain_name() + documents.attach
+#                 else:
+#                     doc_url = ""    
+#                 pitch_room_details["documents"].append({
+#                     "doc_id":documents.name,
+#                     "doc_name":documents.doc_name,
+#                     "document_type":documents.document_type,
+#                     "attach": doc_url,
+#                     "is_upload":True,
+#                     "created_date":format_date(get_file),
+#                     "created_time":change_time_format(format_time(get_file)),
+#                 })
 
-            get_share_users = frappe.db.get_all("Shared Users",{'parent':room.name},['user_id','user_name'],order_by='idx ASC')
-            for users in get_share_users:
-                pitch_room_details["shared_users"].append({
-                    "user_id":users.user_id,
-                    "user_name": users.user_name
-                })    
+#             get_share_users = frappe.db.get_all("Shared Users",{'parent':room.name},['user_id','user_name'],order_by='idx ASC')
+#             for users in get_share_users:
+#                 pitch_room_details["shared_users"].append({
+#                     "user_id":users.user_id,
+#                     "user_name": users.user_name
+#                 })    
 
-            get_pitch_room_list.append(pitch_room_details)
-        return {"status":True,"pitch_room_details":get_pitch_room_list}    
-    except Exception as e:
-        return {"status":False,"message":e}
+#             get_pitch_room_list.append(pitch_room_details)
+#         return {"status":True,"pitch_room_details":get_pitch_room_list}    
+#     except Exception as e:
+#         return {"status":False,"message":e}
     
 #pass the time and get the session of AM or PM
 def check_am_pm(session_time):
