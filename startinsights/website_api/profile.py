@@ -73,3 +73,22 @@ def update_profile(full_name,mobile_no,email_id,designation,company_name,linkedi
         return {"status":True,"userinfo":user_details}
     except Exception as e:
         return {"status":False,"message":e}
+
+@frappe.whitelist()
+def get_profile_details(user_id):
+    try:
+        get_profile = frappe.get_doc("Profile Application",user_id)
+        profile_details = {
+            "id":get_profile.name,
+            "name":get_profile.name,
+            "full_name":get_profile.full_name,
+            "phone_no":get_profile.phone_no,
+            "email":get_profile.email_id,
+            "company":get_profile.company_name,
+            "linkedin":get_profile.linkedin,
+            "profile_image":get_profile.profile_image,
+            "website":get_profile.website,
+
+        }
+    except Exception as e:
+        return {"status":False,"message":e}

@@ -7,6 +7,7 @@ from datetime import datetime
 from frappe.utils import now, getdate, today, format_date,format_time
 from startinsights.custom import get_domain_name
 from frappe import _, get_doc
+import json
 
 
 # Creating a new pitch room list
@@ -88,6 +89,7 @@ def get_room_details(user_id):
                     doc_url = ""    
                 pitch_room_details["documents"].append({
                     "doc_id":documents.name,
+                    # "doc_name":documents.
                     "document_type":documents.document_type,
                     "attach": doc_url
                 })
@@ -123,13 +125,18 @@ def get_pitch_room_details_empty():
 # documents upload for child table
 @frappe.whitelist()
 def pitch_room_update(room_id,room_name,about_startup,cover_image,upload_doc,users_shared):
+    status = ""
+    message = ""
     try:
+        decode_json_users = json.loads(users_shared)
+        decode_doc_json = json.loads(upload_doc)
         base64_to_image = base64.b64decode(cover_image)
+
         get_room = frappe.get_doc("Pitch Room",room_id)
         get_room.room_name = room_name
         get_room.about_startup = about_startup
         get_room.set("shared_users",[])
-        for user_id in users_shared:
+        for user_id in decode_json_users:
             get_room.append("shared_users",{
                 "user_id":user_id
             })
@@ -148,36 +155,43 @@ def pitch_room_update(room_id,room_name,about_startup,cover_image,upload_doc,use
             new_file_inside.save(ignore_permissions=True)
             frappe.db.commit()
             frappe.db.set_value("Pitch Room",get_room.name,'cover_image',new_file_inside.file_url)
-        upload_pitch_room_doc(upload_doc,room_id)    
-        return {"status":True,"message":"Room Updated"}
+
+        doc_table_count = (len(get_room.pitch_room_documents_upload) + len(upload_doc))
+        if doc_table_count > 10:
+            for document in decode_doc_json:
+                document_type = document.get("document_type")
+                doc_name = document.get("name")
+                attach = document.get("attach")
+                if document_type in ["pdf","docx","doc","xlsx","png","jpg","jpeg"]:
+                    file_name_inside = doc_name
+                    attach_converted_url = base64.b64decode(attach)
+                    new_file_inside = frappe.new_doc('File')
+                    new_file_inside.file_name = file_name_inside
+                    new_file_inside.content = attach_converted_url
+                    new_file_inside.attached_to_doctype = "Pitch Room"
+                    new_file_inside.attached_to_name = room_id
+                    new_file_inside.attached_to_field = "attach" 
+                    new_file_inside.is_private = 0
+                    new_file_inside.save(ignore_permissions=True)
+                    frappe.db.commit()
+                    
+                    doc_upload_room = frappe.get_doc("Pitch Room",room_id)
+                    doc_upload_room.append("pitch_room_documents_upload",{
+                        "document_type":document_type,
+                        "doc_name":doc_name,
+                        "attach":new_file_inside.file_url
+                    })
+                    doc_upload_room.save(ignore_permissions=True)
+                    frappe.db.commit()
+                    
+                    status = True
+                    message = "Room Updated"
+        else:
+            status = False
+            message = "File limit is 10 Please remove extra files"   
+        return {"status":status,"message":message}
     except Exception as e:
         return {"status": False, "message": str(e)}
-
-def upload_pitch_room_doc(upload_doc,room_id):
-    for document in upload_doc:
-        document_type = document.get("document_type")
-        doc_name = document.get("name")
-        attach = document.get("attach")
-        if document_type in ["pdf","docx","doc","xlsx","png","jpg","jpeg"]:
-            file_name_inside = doc_name
-            attach_converted_url = base64.b64decode(attach)
-            new_file_inside = frappe.new_doc('File')
-            new_file_inside.file_name = file_name_inside
-            new_file_inside.content = attach_converted_url
-            new_file_inside.attached_to_doctype = "Pitch Room"
-            new_file_inside.attached_to_name = room_id
-            new_file_inside.attached_to_field = "attach" 
-            new_file_inside.is_private = 0
-            new_file_inside.save(ignore_permissions=True)
-            frappe.db.commit()
-            
-            doc_upload_room = frappe.get_doc("Pitch Room",room_id)
-            doc_upload_room.append("pitch_room_documents_upload",{
-                "document_type":document_type,
-                "attach":new_file_inside.file_url
-            })
-            doc_upload_room.save(ignore_permissions=True)
-            frappe.db.commit()
 
 
 #shared user id append in child table 
@@ -251,7 +265,7 @@ def get_pitch_room_share_list(pitch_room_id):
                 "shared_users":[]
             }
 
-            get_documents = frappe.db.get_all("Pitch Craft Document Table",{'parent':room.name},['document_type','attach'],order_by='idx ASC')
+            get_documents = frappe.db.get_all("Pitch Craft Document Table",{'parent':room.name},['name','doc_name','document_type','attach'],order_by='idx ASC')
             for documents in get_documents:
                 #the below to get the file creation date and tie
                 get_file = frappe.db.get_value("File",{"attached_to_doctype":"Pitch Room","attached_to_name":room.name},['creation'])
@@ -261,8 +275,11 @@ def get_pitch_room_share_list(pitch_room_id):
                 else:
                     doc_url = ""    
                 pitch_room_details["documents"].append({
+                    "doc_id":documents.name,
+                    "doc_name":documents.doc_name,
                     "document_type":documents.document_type,
                     "attach": doc_url,
+                    "is_upload":True,
                     "created_date":format_date(get_file),
                     "created_time":change_time_format(format_time(get_file)),
                 })
