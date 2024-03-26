@@ -90,7 +90,7 @@ def get_room_details(user_id):
                     doc_url = ""    
                 pitch_room_details["documents"].append({
                     "doc_id":documents.name,
-                    "doc_name":documents.doc_name,
+                    "doc_name":documents.doc_name or "",
                     "document_type":documents.document_type,
                     "attach": doc_url,
                     "is_upload":True,
@@ -101,7 +101,7 @@ def get_room_details(user_id):
             for users in get_share_users:
                 pitch_room_details["shared_users"].append({
                     "user_id":users.user_id,
-                    "user_name": users.user_name
+                    "user_name": users.user_name or ""
                 })    
 
             get_pitch_room_list.append(pitch_room_details)
@@ -146,6 +146,9 @@ def pitch_room_update(room_id,room_name,about_startup,cover_image,upload_doc,use
             })
         get_room.save(ignore_permissions=True)
         frappe.db.commit()
+        
+        status = True
+        message = "Room Updated"
 
         if base64_to_image:
             file_name_inside = f"{room_name.replace(' ', '_')}cover_imgae.jpg"
@@ -160,39 +163,42 @@ def pitch_room_update(room_id,room_name,about_startup,cover_image,upload_doc,use
             frappe.db.commit()
             frappe.db.set_value("Pitch Room",get_room.name,'cover_image',new_file_inside.file_url)
 
-        doc_table_count = (len(get_room.pitch_room_documents_upload) + len(upload_doc))
-        if doc_table_count > 10:
-            for document in decode_doc_json:
-                document_type = document.get("document_type")
-                doc_name = document.get("name")
-                attach = document.get("attach")
-                if document_type in ["pdf","docx","doc","xlsx","png","jpg","jpeg"]:
-                    file_name_inside = doc_name
-                    attach_converted_url = base64.b64decode(attach)
-                    new_file_inside = frappe.new_doc('File')
-                    new_file_inside.file_name = file_name_inside
-                    new_file_inside.content = attach_converted_url
-                    new_file_inside.attached_to_doctype = "Pitch Room"
-                    new_file_inside.attached_to_name = room_id
-                    new_file_inside.attached_to_field = "attach" 
-                    new_file_inside.is_private = 0
-                    new_file_inside.save(ignore_permissions=True)
-                    frappe.db.commit()
-                    
-                    doc_upload_room = frappe.get_doc("Pitch Room",room_id)
-                    doc_upload_room.append("pitch_room_documents_upload",{
-                        "document_type":document_type,
-                        "doc_name":doc_name,
-                        "attach":new_file_inside.file_url
-                    })
-                    doc_upload_room.save(ignore_permissions=True)
-                    frappe.db.commit()
-                    
-                    status = True
-                    message = "Room Updated"
-        else:
-            status = False
-            message = "File limit is 10 Please remove extra files"   
+        doc_table_count = (len(get_room.pitch_room_documents_upload or 0) + len(upload_doc or 0))
+        if not upload_doc == []:
+            if doc_table_count > 10:
+                for document in decode_doc_json:
+                    document_type = document.get("document_type")
+                    doc_name = document.get("name")
+                    attach = document.get("attach")
+                    if document_type in ["pdf","docx","doc","xlsx","png","jpg","jpeg"]:
+                        file_name_inside = doc_name
+                        attach_converted_url = base64.b64decode(attach)
+                        new_file_inside = frappe.new_doc('File')
+                        new_file_inside.file_name = file_name_inside
+                        new_file_inside.content = attach_converted_url
+                        new_file_inside.attached_to_doctype = "Pitch Room"
+                        new_file_inside.attached_to_name = room_id
+                        new_file_inside.attached_to_field = "attach" 
+                        new_file_inside.is_private = 0
+                        new_file_inside.save(ignore_permissions=True)
+                        frappe.db.commit()
+                        
+                        doc_upload_room = frappe.get_doc("Pitch Room",room_id)
+                        doc_upload_room.append("pitch_room_documents_upload",{
+                            "document_type":document_type,
+                            "doc_name":doc_name,
+                            "attach":new_file_inside.file_url
+                        })
+                        doc_upload_room.save(ignore_permissions=True)
+                        frappe.db.commit()
+                        status = True
+                        message = "Room Updated"
+                    else:
+                        status = False
+                        message = "The given document type is not supported"    
+            else:
+                status = False
+                message = "File limit is 10 Please remove extra files"   
         return {"status":status,"message":message}
     except Exception as e:
         return {"status": False, "message": str(e)}
@@ -202,8 +208,9 @@ def pitch_room_update(room_id,room_name,about_startup,cover_image,upload_doc,use
 @frappe.whitelist()
 def shared_user(user_ids, pitch_room_id):
     try:
+        decode_user_id = json.loads(user_ids)
         pitch_room = frappe.get_doc('Pitch Room', pitch_room_id)
-        for user_id in user_ids:
+        for user_id in decode_user_id:
             pitch_room.append("shared_users",{
                 "user_id":user_id
             })
@@ -236,6 +243,24 @@ def get_users_with_role():
 if __name__ == "__main__":
     students_users = get_users_with_role()
     print(f"Users with the role 'Students': {students_users}")
+
+#upload document removed method
+@frappe.whitelist()
+def remove_document(room_id,doc_id):
+    try:
+        parent_doc = frappe.get_doc("Pitch Room",room_id)
+        child_table_entries = parent_doc.get("pitch_room_documents_upload")
+        for entry in child_table_entries:
+            if entry.get("name") == doc_id:
+                child_table_entries.remove(entry)
+                break
+        parent_doc.set("pitch_room_documents_upload", child_table_entries)
+        parent_doc.save(ignore_permissions=True)
+        frappe.db.commit()
+        return {"status":True,"message":"Document Removed"}
+    except Exception as e:
+        return {"status":False,"message":e}
+
 
 
 # @frappe.whitelist()
