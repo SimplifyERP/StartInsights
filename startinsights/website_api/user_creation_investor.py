@@ -1,20 +1,25 @@
 import frappe
 from datetime import datetime
 from frappe.utils import now, getdate, today, format_date
+import base64
+from startinsights.custom import get_domain_name
 
 
 #user created investor while creating the status will be sortlist for default
 @frappe.whitelist()
-def create_investor(user_id,investor_name,investor_email,firm_name,investor_status,amount,contact_no,notes):
+def create_investor(user_id,logo,logo_type,logo_name,investor_name,investor_status,contacted_person,funding_stage,description,website,investor_email,contact_no,notes):
     status = ""
     message = ""
     try:
+        logo_decode = base64.b64decode(logo)
         new_investor = frappe.new_doc("User Created Investors")
         new_investor.investor_name = investor_name
-        new_investor.investor_email = investor_email
-        new_investor.firm_name = firm_name
         new_investor.investor_status = investor_status
-        new_investor.amount = amount
+        new_investor.contact_person = contacted_person
+        new_investor.funding_stage = funding_stage
+        new_investor.description = description
+        new_investor.website = website
+        new_investor.investor_email = investor_email
         new_investor.contact_no = contact_no or ""
         new_investor.notes = notes
         new_investor.creation_user = user_id
@@ -24,31 +29,22 @@ def create_investor(user_id,investor_name,investor_email,firm_name,investor_stat
 
         status = True
         message = "New Investor Created"
-        
+
+        if logo:
+            if logo_type in ["png","jpg","jpeg"]:
+                file_name_inside = logo_name
+                new_file_inside = frappe.new_doc('File')
+                new_file_inside.file_name = file_name_inside
+                new_file_inside.content = logo_decode
+                new_file_inside.attached_to_doctype = "User Created Investors"
+                new_file_inside.attached_to_name = new_investor.name
+                new_file_inside.attached_to_field = "investor_logo"
+                new_file_inside.is_private = 0
+                new_file_inside.save(ignore_permissions=True)
+                frappe.db.commit()
+                frappe.db.set_value("User Created Investors",new_investor.name,'investor_logo',new_file_inside.file_url)
+            else:
+                message = "You Attached Logo Type is not in Master"
         return {"status":status,"message":message}
     except Exception as e:
         return {"status":False,"message":e}
-
-#list view the user created investors
-@frappe.whitelist()
-def get_user_created_investors_list(user_id):
-    try:
-        created_investors = frappe.db.get_all("User Created Investors",{'creation_user':user_id},['*'])
-        investors_list = []
-        for investors in created_investors:
-            user_investors = {
-                "id":investors.name,
-                "name":investors.name,
-                "investor_name":investors.investor_name,
-                "investor_email":investors.investor_email,
-                "firm_name":investors.firm_name,
-                "status":investors.investor_status,
-                "amount":investors.amount,
-                "contact_no":investors.contact_no,
-                "notes":investors.notes
-            }
-            investors_list.append(user_investors)
-        return {"status":True,"user_investors":investors_list}    
-    except Exception as e:
-        return {"status":False,"message":e}
-    

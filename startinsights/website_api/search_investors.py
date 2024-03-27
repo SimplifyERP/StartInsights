@@ -7,6 +7,7 @@ def get_search_investors_list(page_no,funding_stage,user_id):
     search_investors = []
     image_url = ""
     favourites_status = False
+    fund_rasing = []
     try:
         funding_stages_tuple = tuple(funding_stage)
         investors_count = frappe.db.count("Search Investors",{"disabled":0})
@@ -33,19 +34,19 @@ def get_search_investors_list(page_no,funding_stage,user_id):
                 "id":investors_details.name,
                 "name":investors_details.name,
                 "favourites_status":favourites_status,
-                "title":investors_details.investor_title,
+                "title":investors_details.investor_title or "",
                 "logo":image_url,
-                "investor_verified":investors_details.investor_verified,
-                "linkedin":investors_details.investor_linkedin,
-                "website":investors_details.investor_website,
-                "about_us":investors_details.about_us,
-                "value_add":investors_details.value_add,
-                "firm_type":investors_details.firm_type,
+                "investor_verified":investors_details.investor_verified or "",
+                "linkedin":investors_details.investor_linkedin or "",
+                "website":investors_details.investor_website or "",
+                "about_us":investors_details.about_us or "",
+                "value_add":investors_details.value_add or "",
+                "firm_type":investors_details.firm_type or "",
                 "hq":investors_details.hq or "",
-                "funding_requirements":investors_details.funding_requirements,
+                "funding_requirements":investors_details.funding_requirements or "",
                 "funding_stages_table":fund_rasing,          
-                "min_check_size":investors_details.min_check_size,
-                "max_check_size":investors_details.max_check_size
+                "min_check_size":investors_details.min_check_size or 0,
+                "max_check_size":investors_details.max_check_size or 0
             }
             search_investors.append(investors_list) 
         return {"status":True,"investors_count":investors_count,"search_investors_list":search_investors}
@@ -74,6 +75,7 @@ def set_investors_favourites(user_id,investor_id):
             new_favourite_investor.save(ignore_permissions=True)
             frappe.db.commit()
 
+            #Updating the recommended investors count in search investors master
             get_search_investors = frappe.get_doc("Search Investors",investor_id)
             get_search_investors.recommended_investors_count = get_search_investors.recommended_investors_count + 1
             get_search_investors.save(ignore_permissions=True)
@@ -97,6 +99,7 @@ def set_investors_favourites(user_id,investor_id):
 
 @frappe.whitelist()
 def get_favourite_investors(user_id,status,page_no):
+    fund_rasing = []
     try:
         search_investors_list = []
         page_no_calulate = calculate_count(page_no)
@@ -112,19 +115,19 @@ def get_favourite_investors(user_id,status,page_no):
                 "id":get_search_investors_list.name,
                 "name":get_search_investors_list.name,
                 "favourites_status":True,
-                "title":get_search_investors_list.investor_title,
+                "title":get_search_investors_list.investor_title or "",
                 "logo":image_url,
-                "investor_verified":get_search_investors_list.investor_verified,
-                "linkedin":get_search_investors_list.investor_linkedin,
-                "website":get_search_investors_list.investor_website,
-                "about_us":get_search_investors_list.about_us,
-                "value_add":get_search_investors_list.value_add,
-                "firm_type":get_search_investors_list.firm_type,
+                "investor_verified":get_search_investors_list.investor_verified or "",
+                "linkedin":get_search_investors_list.investor_linkedin or "",
+                "website":get_search_investors_list.investor_website or "",
+                "about_us":get_search_investors_list.about_us or "",
+                "value_add":get_search_investors_list.value_add or "",
+                "firm_type":get_search_investors_list.firm_type or "",
                 "hq":get_search_investors_list.hq or "",
-                "funding_requirements":get_search_investors_list.funding_requirements,
+                "funding_requirements":get_search_investors_list.funding_requirements or "",
                 "funding_stages_table":fund_rasing,          
-                "min_check_size":get_search_investors_list.min_check_size,
-                "max_check_size":get_search_investors_list.max_check_size
+                "min_check_size":get_search_investors_list.min_check_size or 0,
+                "max_check_size":get_search_investors_list.max_check_size or 0
             }
             search_investors_list.append(investors_list)
         return {"status":True,"search_investors_list":search_investors_list}
@@ -144,6 +147,7 @@ def remove_favourites_investors(user_id,investor_id,status):
 @frappe.whitelist()
 def get_recommended_search_investors():
     search_investors = []
+    fund_rasing = []
     try:
         search_investors_list = frappe.db.sql(""" SELECT * FROM `tabSearch Investors` WHERE recommended_investors_count > 0  ORDER BY recommended_investors_count DESC LIMIT 4 """,as_dict=1)
         for investors_details in search_investors_list:
@@ -156,19 +160,19 @@ def get_recommended_search_investors():
             investors_list = {
                 "id":investors_details.name,
                 "name":investors_details.name,
-                "title":investors_details.investor_title,
+                "title":investors_details.investor_title or "",
                 "logo":image_url,
-                "investor_verified":investors_details.investor_verified,
-                "linkedin":investors_details.investor_linkedin,
-                "website":investors_details.investor_website,
-                "about_us":investors_details.about_us,
-                "value_add":investors_details.value_add,
-                "firm_type":investors_details.firm_type,
+                "investor_verified":investors_details.investor_verified or "",
+                "linkedin":investors_details.investor_linkedin or "",
+                "website":investors_details.investor_website or "",
+                "about_us":investors_details.about_us or "",
+                "value_add":investors_details.value_add or "",
+                "firm_type":investors_details.firm_type or "",
                 "hq":investors_details.hq or "",
-                "funding_requirements":investors_details.funding_requirements,
+                "funding_requirements":investors_details.funding_requirements or "",
                 "funding_stages_table":fund_rasing,          
-                "min_check_size":investors_details.min_check_size,
-                "max_check_size":investors_details.max_check_size
+                "min_check_size":investors_details.min_check_size or 0,
+                "max_check_size":investors_details.max_check_size or 0
             }
             search_investors.append(investors_list) 
         return {"status":True,"message":search_investors}
