@@ -76,19 +76,34 @@ def update_profile(full_name,mobile_no,email_id,designation,company_name,linkedi
 
 @frappe.whitelist()
 def get_profile_details(user_id):
+    profile_details = []
+    status = ""
+    message = ""
     try:
-        get_profile = frappe.get_doc("Profile Application",user_id)
-        profile_details = {
-            "id":get_profile.name,
-            "name":get_profile.name,
-            "full_name":get_profile.full_name,
-            "phone_no":get_profile.phone_no,
-            "email":get_profile.email_id,
-            "company":get_profile.company_name,
-            "linkedin":get_profile.linkedin,
-            "profile_image":get_profile.profile_image,
-            "website":get_profile.website,
-
-        }
+        if frappe.db.exists("Profile Application",{"name":user_id}):
+            get_profile = frappe.get_doc("Profile Application",user_id)
+            if get_profile.profile_image:
+                image_url = get_domain_name() + get_profile.profile_image
+            else:
+                image_url = ""    
+            profile_details = {
+                "id":get_profile.name,
+                "name":get_profile.name,
+                "full_name":get_profile.full_name,
+                "phone_no":get_profile.phone_no,
+                "email":get_profile.email_id,
+                "company":get_profile.company_name,
+                "designation":get_profile.designation,
+                "linkedin":get_profile.linkedin,
+                "website":get_profile.website,
+                "profile_image":image_url,
+                "role":get_profile.customer_group
+            }
+            status = True
+            message = "Profile Details"
+        else:
+            status = False
+            message = "Profile Not Created"    
+        return {"status":status,"message":message,"userinfo":profile_details}
     except Exception as e:
         return {"status":False,"message":e}
