@@ -142,7 +142,7 @@ def get_investor_wise_graph(user_id):
         for investor in get_investor_wise_data:
             investor_wise_graph = {
                 "name":investor.investor_name,
-                "percentage":(investor._shareholding or 0),
+                "percentage":(investor._shareholding or "0"),
                 "color_code":investor.color_code
             }
             formatted_investor_wise_graph.append(investor_wise_graph)
@@ -157,7 +157,7 @@ def get_round_wise_graph(user_id):
         for round in get_round_wise_data:
             round_wise_graph = {
                 "name":round.round_name,
-                "percentage":(round.dilution_for_this_round_ or 0),
+                "percentage":(round.dilution_for_this_round_ or "0"),
                 "color_code":round.color_code
             }
             formatted_round_wise_graph.append(round_wise_graph)
