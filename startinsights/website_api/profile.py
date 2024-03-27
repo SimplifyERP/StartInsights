@@ -92,7 +92,7 @@ def get_profile_details(user_id):
                 "full_name":get_profile.full_name,
                 "phone_no":get_profile.phone_no or "",
                 "user_email":get_profile.email_id,
-                "company":get_profile.company_name or "",
+                "company_name":get_profile.company_name or "",
                 "designation":get_profile.designation or "",
                 "linkedin":get_profile.linkedin or "",
                 "website":get_profile.website or "",
