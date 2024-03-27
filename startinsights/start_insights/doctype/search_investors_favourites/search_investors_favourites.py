@@ -11,7 +11,7 @@ class SearchInvestorsFavourites(Document):
 			new_crm = frappe.new_doc("Funding CRM")
 			new_crm.user_id = self.user_id
 			new_crm.type_of_investor = "Search Investors Favourites"
-			new_crm.funding_crm_status = "SORTLIST"
+			new_crm.funding_crm_status = "SHORTLIST"
 			new_crm.search_investor_favourite = self.name
 			new_crm.save(ignore_permissions=True)
 			frappe.db.commit()

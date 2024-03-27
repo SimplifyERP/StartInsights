@@ -25,7 +25,7 @@ def get_funding_crm(user_id):
 #sortlist data
 def get_sortlist_investor(user_id):
     sortlist_investor = []
-    sortlist_count = frappe.db.sql(""" SELECT COUNT(name) AS sortlist_count FROM `tabFunding CRM` WHERE user_id = %s AND funding_crm_status = 'SORTLIST'""", (user_id,), as_dict=1) or 0
+    sortlist_count = frappe.db.sql(""" SELECT COUNT(name) AS sortlist_count FROM `tabFunding CRM` WHERE user_id = %s AND funding_crm_status = 'SHORTLIST'""", (user_id,), as_dict=1) or 0
     sortlist_investor = {
         "search_investor":get_sortlist_as_search_investor(user_id),
         "user_created_investor":get_sortlist_as_user_created_investor(user_id),
@@ -90,7 +90,7 @@ def get_lost_investor(user_id):
 
 def get_sortlist_as_search_investor(user_id):
     search_investor_list = []
-    funding_crm = frappe.db.get_all("Funding CRM",{"user_id":user_id,"type_of_investor":"Search Investors Favourites","funding_crm_status":"SORTLIST"},['*'])
+    funding_crm = frappe.db.get_all("Funding CRM",{"user_id":user_id,"type_of_investor":"Search Investors Favourites","funding_crm_status":"SHORTLIST"},['*'])
     for crm in funding_crm:
         get_search_investor = frappe.get_doc("Search Investors",crm.search_investor_id)
         fund_rasing = frappe.db.get_all("Investor Funding Stages",{'parent':get_search_investor.name},['funding_stages'])
@@ -103,34 +103,42 @@ def get_sortlist_as_search_investor(user_id):
             "name":get_search_investor.name,
             "type_of_investor":"Search Investors",
             "logo":image_url,
-            "status":"SORTLIST",
+            "investor_name":get_search_investor.investor_title or "",
+            "status":"SHORTLIST",
             "contacted_person":"",
-            "funding_stage":fund_rasing,
-            "description":get_search_investor.about_us,      
-            "website":get_search_investor.investor_website, 
+            "funding_stage":fund_rasing or [],
+            "description":get_search_investor.about_us or "",      
+            "website":get_search_investor.investor_website or "", 
             "mail_address":"",
             "contact_no":"",
+            "notes":""
         }
         search_investor_list.append(search_investor)
     return search_investor_list    
 
 def get_sortlist_as_user_created_investor(user_id):
     user_created_investor_list = []
-    funding_crm = frappe.db.get_all("Funding CRM",{"user_id":user_id,"type_of_investor":"User Created Investors","funding_crm_status":"SORTLIST"},['*'])
+    funding_crm = frappe.db.get_all("Funding CRM",{"user_id":user_id,"type_of_investor":"User Created Investors","funding_crm_status":"SHORTLIST"},['*'])
     for crm in funding_crm:
         user_investor = frappe.get_doc("User Created Investors",crm.user_created_investor)
+        if user_investor.investor_logo:
+            image_url = get_domain_name() + user_investor.get('investor_logo')
+        else:
+            image_url = ""  
         user_created_investor = {
             "id":user_investor.name,
             "name":user_investor.name,
             "type_of_investor":"User Created Investors",
-            "logo":"",
-            "status":"SORTLIST",
-            "contacted_person":"",
-            "funding_stage":[],
-            "description":user_investor.notes,      
-            "website":"", 
-            "mail_address":user_investor.investor_email,
-            "contact_no":"",
+            "logo":image_url,
+            "investor_name":user_investor.investor_name or "",
+            "status":"SHORTLIST",
+            "contacted_person":user_investor.contact_person or "",
+            "funding_stage":user_investor.funding_stage or "",
+            "description":user_investor.description or "",      
+            "website":user_investor.website or "", 
+            "mail_address":user_investor.investor_email or "",
+            "contact_no":user_investor.contact_no or "",
+            "notes":user_investor.notes or ""
         }
         user_created_investor_list.append(user_created_investor)
     return user_created_investor_list 
@@ -150,13 +158,15 @@ def get_contacted_as_search_investor(user_id):
             "name":get_search_investor.name,
             "type_of_investor":"Search Investors",
             "logo":image_url,
-            "status":"SORTLIST",
+            "investor_name":get_search_investor.investor_title or "",
+            "status":"SHORTLIST",
             "contacted_person":"",
-            "funding_stage":fund_rasing,
-            "description":get_search_investor.about_us,      
-            "website":get_search_investor.investor_website, 
+            "funding_stage":fund_rasing or [],
+            "description":get_search_investor.about_us or "",      
+            "website":get_search_investor.investor_website or "", 
             "mail_address":"",
             "contact_no":"",
+            "notes":""
         }
         search_investor_list.append(search_investor)
     return search_investor_list    
@@ -166,18 +176,24 @@ def get_contacted_as_user_created_investor(user_id):
     funding_crm = frappe.db.get_all("Funding CRM",{"user_id":user_id,"type_of_investor":"User Created Investors","funding_crm_status":"CONTACTED"},['*'])
     for crm in funding_crm:
         user_investor = frappe.get_doc("User Created Investors",crm.user_created_investor)
+        if user_investor.investor_logo:
+            image_url = get_domain_name() + user_investor.get('investor_logo')
+        else:
+            image_url = ""  
         user_created_investor = {
             "id":user_investor.name,
             "name":user_investor.name,
             "type_of_investor":"User Created Investors",
-            "logo":"",
-            "status":"SORTLIST",
-            "contacted_person":"",
-            "funding_stage":[],
-            "description":user_investor.notes,      
-            "website":"", 
-            "mail_address":user_investor.investor_email,
-            "contact_no":"",
+            "logo":image_url,
+            "investor_name":user_investor.investor_name or "",
+            "status":"SHORTLIST",
+            "contacted_person":user_investor.contact_person or "",
+            "funding_stage":user_investor.funding_stage or "",
+            "description":user_investor.description or "",      
+            "website":user_investor.website or "", 
+            "mail_address":user_investor.investor_email or "",
+            "contact_no":user_investor.contact_no or "",
+            "notes":user_investor.notes or ""
         }
         user_created_investor_list.append(user_created_investor)
     return user_created_investor_list    
@@ -197,13 +213,15 @@ def get_pitched_as_search_investor(user_id):
             "name":get_search_investor.name,
             "type_of_investor":"Search Investors",
             "logo":image_url,
-            "status":"SORTLIST",
+            "investor_name":get_search_investor.investor_title or "",
+            "status":"SHORTLIST",
             "contacted_person":"",
-            "funding_stage":fund_rasing,
-            "description":get_search_investor.about_us,      
-            "website":get_search_investor.investor_website, 
+            "funding_stage":fund_rasing or [],
+            "description":get_search_investor.about_us or "",      
+            "website":get_search_investor.investor_website or "", 
             "mail_address":"",
             "contact_no":"",
+            "notes":""
         }
         search_investor_list.append(search_investor)
     return search_investor_list    
@@ -213,18 +231,24 @@ def get_pitched_as_user_created_investor(user_id):
     funding_crm = frappe.db.get_all("Funding CRM",{"user_id":user_id,"type_of_investor":"User Created Investors","funding_crm_status":"PITCHED"},['*'])
     for crm in funding_crm:
         user_investor = frappe.get_doc("User Created Investors",crm.user_created_investor)
+        if user_investor.investor_logo:
+            image_url = get_domain_name() + user_investor.get('investor_logo')
+        else:
+            image_url = ""  
         user_created_investor = {
             "id":user_investor.name,
             "name":user_investor.name,
             "type_of_investor":"User Created Investors",
-            "logo":"",
-            "status":"SORTLIST",
-            "contacted_person":"",
-            "funding_stage":[],
-            "description":user_investor.notes,      
-            "website":"", 
-            "mail_address":user_investor.investor_email,
-            "contact_no":"",
+            "logo":image_url,
+            "investor_name":user_investor.investor_name or "",
+            "status":"SHORTLIST",
+            "contacted_person":user_investor.contact_person or "",
+            "funding_stage":user_investor.funding_stage or "",
+            "description":user_investor.description or "",      
+            "website":user_investor.website or "", 
+            "mail_address":user_investor.investor_email or "",
+            "contact_no":user_investor.contact_no or "",
+            "notes":user_investor.notes or ""
         }
         user_created_investor_list.append(user_created_investor)
     return user_created_investor_list    
@@ -244,13 +268,15 @@ def get_pitched_as_search_investor(user_id):
             "name":get_search_investor.name,
             "type_of_investor":"Search Investors",
             "logo":image_url,
-            "status":"SORTLIST",
+            "investor_name":get_search_investor.investor_title or "",
+            "status":"SHORTLIST",
             "contacted_person":"",
-            "funding_stage":fund_rasing,
-            "description":get_search_investor.about_us,      
-            "website":get_search_investor.investor_website, 
+            "funding_stage":fund_rasing or [],
+            "description":get_search_investor.about_us or "",      
+            "website":get_search_investor.investor_website or "", 
             "mail_address":"",
             "contact_no":"",
+            "notes":""
         }
         search_investor_list.append(search_investor)
     return search_investor_list    
@@ -260,18 +286,24 @@ def get_pitched_as_user_created_investor(user_id):
     funding_crm = frappe.db.get_all("Funding CRM",{"user_id":user_id,"type_of_investor":"User Created Investors","funding_crm_status":"PITCHED"},['*'])
     for crm in funding_crm:
         user_investor = frappe.get_doc("User Created Investors",crm.user_created_investor)
+        if user_investor.investor_logo:
+            image_url = get_domain_name() + user_investor.get('investor_logo')
+        else:
+            image_url = ""  
         user_created_investor = {
             "id":user_investor.name,
             "name":user_investor.name,
             "type_of_investor":"User Created Investors",
-            "logo":"",
-            "status":"SORTLIST",
-            "contacted_person":"",
-            "funding_stage":[],
-            "description":user_investor.notes,      
-            "website":"", 
-            "mail_address":user_investor.investor_email,
-            "contact_no":"",
+            "logo":image_url,
+            "investor_name":user_investor.investor_name or "",
+            "status":"SHORTLIST",
+            "contacted_person":user_investor.contact_person or "",
+            "funding_stage":user_investor.funding_stage or "",
+            "description":user_investor.description or "",      
+            "website":user_investor.website or "", 
+            "mail_address":user_investor.investor_email or "",
+            "contact_no":user_investor.contact_no or "",
+            "notes":user_investor.notes or ""
         }
         user_created_investor_list.append(user_created_investor)
     return user_created_investor_list    
@@ -291,13 +323,15 @@ def get_diligence_as_search_investor(user_id):
             "name":get_search_investor.name,
             "type_of_investor":"Search Investors",
             "logo":image_url,
-            "status":"SORTLIST",
+            "investor_name":get_search_investor.investor_title or "",
+            "status":"SHORTLIST",
             "contacted_person":"",
-            "funding_stage":fund_rasing,
-            "description":get_search_investor.about_us,      
-            "website":get_search_investor.investor_website, 
+            "funding_stage":fund_rasing or [],
+            "description":get_search_investor.about_us or "",      
+            "website":get_search_investor.investor_website or "", 
             "mail_address":"",
             "contact_no":"",
+            "notes":""
         }
         search_investor_list.append(search_investor)
     return search_investor_list    
@@ -307,18 +341,24 @@ def get_diligence_as_user_created_investor(user_id):
     funding_crm = frappe.db.get_all("Funding CRM",{"user_id":user_id,"type_of_investor":"User Created Investors","funding_crm_status":"DILIGENCE"},['*'])
     for crm in funding_crm:
         user_investor = frappe.get_doc("User Created Investors",crm.user_created_investor)
+        if user_investor.investor_logo:
+            image_url = get_domain_name() + user_investor.get('investor_logo')
+        else:
+            image_url = ""  
         user_created_investor = {
             "id":user_investor.name,
             "name":user_investor.name,
             "type_of_investor":"User Created Investors",
-            "logo":"",
-            "status":"SORTLIST",
-            "contacted_person":"",
-            "funding_stage":[],
-            "description":user_investor.notes,      
-            "website":"", 
-            "mail_address":user_investor.investor_email,
-            "contact_no":"",
+            "logo":image_url,
+            "investor_name":user_investor.investor_name or "",
+            "status":"SHORTLIST",
+            "contacted_person":user_investor.contact_person or "",
+            "funding_stage":user_investor.funding_stage or "",
+            "description":user_investor.description or "",      
+            "website":user_investor.website or "", 
+            "mail_address":user_investor.investor_email or "",
+            "contact_no":user_investor.contact_no or "",
+            "notes":user_investor.notes or ""
         }
         user_created_investor_list.append(user_created_investor)
     return user_created_investor_list 
@@ -338,13 +378,15 @@ def get_won_as_search_investor(user_id):
             "name":get_search_investor.name,
             "type_of_investor":"Search Investors",
             "logo":image_url,
-            "status":"SORTLIST",
+            "investor_name":get_search_investor.investor_title or "",
+            "status":"SHORTLIST",
             "contacted_person":"",
-            "funding_stage":fund_rasing,
-            "description":get_search_investor.about_us,      
-            "website":get_search_investor.investor_website, 
+            "funding_stage":fund_rasing or [],
+            "description":get_search_investor.about_us or "",      
+            "website":get_search_investor.investor_website or "", 
             "mail_address":"",
             "contact_no":"",
+            "notes":""
         }
         search_investor_list.append(search_investor)
     return search_investor_list    
@@ -354,18 +396,24 @@ def get_won_as_user_created_investor(user_id):
     funding_crm = frappe.db.get_all("Funding CRM",{"user_id":user_id,"type_of_investor":"User Created Investors","funding_crm_status":"WON"},['*'])
     for crm in funding_crm:
         user_investor = frappe.get_doc("User Created Investors",crm.user_created_investor)
+        if user_investor.investor_logo:
+            image_url = get_domain_name() + user_investor.get('investor_logo')
+        else:
+            image_url = ""  
         user_created_investor = {
             "id":user_investor.name,
             "name":user_investor.name,
             "type_of_investor":"User Created Investors",
-            "logo":"",
-            "status":"SORTLIST",
-            "contacted_person":"",
-            "funding_stage":[],
-            "description":user_investor.notes,      
-            "website":"", 
-            "mail_address":user_investor.investor_email,
-            "contact_no":"",
+            "logo":image_url,
+            "investor_name":user_investor.investor_name or "",
+            "status":"SHORTLIST",
+            "contacted_person":user_investor.contact_person or "",
+            "funding_stage":user_investor.funding_stage or "",
+            "description":user_investor.description or "",      
+            "website":user_investor.website or "", 
+            "mail_address":user_investor.investor_email or "",
+            "contact_no":user_investor.contact_no or "",
+            "notes":user_investor.notes or ""
         }
         user_created_investor_list.append(user_created_investor)
     return user_created_investor_list    
@@ -385,13 +433,15 @@ def get_lost_as_search_investor(user_id):
             "name":get_search_investor.name,
             "type_of_investor":"Search Investors",
             "logo":image_url,
-            "status":"SORTLIST",
+            "investor_name":get_search_investor.investor_title or "",
+            "status":"SHORTLIST",
             "contacted_person":"",
-            "funding_stage":fund_rasing,
-            "description":get_search_investor.about_us,      
-            "website":get_search_investor.investor_website, 
+            "funding_stage":fund_rasing or [],
+            "description":get_search_investor.about_us or "",      
+            "website":get_search_investor.investor_website or "", 
             "mail_address":"",
             "contact_no":"",
+            "notes":""
         }
         search_investor_list.append(search_investor)
     return search_investor_list    
@@ -401,25 +451,31 @@ def get_lost_as_user_created_investor(user_id):
     funding_crm = frappe.db.get_all("Funding CRM",{"user_id":user_id,"type_of_investor":"User Created Investors","funding_crm_status":"LOST"},['*'])
     for crm in funding_crm:
         user_investor = frappe.get_doc("User Created Investors",crm.user_created_investor)
+        if user_investor.investor_logo:
+            image_url = get_domain_name() + user_investor.get('investor_logo')
+        else:
+            image_url = ""  
         user_created_investor = {
             "id":user_investor.name,
             "name":user_investor.name,
             "type_of_investor":"User Created Investors",
-            "logo":"",
-            "status":"SORTLIST",
-            "contacted_person":"",
-            "funding_stage":[],
-            "description":user_investor.notes,      
-            "website":"", 
-            "mail_address":user_investor.investor_email,
-            "contact_no":"",
+            "logo":image_url,
+            "investor_name":user_investor.investor_name or "",
+            "status":"SHORTLIST",
+            "contacted_person":user_investor.contact_person or "",
+            "funding_stage":user_investor.funding_stage or "",
+            "description":user_investor.description or "",      
+            "website":user_investor.website or "", 
+            "mail_address":user_investor.investor_email or "",
+            "contact_no":user_investor.contact_no or "",
+            "notes":user_investor.notes or ""
         }
         user_created_investor_list.append(user_created_investor)
     return user_created_investor_list   
 
 
 def get_max_funding_count(user_id):
-    sortlist_count = frappe.db.sql(""" SELECT COUNT(name) AS sortlist_count FROM `tabFunding CRM` WHERE user_id = %s AND funding_crm_status = 'SORTLIST'""", (user_id,), as_dict=1) or 0
+    sortlist_count = frappe.db.sql(""" SELECT COUNT(name) AS sortlist_count FROM `tabFunding CRM` WHERE user_id = %s AND funding_crm_status = 'SHORTLIST'""", (user_id,), as_dict=1) or 0
     contacted_investor_count = frappe.db.sql(""" SELECT COUNT(name) AS contacted_count FROM `tabFunding CRM` WHERE user_id = %s AND funding_crm_status = 'CONTACTED'""", (user_id,), as_dict=1) or 0
     pitched_investor_count = frappe.db.sql(""" SELECT COUNT(name) AS pitched_count FROM `tabFunding CRM` WHERE user_id = %s AND funding_crm_status = 'PITCHED'""", (user_id,), as_dict=1) or 0
     diligence_investor_count = frappe.db.sql(""" SELECT COUNT(name) AS diligence_count FROM `tabFunding CRM` WHERE user_id = %s AND funding_crm_status = 'DILIGENCE'""", (user_id,), as_dict=1) or 0

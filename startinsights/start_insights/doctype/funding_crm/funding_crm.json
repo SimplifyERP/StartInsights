@@ -78,7 +78,7 @@
    "fieldname": "funding_crm_status",
    "fieldtype": "Select",
    "label": "Funding CRM Status",
-   "options": "\nSORTLIST\nCONTACTED\nPITCHED\nDILIGENCE\nWON\nLOST"
+   "options": "\nSHORTLIST\nCONTACTED\nPITCHED\nDILIGENCE\nWON\nLOST"
   },
   {
    "depends_on": "eval:doc.type_of_investor == \"Search Investors Favourites\"",
@@ -98,7 +98,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-07 15:16:29.948249",
+ "modified": "2024-03-27 17:36:36.493737",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Funding CRM",
