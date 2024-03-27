@@ -131,6 +131,7 @@ def get_pitch_room_details_empty():
 def pitch_room_update(room_id,room_name,about_startup,cover_image,upload_doc,users_shared):
     status = ""
     message = ""
+    doc_table_count = 0
     try:
         decode_json_users = json.loads(users_shared)
         decode_doc_json = json.loads(upload_doc)
