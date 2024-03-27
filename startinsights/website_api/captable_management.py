@@ -82,6 +82,7 @@ def captable_management_list(user_id):
     try:
         get_management = frappe.db.get_all("Captable Management",{'user':user_id},['*'])
         format_management = []
+        format_round_wise = []
         for management in get_management:
             # checking whether the user id is created any document
             if management.user:
@@ -124,12 +125,13 @@ def captable_management_list(user_id):
                     "pre_money_valuation":management.pre_money_valuation,
                     "dilution_for_this_round_":management.dilution_for_this_round_
                 }
+                format_round_wise.append(round_wise_list)
             else:
                 investor_wise_list = []  
                 round_wise_list = []
         return {
             "status":True,"investor_wise":format_management,
-            "round_wise":round_wise_list,
+            "round_wise":format_round_wise,
             "investor_wise_graph":get_investor_wise_graph(user_id),
             "round_wise_graph":get_round_wise_graph(user_id)}
     except Exception as e:
