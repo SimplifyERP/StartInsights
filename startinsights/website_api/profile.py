@@ -88,15 +88,16 @@ def get_profile_details(user_id):
                 image_url = ""    
             profile_details = {
                 "id":get_profile.name,
-                "name":get_profile.name,
+                "user_name":get_profile.name,
                 "full_name":get_profile.full_name,
                 "phone_no":get_profile.phone_no or "",
-                "email":get_profile.email_id,
+                "user_email":get_profile.email_id,
                 "company":get_profile.company_name or "",
                 "designation":get_profile.designation or "",
                 "linkedin":get_profile.linkedin or "",
                 "website":get_profile.website or "",
                 "profile_image":image_url,
+                "login_type":get_profile.login_type or "",
                 "role":get_profile.customer_group or ""
             }
             status = True
