@@ -90,14 +90,14 @@ def get_profile_details(user_id):
                 "id":get_profile.name,
                 "name":get_profile.name,
                 "full_name":get_profile.full_name,
-                "phone_no":get_profile.phone_no,
+                "phone_no":get_profile.phone_no or "",
                 "email":get_profile.email_id,
-                "company":get_profile.company_name,
-                "designation":get_profile.designation,
-                "linkedin":get_profile.linkedin,
-                "website":get_profile.website,
+                "company":get_profile.company_name or "",
+                "designation":get_profile.designation or "",
+                "linkedin":get_profile.linkedin or "",
+                "website":get_profile.website or "",
                 "profile_image":image_url,
-                "role":get_profile.customer_group
+                "role":get_profile.customer_group or ""
             }
             status = True
             message = "Profile Details"
