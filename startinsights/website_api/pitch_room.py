@@ -163,8 +163,8 @@ def pitch_room_update(room_id,room_name,about_startup,cover_image,upload_doc,use
             frappe.db.commit()
             frappe.db.set_value("Pitch Room",get_room.name,'cover_image',new_file_inside.file_url)
 
-        doc_table_count = (len(get_room.pitch_room_documents_upload or 0) + len(upload_doc or 0))
         if not upload_doc == []:
+            doc_table_count = (len(get_room.pitch_room_documents_upload) + len(upload_doc))
             if doc_table_count > 10:
                 for document in decode_doc_json:
                     document_type = document.get("document_type")
