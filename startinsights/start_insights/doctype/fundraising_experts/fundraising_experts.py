@@ -10,7 +10,7 @@ from frappe import _
 
 
 
-class BookanExpert(Document):
+class FundraisingExperts(Document):
     
     def validate(self):
         if self.first_name and self.last_name:

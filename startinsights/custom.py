@@ -10,16 +10,18 @@ def get_domain_name():
     return f"https://{domain_name}"
 
 
-def get_certificate_pdf():
-    get_print_format = frappe.db.get_value("Print Format",{"name":"Certificate"},["html"])
-    pdf = get_pdf(get_print_format)
+
+@frappe.whitelist()
+def generate_and_attach_certificate():
+    get_certificate = frappe.get_doc("LMS Certificate","63af5bb7f9")
+    pdf_content = frappe.get_print("LMS Certificate", get_certificate.name, as_pdf=True)
     file_name_inside = "certificate.pdf"
     new_file_inside = frappe.new_doc('File')
     new_file_inside.file_name = file_name_inside
-    new_file_inside.content = pdf
-    # new_file_inside.attached_to_doctype = "Pitch Room"
-    # new_file_inside.attached_to_name = new_room.name
-    # new_file_inside.attached_to_field = "cover_image"
+    new_file_inside.content = pdf_content
+    new_file_inside.attached_to_doctype = "User Created Investors"
+    new_file_inside.attached_to_name = get_certificate.name
+    # new_file_inside.attached_to_field = "investor_logo"
     new_file_inside.is_private = 0
     new_file_inside.save(ignore_permissions=True)
     frappe.db.commit()

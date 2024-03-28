@@ -10,7 +10,7 @@
   "first_name",
   "last_name",
   "full_name",
-  "attach_image",
+  "expert_image",
   "column_break_druf",
   "designation",
   "pricing",
@@ -128,7 +128,7 @@
    "fieldtype": "Link",
    "label": "Amended From",
    "no_copy": 1,
-   "options": "Book an Expert",
+   "options": "Fundraising Experts",
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
@@ -153,7 +153,7 @@
    "fieldname": "booking",
    "fieldtype": "Table",
    "label": "Booking",
-   "options": "Book an Expert Table"
+   "options": "Fundraising Expert Table"
   },
   {
    "fieldname": "pricing",
@@ -173,12 +173,6 @@
    "reqd": 1
   },
   {
-   "fieldname": "attach_image",
-   "fieldtype": "Attach",
-   "label": "Attach Image",
-   "reqd": 1
-  },
-  {
    "fieldname": "expert_mail_id",
    "fieldtype": "Data",
    "label": "Expert Mail ID",
@@ -190,6 +184,12 @@
    "fieldname": "disabled",
    "fieldtype": "Check",
    "label": "Disabled"
+  },
+  {
+   "fieldname": "expert_image",
+   "fieldtype": "Attach",
+   "label": "Expert Image",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
@@ -200,10 +200,10 @@
    "link_fieldname": "book_an_expert"
   }
  ],
- "modified": "2024-03-04 10:50:52.886779",
+ "modified": "2024-03-28 12:09:20.184543",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
- "name": "Book an Expert",
+ "name": "Fundraising Experts",
  "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
