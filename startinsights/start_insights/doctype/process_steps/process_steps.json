@@ -8,7 +8,8 @@
  "field_order": [
   "steps",
   "tat",
-  "status"
+  "status",
+  "doc_upload"
  ],
  "fields": [
   {
@@ -29,12 +30,19 @@
    "in_list_view": 1,
    "label": "Status",
    "options": "\nUnder Progress\nCompleted"
+  },
+  {
+   "default": "0",
+   "fieldname": "doc_upload",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Doc Upload"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-03-12 14:49:59.506512",
+ "modified": "2024-03-28 13:25:33.539399",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Process Steps",

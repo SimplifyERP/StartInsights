@@ -29,7 +29,10 @@
   "assigned_user_image",
   "column_break_whue",
   "user_name",
-  "mobile_no"
+  "mobile_no",
+  "documents_upload_tab",
+  "status_documents_upload_section",
+  "status_documents_upload"
  ],
  "fields": [
   {
@@ -162,11 +165,27 @@
    "fieldname": "payment_id",
    "fieldtype": "Data",
    "label": "Payment ID"
+  },
+  {
+   "fieldname": "documents_upload_tab",
+   "fieldtype": "Tab Break",
+   "label": "User Documents Upload"
+  },
+  {
+   "fieldname": "status_documents_upload_section",
+   "fieldtype": "Section Break",
+   "label": "Status Documents Upload"
+  },
+  {
+   "fieldname": "status_documents_upload",
+   "fieldtype": "Table",
+   "label": "Status Documents Upload",
+   "options": "Services Document Upload Table"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-13 20:03:14.829002",
+ "modified": "2024-03-28 16:02:59.413815",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "My Services",
