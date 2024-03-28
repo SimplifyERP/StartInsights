@@ -2,8 +2,9 @@ import frappe
 from frappe.utils import now, getdate, today, format_date
 from datetime import datetime
 import html2text
-from frappe.utils import  get_url
 from startinsights.custom import get_domain_name
+import json
+import base64
 
 
 # pitch craft service details view
@@ -154,6 +155,7 @@ def get_my_service_details(my_service_id):
 	assigned_user = []
 	payment_details = []
 	process_status = False
+	doc_upload_status = False
 	format_short_description = ""
 	format_about_service = ""
 	format_deliverables = ""
@@ -186,17 +188,22 @@ def get_my_service_details(my_service_id):
 			my_service_details['documents'].append({
 					"documents":documents.documents_required
 				})
-		my_service_documents = frappe.db.get_all("Process Steps",{'parent':my_service.name},['steps','tat','status'],order_by='idx ASC')
+		my_service_documents = frappe.db.get_all("Process Steps",{'parent':my_service.name},['steps','tat','status','doc_upload'],order_by='idx ASC')
 		for documents in my_service_documents:
 			if documents.status == "Completed":
 				process_status = True
 			else:
 				process_status = False	
+			if documents.doc_upload == 1:
+				doc_upload_status = True
+			else:
+				doc_upload_status = False	
 			my_service_details["service_tracking"].append({
 				"steps":documents.steps,
 				"tat":documents.tat,
 				"current_status":documents.status,
-				"status":process_status
+				"status":process_status,
+				"doc_status":doc_upload_status
 			})
 		if my_service.assigned_user_image:
 			user_image = get_domain_name() +  my_service.assigned_user_image
@@ -226,3 +233,49 @@ def get_service_payment_details(service_payment_id):
 			"amount_paid":payment.amount,
 		}
 	return service_payment_details
+
+#user documents upload method
+@frappe.whitelist()
+def my_services_doc_upload(my_service_id,upload_doc):
+	status = ""
+	message = ""
+	try:
+		decode_json_users = json.loads(upload_doc)
+		if not upload_doc == []:
+			for upload in decode_json_users:
+				document_type = upload.get("extension")
+				doc_name = upload.get("name")
+				attach = upload.get("attach")
+				if document_type in ["pdf","docx","doc","xlsx","png","jpg","jpeg"]:
+					file_name_inside = doc_name
+					attach_converted_url = base64.b64decode(attach)
+					new_file_inside = frappe.new_doc('File')
+					new_file_inside.file_name = file_name_inside
+					new_file_inside.content = attach_converted_url
+					new_file_inside.attached_to_doctype = "Services Document Upload Table"
+					new_file_inside.attached_to_name = my_service_id
+					new_file_inside.attached_to_field = "attach" 
+					new_file_inside.is_private = 0
+					new_file_inside.save(ignore_permissions=True)
+					frappe.db.commit()
+
+					get_my_service = frappe.get_doc("My Services",my_service_id)
+					get_my_service.append("status_documents_upload",{
+						"service_status":upload.get("service_status"),
+						"doc_extension":document_type,
+						"doc_name":doc_name,
+						"doc_attach":new_file_inside.file_url
+					})
+					get_my_service.save(ignore_permissions=True)
+					frappe.db.commit()
+					status = True
+					message = "Success"
+				else:
+					status = False
+					message = "The given document type is not supported"   
+		else:
+			status = False
+			message = "Please attach the documents"			 	
+		return {"status":status,"message":message}
+	except Exception as e:
+		return {"status":False,"message":e}
