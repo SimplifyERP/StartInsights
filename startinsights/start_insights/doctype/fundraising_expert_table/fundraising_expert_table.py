@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class BookanExpertTable(Document):
+class FundraisingExpertTable(Document):
 	pass

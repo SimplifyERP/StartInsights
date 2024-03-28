@@ -6,6 +6,7 @@ from frappe.utils import now, getdate, today, format_date
 #listed the funding crm status wise data
 @frappe.whitelist()
 def get_funding_crm(user_id):
+    funding_max_count = "0"
     try:
         funding_crm_list = []
         funding_max_count =  get_max_funding_count(user_id)
