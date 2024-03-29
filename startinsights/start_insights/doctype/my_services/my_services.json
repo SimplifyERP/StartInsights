@@ -15,7 +15,6 @@
   "service_status",
   "column_break_vsjb",
   "service_name",
-  "my_service_status",
   "service_payment_details_section",
   "service_payment_id",
   "payment_id",
@@ -32,7 +31,10 @@
   "mobile_no",
   "documents_upload_tab",
   "status_documents_upload_section",
-  "status_documents_upload"
+  "status_documents_upload",
+  "deliverables_documents_tab",
+  "service_deliverables_documents_section",
+  "service_deliverables"
  ],
  "fields": [
   {
@@ -149,12 +151,6 @@
    "label": "Mobile No"
   },
   {
-   "fieldname": "my_service_status",
-   "fieldtype": "Data",
-   "label": "My Service Status",
-   "options": "Saved"
-  },
-  {
    "fetch_from": "assigned_user.cover_image",
    "fieldname": "assigned_user_image",
    "fieldtype": "Attach Image",
@@ -181,11 +177,27 @@
    "fieldtype": "Table",
    "label": "Status Documents Upload",
    "options": "Services Document Upload Table"
+  },
+  {
+   "fieldname": "deliverables_documents_tab",
+   "fieldtype": "Tab Break",
+   "label": "Deliverables Documents"
+  },
+  {
+   "fieldname": "service_deliverables",
+   "fieldtype": "Table",
+   "label": "Service Deliverables",
+   "options": "My Service Deliverables"
+  },
+  {
+   "fieldname": "service_deliverables_documents_section",
+   "fieldtype": "Section Break",
+   "label": "Service Deliverables Documents"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-28 16:02:59.413815",
+ "modified": "2024-03-29 11:04:36.130666",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "My Services",
