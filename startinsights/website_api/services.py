@@ -278,7 +278,7 @@ def get_my_service_details(my_service_id):
 				"doc_url":doc_url,
 			})
 
-		get_deliverable_document = frappe.db.get_all("Services Document Upload Table",{'parent':my_service.name},["*"],order_by='idx ASC')	
+		get_deliverable_document = frappe.db.get_all("My Service Deliverables",{'parent':my_service.name},["*"],order_by='idx ASC')	
 		for deliverable in get_deliverable_document:
 			if deliverable.documents_attach:
 				deliverable_url = get_domain_name() +  deliverable.documents_attach
