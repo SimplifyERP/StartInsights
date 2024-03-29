@@ -36,15 +36,19 @@ def service_list(user_id):
 			#response	
 			service_details = {
 				"id": service.name,
-				'purchase_status':purchase_status,
-				"service_status":"",
-				"service_name": service.service_name,
+				"name":service.name,
+				"service_name": service.service_name or "",
 				"service_image":image_url,
-				"pricing": service.pricing,
-				"short_description": format_short_description,
-				"about_service":format_about_service,
-				"deliverables":format_deliverables,
-				"documents":[]
+				"pricing": service.pricing or "0",
+				"short_description": format_short_description or "",
+				"about_service":format_about_service or "",
+				"deliverables":format_deliverables or "",
+				"documents":[],
+				"process_steps":[],
+				"status_doc_upload":[],
+				"service_deliverables_doc":[],
+				'purchase_status':purchase_status,
+				"service_status":"",	
 			}
 			service_documents = frappe.db.get_all("Service Documents",{'parent':service.name},['documents_required'],order_by='idx ASC')
 			for documents in service_documents:
@@ -64,8 +68,12 @@ def get_my_services_list(user_id):
 	format_deliverables = ""
 	image_url = ""
 	service_details = []
+	doc_upload_status = False
+	process_status = False
+	doc_url = ""
+	deliverable_url = ""
 	try:
-		my_services = frappe.db.get_all('My Services',{'user':user_id,'my_service_status':"Saved"},['name','service_id','service_status'],order_by='idx ASC')
+		my_services = frappe.db.get_all('My Services',{'user':user_id},['*'],order_by='idx ASC')
 		service_payment_list = []
 		for service in my_services:
 			#by passing the service id to get all service details
@@ -81,21 +89,69 @@ def get_my_services_list(user_id):
 				image_url = ""    
 			service_details = {
 				"id": service.name,
-				'purchase_status':True,
-				"service_status":service.service_status,
-				"service_name": service_detail.service_name,
+				"name":service.name,
+				"service_name": service_detail.service_name or "",
 				"service_image":image_url,
-				"pricing": service_detail.pricing,
-				"short_description": format_short_description,
-				"about_service":format_about_service,
-				"deliverables":format_deliverables,
-				"documents":[]
+				"pricing": service_detail.pricing or "0",
+				"short_description": format_short_description or "",
+				"about_service":format_about_service or "",
+				"deliverables":format_deliverables or "",
+				"documents":[],
+				"process_steps":[],
+				"status_doc_upload":[],
+				"service_deliverables_doc":[],
+				'purchase_status':True,
+				"service_status":service.service_status or "",
 			}
-			service_documents = frappe.db.get_all("Service Documents",{'parent':service.service_id},['documents_required'],order_by='idx ASC')
+
+			service_documents = frappe.db.get_all("Service Documents",{'parent':service.service_id},["*"],order_by='idx ASC')
 			for documents in service_documents:
 				service_details['documents'].append({
-					"documents":documents.documents_required
+					"documents":documents.documents_required or ""
 				})
+
+			get_process_steps = frappe.db.get_all("Process Steps",{'parent':service.name},["*"],order_by='idx ASC')
+			for process in get_process_steps:
+				if process.status == "Completed":
+					process_status = True
+				else:
+					process_status = False
+				if process.doc_upload == 1:
+					doc_upload_status = True
+				else:
+					doc_upload_status = False	
+				service_details["process_steps"].append({
+					"steps":process.steps or "",
+					"tat":process.tat or "",
+					"current_status":process.status or "",
+					"step_status":process_status,
+					"doc_status":doc_upload_status
+				})
+
+			get_doc_upload = frappe.db.get_all("Services Document Upload Table",{'parent':service.name},["*"],order_by='idx ASC')	
+			for user_doc in get_doc_upload:
+				if user_doc.doc_attach:
+					doc_url = get_domain_name() + user_doc.doc_attach
+				else:
+					doc_url = ""	
+				service_details["status_doc_upload"].append({
+					"service_status":user_doc.service_status or "",
+					"doc_extension":user_doc.doc_extension or "",
+					"doc_name":user_doc.doc_name or "",
+					"doc_url":doc_url,
+				})
+
+			get_deliverable_document = frappe.db.get_all("Services Document Upload Table",{'parent':service.name},["*"],order_by='idx ASC')	
+			for deliverable in get_deliverable_document:
+				if deliverable.documents_attach:
+					deliverable_url = get_domain_name() +  deliverable.documents_attach
+				else:
+					deliverable_url = ""	
+				service_details["service_deliverables_doc"].append({
+					"document_name":deliverable.document_name or "",
+					"doc_attach":deliverable_url
+				})
+
 			service_payment_list.append(service_details) 		
 		return service_payment_list
 	except Exception as e:
@@ -133,7 +189,6 @@ def create_my_services(user,service_id,name):
 		my_service.service_id = service_id
 		my_service.service_status = "Under Progress"
 		my_service.service_payment_id = name
-		my_service.my_service_status = "Saved"
 		for service in get_process:
 			my_service.append("process_steps",{
 				"steps":service.get("steps"),
@@ -172,39 +227,68 @@ def get_my_service_details(my_service_id):
 		format_deliverables = html2text.html2text(get_master_services.deliverables or "").strip()
 		my_service_details = {
 			"id": my_service.name,
-			'purchase_status':True,
-			"service_name": get_master_services.service_name,
+			"name":my_service.name,
+			"service_name": get_master_services.service_name or "",
 			"service_image":image_url,
-			"pricing": get_master_services.pricing,
-			"short_description": format_short_description,
-			"about_service":format_about_service,
-			"deliverables":format_deliverables,
+			"pricing": get_master_services.pricing or "0",
+			"short_description": format_short_description or "",
+			"about_service":format_about_service or "",
+			"deliverables":format_deliverables or "",
 			"documents":[],
-			"service_status":my_service.service_status,
-			"service_tracking":[]
+			"process_steps":[],
+			"status_doc_upload":[],
+			"service_deliverables_doc":[],
+			'purchase_status':True,
+			"service_status":my_service.service_status or "",
+			
 		}
-		service_documents = frappe.db.get_all("Service Documents",{'parent':get_master_services.name},['documents_required'],order_by='idx ASC')
+		service_documents = frappe.db.get_all("Service Documents",{'parent':get_master_services.name},["*"],order_by='idx ASC')
 		for documents in service_documents:
 			my_service_details['documents'].append({
-					"documents":documents.documents_required
+					"documents":documents.documents_required or ""
 				})
-		my_service_documents = frappe.db.get_all("Process Steps",{'parent':my_service.name},['steps','tat','status','doc_upload'],order_by='idx ASC')
-		for documents in my_service_documents:
-			if documents.status == "Completed":
+		get_process_steps = frappe.db.get_all("Process Steps",{'parent':my_service.name},["*"],order_by='idx ASC')
+		for process in get_process_steps:
+			if process.status == "Completed":
 				process_status = True
 			else:
-				process_status = False	
-			if documents.doc_upload == 1:
+				process_status = False
+			if process.doc_upload == 1:
 				doc_upload_status = True
 			else:
 				doc_upload_status = False	
-			my_service_details["service_tracking"].append({
-				"steps":documents.steps,
-				"tat":documents.tat,
-				"current_status":documents.status,
-				"status":process_status,
+			my_service_details["process_steps"].append({
+				"steps":process.steps or "",
+				"tat":process.tat or "",
+				"current_status":process.status or "",
+				"step_status":process_status,
 				"doc_status":doc_upload_status
 			})
+
+		get_doc_upload = frappe.db.get_all("Services Document Upload Table",{'parent':my_service.name},["*"],order_by='idx ASC')	
+		for user_doc in get_doc_upload:
+			if user_doc.doc_attach:
+				doc_url = get_domain_name() + user_doc.doc_attach
+			else:
+				doc_url = ""	
+			my_service_details["status_doc_upload"].append({
+				"service_status":user_doc.service_status or "",
+				"doc_extension":user_doc.doc_extension or "",
+				"doc_name":user_doc.doc_name or "",
+				"doc_url":doc_url,
+			})
+
+		get_deliverable_document = frappe.db.get_all("Services Document Upload Table",{'parent':my_service.name},["*"],order_by='idx ASC')	
+		for deliverable in get_deliverable_document:
+			if deliverable.documents_attach:
+				deliverable_url = get_domain_name() +  deliverable.documents_attach
+			else:
+				deliverable_url = ""	
+			my_service_details["service_deliverables_doc"].append({
+				"document_name":deliverable.document_name or "",
+				"doc_attach":deliverable_url
+			})
+
 		if my_service.assigned_user_image:
 			user_image = get_domain_name() +  my_service.assigned_user_image
 		else:
