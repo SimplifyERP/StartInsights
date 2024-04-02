@@ -15,7 +15,7 @@
   "column_break_ackk",
   "status",
   "end_time",
-  "book_an_expert",
+  "fundraising_experts",
   "service_amount",
   "disabled",
   "user_details_section",
@@ -101,19 +101,13 @@
    "read_only": 1
   },
   {
-   "fieldname": "book_an_expert",
-   "fieldtype": "Link",
-   "label": "Book an Expert",
-   "options": "Fundraising Experts",
-   "read_only": 1
-  },
-  {
    "fieldname": "payment_id",
    "fieldtype": "Data",
    "label": "Payment ID",
    "read_only": 1
   },
   {
+   "fetch_from": "fundraising_experts.pricing",
    "fieldname": "service_amount",
    "fieldtype": "Currency",
    "label": "Service Amount",
@@ -147,13 +141,20 @@
    "fieldname": "disabled",
    "fieldtype": "Check",
    "label": "Disabled"
+  },
+  {
+   "fieldname": "fundraising_experts",
+   "fieldtype": "Link",
+   "label": "Fundraising Experts",
+   "options": "Fundraising Experts",
+   "read_only": 1
   }
  ],
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-03-28 10:27:49.985472",
+ "modified": "2024-04-02 13:27:31.947084",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Service Listing",
