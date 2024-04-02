@@ -178,3 +178,11 @@ def get_recommended_search_investors():
         return {"status":True,"message":search_investors}
     except Exception as e:
         return {"status":False,"message":e}
+    
+
+@frappe.whitelist()
+def get_search_investors_serach_bar(page_no,funding_stage,search_key):
+    try:
+        pass
+    except Exception as e:
+        return {"status":False,"message":e}
