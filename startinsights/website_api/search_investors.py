@@ -222,6 +222,6 @@ def get_search_investors_serach_bar(page_no,funding_stage,search_key,user_id):
                 "max_check_size":investors_details.max_check_size or "0"
             }
             search_bar_investors_list.append(investors_list)
-        return {"status":True,"investors_count":investors_count[0]["investor_counts"],"search_bar":search_investors_list}    
+        return {"status":True,"investors_count":investors_count[0]["investor_counts"],"search_bar":search_bar_investors_list}    
     except Exception as e:
         return {"status":False,"message":e}
