@@ -114,7 +114,8 @@
    "fieldname": "funding_stages_table",
    "fieldtype": "Table",
    "label": "Funding stages Table",
-   "options": "Investor Funding Stages"
+   "options": "Investor Funding Stages",
+   "reqd": 1
   },
   {
    "fieldname": "value_add_section",
@@ -175,7 +176,7 @@
  "image_field": "investor_logo",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-12 17:38:21.783005",
+ "modified": "2024-04-02 15:57:20.765406",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Search Investors",
