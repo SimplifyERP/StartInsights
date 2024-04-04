@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "SCH-INVESTORS-.####",
  "creation": "2024-02-28 12:33:19.518920",
@@ -189,7 +190,7 @@
  "image_field": "investor_logo",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-04-03 15:47:20.473998",
+ "modified": "2024-04-04 12:08:58.891944",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Search Investors",
