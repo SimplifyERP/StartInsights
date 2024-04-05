@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "field:tag_name",
  "creation": "2024-02-28 18:22:05.998585",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -15,7 +16,8 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Tag Name",
-   "reqd": 1
+   "reqd": 1,
+   "unique": 1
   },
   {
    "fieldname": "column_break_zclm",
@@ -30,10 +32,11 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-04 10:43:06.656887",
+ "modified": "2024-04-05 13:24:16.967660",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Tag Name",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {

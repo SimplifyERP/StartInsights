@@ -11,6 +11,7 @@
   "investor_status",
   "contact_person",
   "funding_stage",
+  "funding",
   "disabled",
   "column_break_aqfo",
   "description",
@@ -98,6 +99,12 @@
    "fieldname": "website",
    "fieldtype": "Data",
    "label": "Website"
+  },
+  {
+   "description": "Note : Rupees",
+   "fieldname": "funding",
+   "fieldtype": "Currency",
+   "label": "Funding"
   }
  ],
  "image_field": "investor_logo",
@@ -108,7 +115,7 @@
    "link_fieldname": "user_created_investor"
   }
  ],
- "modified": "2024-03-27 17:58:17.456641",
+ "modified": "2024-04-05 13:53:40.894196",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "User Created Investors",
