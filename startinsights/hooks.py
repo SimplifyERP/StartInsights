@@ -88,7 +88,7 @@ doctype_list_js = {
 # Name of the app being installed is passed as an argument
 
 # before_app_install = "startinsights.utils.before_app_install"
-# after_app_install = "startinsights.utils.after_app_install"
+after_app_install = "startinsights.after_install.after_app_install"
 
 # Integration Cleanup
 # -------------------
