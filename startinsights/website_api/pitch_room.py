@@ -56,7 +56,7 @@ def get_room_details(user_id):
     image_url = ""
     company_name = ""
     try:
-        get_pitch_room = frappe.db.get_all('Pitch Room',{'user_id':user_id},['name','room_name','cover_image','about_startup'], order_by='idx ASC')
+        get_pitch_room = frappe.db.get_all('Pitch Room',{"user_id":user_id},['name','room_name','cover_image','about_startup'], order_by='idx ASC')
         get_pitch_room_list = []
         get_pitch_room_list.append(get_pitch_room_details_empty())
         for pitch_room in get_pitch_room:
@@ -94,7 +94,7 @@ def get_room_details(user_id):
                     "document_type":documents.document_type,
                     "attach": doc_url,
                     "is_upload":True,
-                    "created_date":format_date(get_file),
+                    "created_date":format_date(get_file.date()),
                     "created_time":change_time_format(format_time(get_file)),
                 })
             get_share_users = frappe.db.get_all("Shared Users",{'parent':pitch_room.name},['user_id','user_name'],order_by='idx ASC')
@@ -236,7 +236,7 @@ def get_users_with_role():
             "user_id":profile.user_id,
             "full_name":profile.full_name,
             "profile_image":image_url or "",
-            "email_id":profile.email_id,
+            "email_id":profile.email_id or "",
             "designation":profile.designation or ""
         }
         format_user.append(user_role)

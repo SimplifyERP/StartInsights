@@ -6,7 +6,7 @@ import string
 
 
 @frappe.whitelist()
-def create_lead(full_name,mobile_no,email_id):
+def create_lead(full_name,last_name,mobile_no,email_id):
     status = ""
     message = ""
     user_details = []
@@ -15,6 +15,7 @@ def create_lead(full_name,mobile_no,email_id):
             new_lead = frappe.new_doc("Lead")
             new_lead.email_id = email_id
             new_lead.first_name = full_name
+            new_lead.last_name = last_name
             new_lead.mobile_no = mobile_no
             new_lead.save(ignore_permissions=True)
             frappe.db.commit()
