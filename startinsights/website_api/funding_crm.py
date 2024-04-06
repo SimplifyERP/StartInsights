@@ -160,7 +160,7 @@ def get_contacted_as_search_investor(user_id):
             "type_of_investor":"Search Investors",
             "logo":image_url,
             "investor_name":get_search_investor.investor_title or "",
-            "status":"SHORTLIST",
+            "status":"CONTACTED",
             "contacted_person":"",
             "funding_stage":fund_rasing or [],
             "description":get_search_investor.about_us or "",      
@@ -187,7 +187,7 @@ def get_contacted_as_user_created_investor(user_id):
             "type_of_investor":"User Created Investors",
             "logo":image_url,
             "investor_name":user_investor.investor_name or "",
-            "status":"SHORTLIST",
+            "status":"CONTACTED",
             "contacted_person":user_investor.contact_person or "",
             "funding_stage":user_investor.funding_stage or "",
             "description":user_investor.description or "",      
@@ -215,7 +215,7 @@ def get_pitched_as_search_investor(user_id):
             "type_of_investor":"Search Investors",
             "logo":image_url,
             "investor_name":get_search_investor.investor_title or "",
-            "status":"SHORTLIST",
+            "status":"PITCHED",
             "contacted_person":"",
             "funding_stage":fund_rasing or [],
             "description":get_search_investor.about_us or "",      
@@ -242,62 +242,7 @@ def get_pitched_as_user_created_investor(user_id):
             "type_of_investor":"User Created Investors",
             "logo":image_url,
             "investor_name":user_investor.investor_name or "",
-            "status":"SHORTLIST",
-            "contacted_person":user_investor.contact_person or "",
-            "funding_stage":user_investor.funding_stage or "",
-            "description":user_investor.description or "",      
-            "website":user_investor.website or "", 
-            "mail_address":user_investor.investor_email or "",
-            "contact_no":user_investor.contact_no or "",
-            "notes":user_investor.notes or ""
-        }
-        user_created_investor_list.append(user_created_investor)
-    return user_created_investor_list    
-
-def get_pitched_as_search_investor(user_id):
-    search_investor_list = []
-    funding_crm = frappe.db.get_all("Funding CRM",{"user_id":user_id,"type_of_investor":"Search Investors Favourites","funding_crm_status":"PITCHED"},['*'])
-    for crm in funding_crm:
-        get_search_investor = frappe.get_doc("Search Investors",crm.search_investor_id)
-        fund_rasing = frappe.db.get_all("Investor Funding Stages",{'parent':get_search_investor.name},['funding_stages'])
-        if get_search_investor.investor_logo:
-            image_url = get_domain_name() + get_search_investor.get('investor_logo')
-        else:
-            image_url = ""  
-        search_investor = {
-            "id":get_search_investor.name,
-            "name":get_search_investor.name,
-            "type_of_investor":"Search Investors",
-            "logo":image_url,
-            "investor_name":get_search_investor.investor_title or "",
-            "status":"SHORTLIST",
-            "contacted_person":"",
-            "funding_stage":fund_rasing or [],
-            "description":get_search_investor.about_us or "",      
-            "website":get_search_investor.investor_website or "", 
-            "mail_address":"",
-            "contact_no":"",
-            "notes":""
-        }
-        search_investor_list.append(search_investor)
-    return search_investor_list    
-
-def get_pitched_as_user_created_investor(user_id):
-    user_created_investor_list = []
-    funding_crm = frappe.db.get_all("Funding CRM",{"user_id":user_id,"type_of_investor":"User Created Investors","funding_crm_status":"PITCHED"},['*'])
-    for crm in funding_crm:
-        user_investor = frappe.get_doc("User Created Investors",crm.user_created_investor)
-        if user_investor.investor_logo:
-            image_url = get_domain_name() + user_investor.get('investor_logo')
-        else:
-            image_url = ""  
-        user_created_investor = {
-            "id":user_investor.name,
-            "name":user_investor.name,
-            "type_of_investor":"User Created Investors",
-            "logo":image_url,
-            "investor_name":user_investor.investor_name or "",
-            "status":"SHORTLIST",
+            "status":"PITCHED",
             "contacted_person":user_investor.contact_person or "",
             "funding_stage":user_investor.funding_stage or "",
             "description":user_investor.description or "",      
@@ -325,7 +270,7 @@ def get_diligence_as_search_investor(user_id):
             "type_of_investor":"Search Investors",
             "logo":image_url,
             "investor_name":get_search_investor.investor_title or "",
-            "status":"SHORTLIST",
+            "status":"DILIGENCE",
             "contacted_person":"",
             "funding_stage":fund_rasing or [],
             "description":get_search_investor.about_us or "",      
@@ -352,7 +297,7 @@ def get_diligence_as_user_created_investor(user_id):
             "type_of_investor":"User Created Investors",
             "logo":image_url,
             "investor_name":user_investor.investor_name or "",
-            "status":"SHORTLIST",
+            "status":"DILIGENCE",
             "contacted_person":user_investor.contact_person or "",
             "funding_stage":user_investor.funding_stage or "",
             "description":user_investor.description or "",      
@@ -380,7 +325,7 @@ def get_won_as_search_investor(user_id):
             "type_of_investor":"Search Investors",
             "logo":image_url,
             "investor_name":get_search_investor.investor_title or "",
-            "status":"SHORTLIST",
+            "status":"WON",
             "contacted_person":"",
             "funding_stage":fund_rasing or [],
             "description":get_search_investor.about_us or "",      
@@ -407,7 +352,7 @@ def get_won_as_user_created_investor(user_id):
             "type_of_investor":"User Created Investors",
             "logo":image_url,
             "investor_name":user_investor.investor_name or "",
-            "status":"SHORTLIST",
+            "status":"WON",
             "contacted_person":user_investor.contact_person or "",
             "funding_stage":user_investor.funding_stage or "",
             "description":user_investor.description or "",      
@@ -435,7 +380,7 @@ def get_lost_as_search_investor(user_id):
             "type_of_investor":"Search Investors",
             "logo":image_url,
             "investor_name":get_search_investor.investor_title or "",
-            "status":"SHORTLIST",
+            "status":"LOST",
             "contacted_person":"",
             "funding_stage":fund_rasing or [],
             "description":get_search_investor.about_us or "",      
@@ -462,7 +407,7 @@ def get_lost_as_user_created_investor(user_id):
             "type_of_investor":"User Created Investors",
             "logo":image_url,
             "investor_name":user_investor.investor_name or "",
-            "status":"SHORTLIST",
+            "status":"LOST",
             "contacted_person":user_investor.contact_person or "",
             "funding_stage":user_investor.funding_stage or "",
             "description":user_investor.description or "",      
