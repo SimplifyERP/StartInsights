@@ -17,7 +17,8 @@
   "column_break_dtof",
   "investor_title",
   "investor_name",
-  "funding_crm_status"
+  "funding_crm_status",
+  "disabled"
  ],
  "fields": [
   {
@@ -94,11 +95,17 @@
    "label": "Search Investor ID",
    "options": "Search Investors",
    "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-27 17:36:36.493737",
+ "modified": "2024-04-06 13:26:59.095283",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Funding CRM",
