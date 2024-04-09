@@ -41,7 +41,7 @@ def expert_details(expert_id):
                 "attach_image":image_url,
                 "designation":expert.designation or "",
                 "mail_id":expert.expert_mail_id or "",
-                "price":expert.pricing or "0",
+                "price":frappe.utils.fmt_money(expert.pricing),
                 "short_description":description,
                 "description":expert_description,
                 "from_date":formatdate(expert.from_date),
@@ -102,7 +102,7 @@ def get_fundraising_experts():
                 "attach_image":image_url,
                 "designation":expert.designation or "",
                 "mail_id":expert.expert_mail_id or "",
-                "price":expert.pricing or "0",
+                "price":frappe.utils.fmt_money(expert.pricing),
                 "short_description":description,
                 "description":expert_description
             }

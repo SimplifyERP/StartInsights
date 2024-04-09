@@ -55,7 +55,7 @@ def get_service_list_payment_details(user_id,booking_id):
             service_payment_details = {
                 "payment_id":payment.payment_id,
                 "payment_date":format_date(payment.service_date),
-                "amount_paid":payment.service_amount,
+                "amount_paid":frappe.utils.fmt_money(payment.service_amount),
                 "service_start_time":payment.start_time,
                 "service_end_time":payment.end_time,
                 # "payment_method":payment.payment_method or ""

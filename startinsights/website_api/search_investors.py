@@ -76,8 +76,8 @@ def get_search_investors_list(page_no,funding_stage,user_id,search_key,type_of_u
                 "funding_requirements":investors_details.funding_requirements or "",
                 "funding_stages_table":fund_rasing,
                 "sector_focus":sector_focus,          
-                "min_check_size":investors_details.min_check_size or 0,
-                "max_check_size":investors_details.max_check_size or 0
+                "min_check_size":frappe.utils.fmt_money(investors_details.min_check_size),
+                "max_check_size":frappe.utils.fmt_money(investors_details.max_check_size )
             }
             search_investors.append(investors_list) 
         return {"status":True,"overall_count":over_all_investors_count,"investors_count":len(investors_count),"search_investors_list":search_investors}
@@ -159,8 +159,8 @@ def get_favourite_investors(user_id,status,page_no):
                 "hq":get_search_investors_list.hq or "",
                 "funding_requirements":get_search_investors_list.funding_requirements or "",
                 "funding_stages_table":fund_rasing,          
-                "min_check_size":get_search_investors_list.min_check_size or 0,
-                "max_check_size":get_search_investors_list.max_check_size or 0
+                "min_check_size":frappe.utils.fmt_money(get_search_investors_list.min_check_size),
+                "max_check_size":frappe.utils.fmt_money(get_search_investors_list.max_check_size)
             }
             search_investors_list.append(investors_list)
         return {"status":True,"overall_count":over_all_investors_count,"search_investors_list":search_investors_list}
@@ -204,8 +204,8 @@ def get_recommended_search_investors():
                 "hq":investors_details.hq or "",
                 "funding_requirements":investors_details.funding_requirements or "",
                 "funding_stages_table":fund_rasing,          
-                "min_check_size":investors_details.min_check_size or 0,
-                "max_check_size":investors_details.max_check_size or 0
+                "min_check_size":frappe.utils.fmt_money(investors_details.min_check_size),
+                "max_check_size":frappe.utils.fmt_money(investors_details.max_check_size)
             }
             search_investors.append(investors_list) 
         return {"status":True,"message":search_investors}

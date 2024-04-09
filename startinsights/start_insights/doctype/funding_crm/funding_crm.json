@@ -18,7 +18,9 @@
   "investor_title",
   "investor_name",
   "funding_crm_status",
-  "disabled"
+  "disabled",
+  "notes_tab",
+  "notes"
  ],
  "fields": [
   {
@@ -101,11 +103,21 @@
    "fieldname": "disabled",
    "fieldtype": "Check",
    "label": "Disabled"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "notes_tab",
+   "fieldtype": "Tab Break",
+   "label": "Notes"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-04-06 13:26:59.095283",
+ "modified": "2024-04-06 18:21:09.141906",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Funding CRM",

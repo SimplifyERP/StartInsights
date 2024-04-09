@@ -1,7 +1,7 @@
 // Copyright (c) 2024, Suriya and contributors
 // For license information, please see license.txt
 
-// frappe.ui.form.on("Service List", {
+// frappe.ui.form.on("Pitch Room Quote", {
 // 	refresh(frm) {
 
 // 	},
