@@ -10,8 +10,9 @@
   "investor_details_section",
   "investor_title",
   "investor_linkedin",
-  "disabled",
   "investor_verified",
+  "pitch_deck_submission_link",
+  "disabled",
   "column_break_ltlr",
   "investor_logo",
   "investor_website",
@@ -185,12 +186,19 @@
    "fieldtype": "Table",
    "label": "Sector Focus Table",
    "options": "Sector Focus Table"
+  },
+  {
+   "depends_on": "eval:doc.investor_verified ==0",
+   "fieldname": "pitch_deck_submission_link",
+   "fieldtype": "Data",
+   "label": "Pitch Deck Submission Link",
+   "options": "URL"
   }
  ],
  "image_field": "investor_logo",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-04-04 12:08:58.891944",
+ "modified": "2024-04-09 16:45:40.104774",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Search Investors",

@@ -5,7 +5,11 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "quote_table"
+  "pitch_room_tab",
+  "pitch_room_quote_section",
+  "quote_table",
+  "services_quote_tab",
+  "quotes"
  ],
  "fields": [
   {
@@ -13,13 +17,34 @@
    "fieldtype": "Table",
    "label": "Quote Table",
    "options": "Pitch Room Quote Table"
+  },
+  {
+   "fieldname": "pitch_room_quote_section",
+   "fieldtype": "Section Break",
+   "label": "Pitch Room Quote"
+  },
+  {
+   "fieldname": "services_quote_tab",
+   "fieldtype": "Tab Break",
+   "label": "Services Quote"
+  },
+  {
+   "fieldname": "quotes",
+   "fieldtype": "Table",
+   "label": "Quotes",
+   "options": "Pitch Room Quote Table"
+  },
+  {
+   "fieldname": "pitch_room_tab",
+   "fieldtype": "Tab Break",
+   "label": "Pitch Room"
   }
  ],
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-04-09 13:33:02.316653",
+ "modified": "2024-04-09 16:40:28.995160",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Pitch Room Quote",

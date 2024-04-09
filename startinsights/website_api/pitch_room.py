@@ -286,8 +286,14 @@ def delete_pitch_room(pitch_room_id,delete_status):
 @frappe.whitelist()
 def get_pitch_room_quotes():
     try:
-        get_quotes = frappe.db.get_single_value("Pitch Room Quote","quote_table")
-        return {"status":True,"quotes":get_quotes}
+        get_quotes = frappe.get_single("Pitch Room Quote")
+        quotes = []
+        for quote in get_quotes.quote_table:
+            quotes_list  = {
+                "quote":quote.quote
+            }
+            quotes.append(quotes_list)
+        return {"status":True,"quotes_list":quotes}
     except Exception as e:
         return {"status":False,"message":str(e)}
 
