@@ -40,7 +40,7 @@ def service_list(user_id):
 				"name":service.name,
 				"service_name": service.service_name or "",
 				"service_image":image_url,
-				"pricing": service.pricing or "0",
+				"pricing": frappe.utils.fmt_money(service.pricing),
 				"short_description": format_short_description or "",
 				"about_service":format_about_service or "",
 				"deliverables":format_deliverables or "",
@@ -93,7 +93,7 @@ def get_my_services_list(user_id):
 				"name":service.name,
 				"service_name": service_detail.service_name or "",
 				"service_image":image_url,
-				"pricing": service_detail.pricing or "0",
+				"pricing": frappe.utils.fmt_money(service_detail.pricing),
 				"short_description": format_short_description or "",
 				"about_service":format_about_service or "",
 				"deliverables":format_deliverables or "",
@@ -172,6 +172,7 @@ def create_service_payment(service_id,user,payment_id,amount,date):
 		new_service_payment.amount = amount
 		new_service_payment.login_user = user
 		new_service_payment.save(ignore_permissions=True)
+		new_service_payment.submit()
 		frappe.db.commit()
 		frappe.db.set_value("Service Payment",new_service_payment.name,'owner',user)
 
@@ -232,7 +233,7 @@ def get_my_service_details(my_service_id,doctype):
 			"name":my_service.name,
 			"service_name": get_master_services.service_name or "",
 			"service_image":image_url,
-			"pricing": get_master_services.pricing or "0",
+			"pricing": frappe.utils.fmt_money(get_master_services.pricing),
 			"short_description": format_short_description or "",
 			"about_service":format_about_service or "",
 			"deliverables":format_deliverables or "",

@@ -7,9 +7,12 @@
  "engine": "InnoDB",
  "field_order": [
   "card_view_section",
+  "service_id",
   "service_name",
   "service_image",
   "column_break_sxhw",
+  "customer_group",
+  "price_list",
   "pricing",
   "disabled",
   "description_section",
@@ -50,14 +53,15 @@
    "label": "Service Details"
   },
   {
+   "fetch_from": "service_id.item_name",
    "fieldname": "service_name",
-   "fieldtype": "Link",
+   "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Service Name",
-   "options": "Service List",
-   "reqd": 1
+   "read_only": 1
   },
   {
+   "fetch_from": "price_list.price_list_rate",
    "fieldname": "pricing",
    "fieldtype": "Currency",
    "in_list_view": 1,
@@ -88,9 +92,9 @@
    "label": "Description"
   },
   {
-   "fetch_from": "service_name.description",
+   "fetch_from": "service_id.description",
    "fieldname": "short_description",
-   "fieldtype": "Small Text",
+   "fieldtype": "Text Editor",
    "label": "Short Description",
    "reqd": 1
   },
@@ -136,6 +140,24 @@
    "fieldtype": "Text Editor",
    "label": "About Service",
    "reqd": 1
+  },
+  {
+   "fieldname": "service_id",
+   "fieldtype": "Link",
+   "label": "Service ID",
+   "options": "Item"
+  },
+  {
+   "fieldname": "customer_group",
+   "fieldtype": "Link",
+   "label": "Customer Group",
+   "options": "Customer Group"
+  },
+  {
+   "fieldname": "price_list",
+   "fieldtype": "Link",
+   "label": "Price List",
+   "options": "Item Price"
   }
  ],
  "image_field": "service_image",
@@ -151,7 +173,7 @@
    "link_fieldname": "service_id"
   }
  ],
- "modified": "2024-03-13 20:02:26.292571",
+ "modified": "2024-04-08 17:41:46.781016",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Services",

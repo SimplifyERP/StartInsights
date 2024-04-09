@@ -217,7 +217,7 @@ def shared_user(user_ids, pitch_room_id):
             })
         pitch_room.save(ignore_permissions=True)
         frappe.db.commit()
-        return {"status":True,"messsage":"Users Created Successfully"}
+        return {"status":True,"messsage":"Room Shared Successfully"}
     except Exception as e:
         return {"status": False, "message": str(e)}
 
@@ -262,6 +262,34 @@ def remove_document(room_id,doc_id):
     except Exception as e:
         return {"status":False,"message":e}
 
+
+@frappe.whitelist()
+def delete_pitch_room(pitch_room_id,delete_status):
+    status = ""
+    message = ""
+    try:
+        if frappe.db.exists("Pitch Room",{"name":pitch_room_id}):
+            get_pitch_room = frappe.get_doc("Pitch Room",pitch_room_id)
+            get_pitch_room.disabled = delete_status
+            get_pitch_room.save(ignore_permissions=True)
+            frappe.db.commit()
+            status = True
+            message = "Success"
+        else:
+            status = False
+            message = "No Pitch Room In Database"
+        return {"status":status,"message":message}
+    except Exception as e:
+        return {"status":False,"message":e}
+
+
+@frappe.whitelist()
+def get_pitch_room_quotes():
+    try:
+        get_quotes = frappe.db.get_single_value("Pitch Room Quote","quote_table")
+        return {"status":True,"quotes":get_quotes}
+    except Exception as e:
+        return {"status":False,"message":str(e)}
 
 
 # @frappe.whitelist()
