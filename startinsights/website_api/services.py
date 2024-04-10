@@ -87,7 +87,7 @@ def get_my_services_list(user_id):
 			format_short_description = html2text.html2text(service_detail.short_description or "").strip() 
 			format_about_service = html2text.html2text(service_detail.about_service or "").strip() 
 			format_deliverables = html2text.html2text(service_detail.deliverables or "").strip() 
-			formated_currency = "{:,.0f}".format(service.pricing)
+			formated_currency = "{:,.0f}".format(service_detail.pricing)
 			#by concedation the domain name and image url path to show image or anything
 			if service_detail.service_image:
 				image_url = get_domain_name() + service_detail.service_image
