@@ -102,7 +102,7 @@ def get_sortlist_as_search_investor(user_id):
         search_investor = {
             "id":get_search_investor.name,
             "name":get_search_investor.name,
-            "type_of_investor":"Search Investors",
+            "type_of_investor":"Search Investors Favourites",
             "logo":image_url,
             "investor_name":get_search_investor.investor_title or "",
             "status":"SHORTLIST",
@@ -157,7 +157,7 @@ def get_contacted_as_search_investor(user_id):
         search_investor = {
             "id":get_search_investor.name,
             "name":get_search_investor.name,
-            "type_of_investor":"Search Investors",
+            "type_of_investor":"Search Investors Favourites",
             "logo":image_url,
             "investor_name":get_search_investor.investor_title or "",
             "status":"CONTACTED",
@@ -212,7 +212,7 @@ def get_pitched_as_search_investor(user_id):
         search_investor = {
             "id":get_search_investor.name,
             "name":get_search_investor.name,
-            "type_of_investor":"Search Investors",
+            "type_of_investor":"Search Investors Favourites",
             "logo":image_url,
             "investor_name":get_search_investor.investor_title or "",
             "status":"PITCHED",
@@ -267,7 +267,7 @@ def get_diligence_as_search_investor(user_id):
         search_investor = {
             "id":get_search_investor.name,
             "name":get_search_investor.name,
-            "type_of_investor":"Search Investors",
+            "type_of_investor":"Search Investors Favourites",
             "logo":image_url,
             "investor_name":get_search_investor.investor_title or "",
             "status":"DILIGENCE",
@@ -322,7 +322,7 @@ def get_won_as_search_investor(user_id):
         search_investor = {
             "id":get_search_investor.name,
             "name":get_search_investor.name,
-            "type_of_investor":"Search Investors",
+            "type_of_investor":"Search Investors Favourites",
             "logo":image_url,
             "investor_name":get_search_investor.investor_title or "",
             "status":"WON",
@@ -377,7 +377,7 @@ def get_lost_as_search_investor(user_id):
         search_investor = {
             "id":get_search_investor.name,
             "name":get_search_investor.name,
-            "type_of_investor":"Search Investors",
+            "type_of_investor":"Search Investors Favourites",
             "logo":image_url,
             "investor_name":get_search_investor.investor_title or "",
             "status":"LOST",
