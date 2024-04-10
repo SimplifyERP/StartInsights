@@ -127,7 +127,8 @@ def get_sortlist_as_user_created_investor(user_id):
         if user_investor.investor_logo:
             image_url = get_domain_name() + user_investor.get('investor_logo')
         else:
-            image_url = ""  
+            image_url = ""
+        formated_currency = "{:,.0f}".format(user_investor.funding)  
         user_created_investor = {
             "id":user_investor.name,
             "name":user_investor.name,
@@ -141,7 +142,7 @@ def get_sortlist_as_user_created_investor(user_id):
             "website":user_investor.website or "", 
             "mail_address":user_investor.investor_email or "",
             "contact_no":user_investor.contact_no or "",
-            "funding":str(user_investor.funding),
+            "funding":formated_currency, 
             "notes":crm.notes or ""
         }
         user_created_investor_list.append(user_created_investor)
@@ -184,7 +185,8 @@ def get_contacted_as_user_created_investor(user_id):
         if user_investor.investor_logo:
             image_url = get_domain_name() + user_investor.get('investor_logo')
         else:
-            image_url = ""  
+            image_url = ""
+        formated_currency = "{:,.0f}".format(user_investor.funding)    
         user_created_investor = {
             "id":user_investor.name,
             "name":user_investor.name,
@@ -198,7 +200,7 @@ def get_contacted_as_user_created_investor(user_id):
             "website":user_investor.website or "", 
             "mail_address":user_investor.investor_email or "",
             "contact_no":user_investor.contact_no or "",
-            "funding":str(user_investor.funding),
+            "funding":formated_currency,
             "notes":crm.notes or ""
         }
         user_created_investor_list.append(user_created_investor)
@@ -242,6 +244,7 @@ def get_pitched_as_user_created_investor(user_id):
             image_url = get_domain_name() + user_investor.get('investor_logo')
         else:
             image_url = ""  
+        formated_currency = "{:,.0f}".format(user_investor.funding)  
         user_created_investor = {
             "id":user_investor.name,
             "name":user_investor.name,
@@ -255,7 +258,7 @@ def get_pitched_as_user_created_investor(user_id):
             "website":user_investor.website or "", 
             "mail_address":user_investor.investor_email or "",
             "contact_no":user_investor.contact_no or "",
-            "funding":str(user_investor.funding),
+            "funding":formated_currency,
             "notes":crm.notes or ""
         }
         user_created_investor_list.append(user_created_investor)
@@ -299,6 +302,7 @@ def get_diligence_as_user_created_investor(user_id):
             image_url = get_domain_name() + user_investor.get('investor_logo')
         else:
             image_url = ""  
+        formated_currency = "{:,.0f}".format(user_investor.funding)  
         user_created_investor = {
             "id":user_investor.name,
             "name":user_investor.name,
@@ -312,7 +316,7 @@ def get_diligence_as_user_created_investor(user_id):
             "website":user_investor.website or "", 
             "mail_address":user_investor.investor_email or "",
             "contact_no":user_investor.contact_no or "",
-            "funding":str(user_investor.funding),
+            "funding":formated_currency,
             "notes":crm.notes or ""
         }
         user_created_investor_list.append(user_created_investor)
@@ -355,7 +359,8 @@ def get_won_as_user_created_investor(user_id):
         if user_investor.investor_logo:
             image_url = get_domain_name() + user_investor.get('investor_logo')
         else:
-            image_url = ""  
+            image_url = ""
+        formated_currency = "{:,.0f}".format(user_investor.funding)  
         user_created_investor = {
             "id":user_investor.name,
             "name":user_investor.name,
@@ -369,7 +374,7 @@ def get_won_as_user_created_investor(user_id):
             "website":user_investor.website or "", 
             "mail_address":user_investor.investor_email or "",
             "contact_no":user_investor.contact_no or "",
-            "funding":str(user_investor.funding),
+            "funding":formated_currency,
             "notes":crm.notes or ""
         }
         user_created_investor_list.append(user_created_investor)
@@ -413,6 +418,7 @@ def get_lost_as_user_created_investor(user_id):
             image_url = get_domain_name() + user_investor.get('investor_logo')
         else:
             image_url = ""  
+        formated_currency = "{:,.0f}".format(user_investor.funding)  
         user_created_investor = {
             "id":user_investor.name,
             "name":user_investor.name,
@@ -426,7 +432,7 @@ def get_lost_as_user_created_investor(user_id):
             "website":user_investor.website or "", 
             "mail_address":user_investor.investor_email or "",
             "contact_no":user_investor.contact_no or "",
-            "funding":str(user_investor.funding),
+            "funding":formated_currency,
             "notes":crm.notes or ""
         }
         user_created_investor_list.append(user_created_investor)
