@@ -112,7 +112,7 @@ def get_sortlist_as_search_investor(user_id):
             "website":get_search_investor.investor_website or "", 
             "mail_address":"",
             "contact_no":"",
-            "notes":get_search_investor.notes or ""
+            "notes":crm.notes or ""
         }
         search_investor_list.append(search_investor)
     return search_investor_list    
@@ -139,7 +139,7 @@ def get_sortlist_as_user_created_investor(user_id):
             "website":user_investor.website or "", 
             "mail_address":user_investor.investor_email or "",
             "contact_no":user_investor.contact_no or "",
-            "notes":user_investor.notes or ""
+            "notes":crm.notes or ""
         }
         user_created_investor_list.append(user_created_investor)
     return user_created_investor_list 
@@ -167,7 +167,7 @@ def get_contacted_as_search_investor(user_id):
             "website":get_search_investor.investor_website or "", 
             "mail_address":"",
             "contact_no":"",
-            "notes":get_search_investor.notes or "",
+            "notes":crm.notes or "",
         }
         search_investor_list.append(search_investor)
     return search_investor_list    
@@ -194,7 +194,7 @@ def get_contacted_as_user_created_investor(user_id):
             "website":user_investor.website or "", 
             "mail_address":user_investor.investor_email or "",
             "contact_no":user_investor.contact_no or "",
-            "notes":user_investor.notes or ""
+            "notes":crm.notes or ""
         }
         user_created_investor_list.append(user_created_investor)
     return user_created_investor_list    
@@ -222,7 +222,7 @@ def get_pitched_as_search_investor(user_id):
             "website":get_search_investor.investor_website or "", 
             "mail_address":"",
             "contact_no":"",
-            "notes":get_search_investor.notes or "",
+            "notes":crm.notes or "",
         }
         search_investor_list.append(search_investor)
     return search_investor_list    
@@ -249,7 +249,7 @@ def get_pitched_as_user_created_investor(user_id):
             "website":user_investor.website or "", 
             "mail_address":user_investor.investor_email or "",
             "contact_no":user_investor.contact_no or "",
-            "notes":user_investor.notes or ""
+            "notes":crm.notes or ""
         }
         user_created_investor_list.append(user_created_investor)
     return user_created_investor_list    
@@ -277,7 +277,7 @@ def get_diligence_as_search_investor(user_id):
             "website":get_search_investor.investor_website or "", 
             "mail_address":"",
             "contact_no":"",
-            "notes":get_search_investor.notes or ""
+            "notes":crm.notes or ""
         }
         search_investor_list.append(search_investor)
     return search_investor_list    
@@ -304,7 +304,7 @@ def get_diligence_as_user_created_investor(user_id):
             "website":user_investor.website or "", 
             "mail_address":user_investor.investor_email or "",
             "contact_no":user_investor.contact_no or "",
-            "notes":user_investor.notes or ""
+            "notes":crm.notes or ""
         }
         user_created_investor_list.append(user_created_investor)
     return user_created_investor_list 
@@ -332,7 +332,7 @@ def get_won_as_search_investor(user_id):
             "website":get_search_investor.investor_website or "", 
             "mail_address":"",
             "contact_no":"",
-            "notes":get_search_investor.notes or ""
+            "notes":crm.notes or ""
         }
         search_investor_list.append(search_investor)
     return search_investor_list    
@@ -359,7 +359,7 @@ def get_won_as_user_created_investor(user_id):
             "website":user_investor.website or "", 
             "mail_address":user_investor.investor_email or "",
             "contact_no":user_investor.contact_no or "",
-            "notes":user_investor.notes or ""
+            "notes":crm.notes or ""
         }
         user_created_investor_list.append(user_created_investor)
     return user_created_investor_list    
@@ -387,7 +387,7 @@ def get_lost_as_search_investor(user_id):
             "website":get_search_investor.investor_website or "", 
             "mail_address":"",
             "contact_no":"",
-            "notes":get_search_investor.notes or "",
+            "notes":crm.notes or "",
         }
         search_investor_list.append(search_investor)
     return search_investor_list    
@@ -414,7 +414,7 @@ def get_lost_as_user_created_investor(user_id):
             "website":user_investor.website or "", 
             "mail_address":user_investor.investor_email or "",
             "contact_no":user_investor.contact_no or "",
-            "notes":user_investor.notes or ""
+            "notes":crm.notes or ""
         }
         user_created_investor_list.append(user_created_investor)
     return user_created_investor_list   
