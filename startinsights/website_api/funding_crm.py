@@ -1,6 +1,7 @@
 import frappe
 from startinsights.custom import get_domain_name
 from frappe.utils import now, getdate, today, format_date
+import base64
 
 
 #listed the funding crm status wise data
@@ -431,7 +432,7 @@ def get_max_funding_count(user_id):
 
 #funding crm status update api
 @frappe.whitelist()
-def update_funding_crm(investor_id,user_id,investor_status,type_of_investor,notes):
+def update_funding_crm(user_id,type_of_investor,investor_id,investor_status,investor_name,contact_person,funding_stage,funding,description,website,investor_email,contact_no,notes,logo_type,logo_name,logo):
     status = ""
     message = ""
     try:
@@ -446,6 +447,7 @@ def update_funding_crm(investor_id,user_id,investor_status,type_of_investor,note
             frappe.db.set_value("Funding CRM",funding_crm_user_investor,"funding_crm_status",investor_status)
             frappe.db.set_value("Funding CRM",funding_crm_user_investor,"notes",notes)
             get_investor_status = frappe.get_doc("Funding CRM",funding_crm_user_investor)
+            update_user_created_investors(investor_id,investor_name,investor_status,contact_person,funding_stage,funding,description,website,investor_email,contact_no,notes,logo_type,logo_name,logo)
             status = True
         else:
             status = False
@@ -453,6 +455,41 @@ def update_funding_crm(investor_id,user_id,investor_status,type_of_investor,note
         return {"status":status,"message":message,"funding_crm_status":get_investor_status.funding_crm_status}
     except Exception as e:
         return {"status":False,"message":e}
+
+def update_user_created_investors(investor_id,investor_name,investor_status,contact_person,funding_stage,funding,description,website,investor_email,contact_no,notes,logo_type,logo_name,logo):
+    if frappe.db.exists("User Created Investors",{"name":investor_id}):
+        
+        user_created_investor = frappe.get_doc("User Created Investors",investor_id)
+        user_created_investor.investor_name = investor_name
+        user_created_investor.investor_status = investor_status
+        user_created_investor.contact_person = contact_person
+        user_created_investor.funding_stage = funding_stage
+        user_created_investor.funding = funding
+        user_created_investor.description = description
+        user_created_investor.website = website
+        user_created_investor.investor_email = investor_email
+        user_created_investor.contact_no = contact_no
+        user_created_investor.notes = notes
+        user_created_investor.save(ignore_permissions=True)
+        frappe.db.commit()
+
+        if logo:
+            if logo_type in ["png","jpg","jpeg"]:
+                logo_decode = base64.b64decode(logo)
+                file_name_inside = logo_name
+                new_file_inside = frappe.new_doc('File')
+                new_file_inside.file_name = file_name_inside
+                new_file_inside.content = logo_decode
+                new_file_inside.attached_to_doctype = "User Created Investors"
+                new_file_inside.attached_to_name = user_created_investor.name
+                new_file_inside.attached_to_field = "investor_logo"
+                new_file_inside.is_private = 0
+                new_file_inside.save(ignore_permissions=True)
+                frappe.db.commit()
+                frappe.db.set_value("User Created Investors",user_created_investor.name,'investor_logo',new_file_inside.file_url)
+            else:
+                message = "You Attached Logo Type is not in Master"
+        return message        
 
 @frappe.whitelist()
 def delete_funding_crm_investor(user_id,type_of_investor,investor_id,delete_status):
