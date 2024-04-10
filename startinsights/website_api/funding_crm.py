@@ -112,7 +112,7 @@ def get_sortlist_as_search_investor(user_id):
             "website":get_search_investor.investor_website or "", 
             "mail_address":"",
             "contact_no":"",
-            "notes":""
+            "notes":get_search_investor.notes or ""
         }
         search_investor_list.append(search_investor)
     return search_investor_list    
@@ -167,7 +167,7 @@ def get_contacted_as_search_investor(user_id):
             "website":get_search_investor.investor_website or "", 
             "mail_address":"",
             "contact_no":"",
-            "notes":""
+            "notes":get_search_investor.notes or "",
         }
         search_investor_list.append(search_investor)
     return search_investor_list    
@@ -222,7 +222,7 @@ def get_pitched_as_search_investor(user_id):
             "website":get_search_investor.investor_website or "", 
             "mail_address":"",
             "contact_no":"",
-            "notes":""
+            "notes":get_search_investor.notes or "",
         }
         search_investor_list.append(search_investor)
     return search_investor_list    
@@ -277,7 +277,7 @@ def get_diligence_as_search_investor(user_id):
             "website":get_search_investor.investor_website or "", 
             "mail_address":"",
             "contact_no":"",
-            "notes":""
+            "notes":get_search_investor.notes or ""
         }
         search_investor_list.append(search_investor)
     return search_investor_list    
@@ -332,7 +332,7 @@ def get_won_as_search_investor(user_id):
             "website":get_search_investor.investor_website or "", 
             "mail_address":"",
             "contact_no":"",
-            "notes":""
+            "notes":get_search_investor.notes or ""
         }
         search_investor_list.append(search_investor)
     return search_investor_list    
@@ -387,7 +387,7 @@ def get_lost_as_search_investor(user_id):
             "website":get_search_investor.investor_website or "", 
             "mail_address":"",
             "contact_no":"",
-            "notes":""
+            "notes":get_search_investor.notes or "",
         }
         search_investor_list.append(search_investor)
     return search_investor_list    
