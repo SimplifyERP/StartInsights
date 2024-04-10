@@ -180,7 +180,7 @@ def create_service_payment(service_id,user,payment_id,amount,date):
 
 		create_my_services(user,service_id,new_service_payment.name)
 
-		return {"status": True, "message":"Service Payment Created"}
+		return {"status": True,"message":"Service Payment Created"}
 	except Exception as e:
 		return {"status": False, "message": str(e)}
 
@@ -208,7 +208,7 @@ def create_my_services(user,service_id,name):
 	
 #getting the my service details
 @frappe.whitelist()
-def get_my_service_details(my_service_id,doctype):
+def get_my_service_details(my_service_id,doctype,user_id):
 	image_url = ""
 	user_image = ""
 	assigned_user = []
@@ -307,7 +307,7 @@ def get_my_service_details(my_service_id,doctype):
 		}	
 		payment_details = get_service_payment_details(my_service.service_payment_id)			
 		my_service_list.append(my_service_details)
-		chat_conversation = get_chat_conversation(my_service,doctype)
+		chat_conversation = get_chat_conversation(my_service,doctype,user_id)
 		return {"status":True,"my_service_details":my_service_list,"assigned_user":assigned_user,"payment_details":payment_details,"chat_conversation":chat_conversation}
 	except Exception as e:
 		return {"status":False,"message":e}
@@ -375,9 +375,9 @@ def my_services_doc_upload(my_service_id,upload_doc):
 
 #get the all chat conversations against the user and service id
 # @frappe.whitelist()
-def get_chat_conversation(service_id,doctype):
+def get_chat_conversation(service_id,doctype,user_id):
 	chat_boxes = []
-	comments = frappe.db.get_all("Comment",filters={"reference_name":service_id,"reference_doctype":doctype},fields=['content','creation','custom_user'], order_by="creation ASC")
+	comments = frappe.db.get_all("Comment",filters={"reference_name":service_id,"reference_doctype":doctype,"comment_email":user_id},fields=['content','creation','custom_user'], order_by="creation ASC")
 	if comments:
 		# Extract comment content and format into chat box format
 		chat_boxes = []

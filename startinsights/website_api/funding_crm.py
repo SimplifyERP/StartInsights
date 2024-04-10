@@ -113,6 +113,7 @@ def get_sortlist_as_search_investor(user_id):
             "website":get_search_investor.investor_website or "", 
             "mail_address":"",
             "contact_no":"",
+            "funding":"",
             "notes":crm.notes or ""
         }
         search_investor_list.append(search_investor)
@@ -140,6 +141,7 @@ def get_sortlist_as_user_created_investor(user_id):
             "website":user_investor.website or "", 
             "mail_address":user_investor.investor_email or "",
             "contact_no":user_investor.contact_no or "",
+            "funding":str(user_investor.funding),
             "notes":crm.notes or ""
         }
         user_created_investor_list.append(user_created_investor)
@@ -168,6 +170,7 @@ def get_contacted_as_search_investor(user_id):
             "website":get_search_investor.investor_website or "", 
             "mail_address":"",
             "contact_no":"",
+            "funding":"",
             "notes":crm.notes or "",
         }
         search_investor_list.append(search_investor)
@@ -195,6 +198,7 @@ def get_contacted_as_user_created_investor(user_id):
             "website":user_investor.website or "", 
             "mail_address":user_investor.investor_email or "",
             "contact_no":user_investor.contact_no or "",
+            "funding":str(user_investor.funding),
             "notes":crm.notes or ""
         }
         user_created_investor_list.append(user_created_investor)
@@ -223,6 +227,7 @@ def get_pitched_as_search_investor(user_id):
             "website":get_search_investor.investor_website or "", 
             "mail_address":"",
             "contact_no":"",
+            "funding":"",
             "notes":crm.notes or "",
         }
         search_investor_list.append(search_investor)
@@ -250,6 +255,7 @@ def get_pitched_as_user_created_investor(user_id):
             "website":user_investor.website or "", 
             "mail_address":user_investor.investor_email or "",
             "contact_no":user_investor.contact_no or "",
+            "funding":str(user_investor.funding),
             "notes":crm.notes or ""
         }
         user_created_investor_list.append(user_created_investor)
@@ -278,6 +284,7 @@ def get_diligence_as_search_investor(user_id):
             "website":get_search_investor.investor_website or "", 
             "mail_address":"",
             "contact_no":"",
+            "funding":"",
             "notes":crm.notes or ""
         }
         search_investor_list.append(search_investor)
@@ -305,6 +312,7 @@ def get_diligence_as_user_created_investor(user_id):
             "website":user_investor.website or "", 
             "mail_address":user_investor.investor_email or "",
             "contact_no":user_investor.contact_no or "",
+            "funding":str(user_investor.funding),
             "notes":crm.notes or ""
         }
         user_created_investor_list.append(user_created_investor)
@@ -333,6 +341,7 @@ def get_won_as_search_investor(user_id):
             "website":get_search_investor.investor_website or "", 
             "mail_address":"",
             "contact_no":"",
+            "funding":"",
             "notes":crm.notes or ""
         }
         search_investor_list.append(search_investor)
@@ -360,6 +369,7 @@ def get_won_as_user_created_investor(user_id):
             "website":user_investor.website or "", 
             "mail_address":user_investor.investor_email or "",
             "contact_no":user_investor.contact_no or "",
+            "funding":str(user_investor.funding),
             "notes":crm.notes or ""
         }
         user_created_investor_list.append(user_created_investor)
@@ -388,6 +398,7 @@ def get_lost_as_search_investor(user_id):
             "website":get_search_investor.investor_website or "", 
             "mail_address":"",
             "contact_no":"",
+            "funding":"",
             "notes":crm.notes or "",
         }
         search_investor_list.append(search_investor)
@@ -415,6 +426,7 @@ def get_lost_as_user_created_investor(user_id):
             "website":user_investor.website or "", 
             "mail_address":user_investor.investor_email or "",
             "contact_no":user_investor.contact_no or "",
+            "funding":str(user_investor.funding),
             "notes":crm.notes or ""
         }
         user_created_investor_list.append(user_created_investor)
@@ -489,7 +501,7 @@ def update_user_created_investors(investor_id,investor_name,investor_status,cont
                 frappe.db.set_value("User Created Investors",user_created_investor.name,'investor_logo',new_file_inside.file_url)
             else:
                 message = "You Attached Logo Type is not in Master"
-        return message        
+        # return message        
 
 @frappe.whitelist()
 def delete_funding_crm_investor(user_id,type_of_investor,investor_id,delete_status):
