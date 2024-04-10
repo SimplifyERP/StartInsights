@@ -59,7 +59,8 @@ def get_search_investors_list(page_no,funding_stage,user_id,search_key,type_of_u
                 image_url = ""    
             fund_rasing = frappe.db.get_all("Investor Funding Stages",{'parent':investors_details.name},['funding_stages'])
             sector_focus = frappe.db.get_all("Sector Focus Table",{'parent':investors_details.name},['sector_focus'])
-
+            min_formated_currency = "{:,.0f}".format(investors_details.min_check_size)
+            max_formated_currency = "{:,.0f}".format(investors_details.max_check_size)
             investors_list = {
                 "id":investors_details.name,
                 "name":investors_details.name,
@@ -76,8 +77,8 @@ def get_search_investors_list(page_no,funding_stage,user_id,search_key,type_of_u
                 "funding_requirements":investors_details.funding_requirements or "",
                 "funding_stages_table":fund_rasing,
                 "sector_focus":sector_focus,          
-                "min_check_size":frappe.utils.fmt_money(investors_details.min_check_size),
-                "max_check_size":frappe.utils.fmt_money(investors_details.max_check_size )
+                "min_check_size":min_formated_currency,
+                "max_check_size":max_formated_currency
             }
             search_investors.append(investors_list) 
         return {"status":True,"overall_count":over_all_investors_count,"investors_count":len(investors_count),"search_investors_list":search_investors}
@@ -144,6 +145,8 @@ def get_favourite_investors(user_id,status,page_no):
             else:
                 image_url = ""    
             fund_rasing = frappe.db.get_all("Investor Funding Stages",{'parent':get_search_investors_list.name},['funding_stages'])
+            min_formated_currency = "{:,.0f}".format(get_search_investors_list.min_check_size)
+            max_formated_currency = "{:,.0f}".format(get_search_investors_list.max_check_size)
             investors_list = {
                 "id":get_search_investors_list.name,
                 "name":get_search_investors_list.name,
@@ -159,8 +162,8 @@ def get_favourite_investors(user_id,status,page_no):
                 "hq":get_search_investors_list.hq or "",
                 "funding_requirements":get_search_investors_list.funding_requirements or "",
                 "funding_stages_table":fund_rasing,          
-                "min_check_size":frappe.utils.fmt_money(get_search_investors_list.min_check_size),
-                "max_check_size":frappe.utils.fmt_money(get_search_investors_list.max_check_size)
+                "min_check_size":min_formated_currency,
+                "max_check_size":max_formated_currency
             }
             search_investors_list.append(investors_list)
         return {"status":True,"overall_count":over_all_investors_count,"search_investors_list":search_investors_list}
@@ -189,7 +192,8 @@ def get_recommended_search_investors():
             else:
                 image_url = ""    
             fund_rasing = frappe.db.get_all("Investor Funding Stages",{'parent':investors_details.name},['funding_stages'])
-
+            min_formated_currency = "{:,.0f}".format(investors_details.min_check_size)
+            max_formated_currency = "{:,.0f}".format(investors_details.max_check_size)
             investors_list = {
                 "id":investors_details.name,
                 "name":investors_details.name,
@@ -204,8 +208,8 @@ def get_recommended_search_investors():
                 "hq":investors_details.hq or "",
                 "funding_requirements":investors_details.funding_requirements or "",
                 "funding_stages_table":fund_rasing,          
-                "min_check_size":frappe.utils.fmt_money(investors_details.min_check_size),
-                "max_check_size":frappe.utils.fmt_money(investors_details.max_check_size)
+                "min_check_size":min_formated_currency,
+                "max_check_size":max_formated_currency
             }
             search_investors.append(investors_list) 
         return {"status":True,"message":search_investors}
