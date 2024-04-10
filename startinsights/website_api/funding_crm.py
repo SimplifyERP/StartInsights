@@ -431,18 +431,20 @@ def get_max_funding_count(user_id):
 
 #funding crm status update api
 @frappe.whitelist()
-def update_funding_crm(investor_id,user_id,investor_status,type_of_investor):
+def update_funding_crm(investor_id,user_id,investor_status,type_of_investor,notes):
     status = ""
     message = ""
     try:
-        if type_of_investor == "Search Investors":
+        if type_of_investor == "Search Investors Favourites":
             funding_crm_search_investor = frappe.db.get_value("Funding CRM",{"user_id":user_id,"type_of_investor":"Search Investors Favourites","search_investor_id":investor_id},['name'])
             frappe.db.set_value("Funding CRM",funding_crm_search_investor,"funding_crm_status",investor_status)
+            frappe.db.set_value("Funding CRM",funding_crm_search_investor,"notes",notes)
             get_investor_status = frappe.get_doc("Funding CRM",funding_crm_search_investor)
             status = True
         elif type_of_investor == "User Created Investors":   
             funding_crm_user_investor = frappe.db.get_value("Funding CRM",{"user_id":user_id,"type_of_investor":type_of_investor,"user_created_investor":investor_id},['name'])
             frappe.db.set_value("Funding CRM",funding_crm_user_investor,"funding_crm_status",investor_status)
+            frappe.db.set_value("Funding CRM",funding_crm_user_investor,"notes",notes)
             get_investor_status = frappe.get_doc("Funding CRM",funding_crm_user_investor)
             status = True
         else:
