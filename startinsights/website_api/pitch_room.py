@@ -222,28 +222,37 @@ def shared_user(user_ids, pitch_room_id):
         return {"status": False, "message": str(e)}
 
 @frappe.whitelist()
-def get_users_with_role():
+def get_users_with_role(pitch_room_id):
     user_type = "Investors"
     image_url = ""
-    get_profile_details = frappe.db.get_all("Profile Application",{"customer_group":user_type},['*'])
+    get_profile_details = frappe.db.get_all("Profile Application", {"customer_group": user_type}, ['*'])
     format_user = []
     for profile in get_profile_details:
-        if profile.profile_image:
-            image_url = get_domain_name() + profile.profile_image
-        else:
-            image_url = ""    
-        user_role = {
-            "user_id":profile.user_id,
-            "full_name":profile.full_name,
-            "profile_image":image_url or "",
-            "email_id":profile.email_id or "",
-            "designation":profile.designation or ""
-        }
-        format_user.append(user_role)
-    return {"status":True,"user_role":format_user}
+        exclude_user = False 
+        get_shared_users = frappe.db.get_all("Shared Users", {'parent': pitch_room_id}, ["user_id"])
+        for share_users in get_shared_users:
+            if share_users.user_id == profile.user_id:
+                exclude_user = True
+                break
+        if not exclude_user:
+            if profile.profile_image:
+                image_url = get_domain_name() + profile.profile_image
+            else:
+                image_url = ""       
+            user_role = {
+                "user_id": profile.user_id,
+                "full_name": profile.full_name,
+                "profile_image": image_url or "",
+                "email_id": profile.email_id or "",
+                "designation": profile.designation or ""
+            }
+            format_user.append(user_role)
+    return {"status": True, "user_role": format_user}
+
 if __name__ == "__main__":
     students_users = get_users_with_role()
     print(f"Users with the role 'Students': {students_users}")
+
 
 #upload document removed method
 @frappe.whitelist()

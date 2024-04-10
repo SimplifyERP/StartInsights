@@ -6,6 +6,8 @@ from startinsights.custom import get_domain_name
 import json
 from bs4 import BeautifulSoup
 import base64
+import locale
+
 
 
 # pitch craft service details view
@@ -29,6 +31,7 @@ def service_list(user_id):
 			format_short_description = html2text.html2text(service.short_description or "").strip() 
 			format_about_service = html2text.html2text(service.about_service or "").strip() 
 			format_deliverables = html2text.html2text(service.deliverables or "").strip() 
+			formated_currency = "{:,.0f}".format(service.pricing)
 			#added the domain name with image url
 			if service.service_image:
 				image_url = get_domain_name() + service.service_image
@@ -40,8 +43,8 @@ def service_list(user_id):
 				"name":service.name,
 				"service_name": service.service_name or "",
 				"service_image":image_url,
-				"pricing":service.pricing or 0,
-				"pricing_format": frappe.utils.fmt_money(service.pricing),
+				"pricing":int(service.pricing or 0),
+				"pricing_format":formated_currency,
 				"short_description": format_short_description or "",
 				"about_service":format_about_service or "",
 				"deliverables":format_deliverables or "",
@@ -84,6 +87,7 @@ def get_my_services_list(user_id):
 			format_short_description = html2text.html2text(service_detail.short_description or "").strip() 
 			format_about_service = html2text.html2text(service_detail.about_service or "").strip() 
 			format_deliverables = html2text.html2text(service_detail.deliverables or "").strip() 
+			formated_currency = "{:,.0f}".format(service.pricing)
 			#by concedation the domain name and image url path to show image or anything
 			if service_detail.service_image:
 				image_url = get_domain_name() + service_detail.service_image
@@ -95,7 +99,7 @@ def get_my_services_list(user_id):
 				"service_name": service_detail.service_name or "",
 				"service_image":image_url,
 				"pricing":service_detail.pricing or 0,
-				"pricing_format": frappe.utils.fmt_money(service_detail.pricing),
+				"pricing_format":formated_currency,
 				"short_description": format_short_description or "",
 				"about_service":format_about_service or "",
 				"deliverables":format_deliverables or "",
@@ -230,13 +234,14 @@ def get_my_service_details(my_service_id,doctype,user_id):
 		format_short_description = html2text.html2text(get_master_services.short_description or "").strip() 
 		format_about_service = html2text.html2text(get_master_services.about_service or "").strip() 
 		format_deliverables = html2text.html2text(get_master_services.deliverables or "").strip()
+		formated_currency = "{:,.0f}".format(get_master_services.pricing)
 		my_service_details = {
 			"id": my_service.name,
 			"name":my_service.name,
 			"service_name": get_master_services.service_name or "",
 			"service_image":image_url,
 			"pricing":get_master_services.pricing or 0,
-			"pricing_format": frappe.utils.fmt_money(get_master_services.pricing),
+			"pricing_format": formated_currency,
 			"short_description": format_short_description or "",
 			"about_service":format_about_service or "",
 			"deliverables":format_deliverables or "",
