@@ -137,7 +137,9 @@ def get_sortlist_as_user_created_investor(user_id):
             "investor_name":user_investor.investor_name or "",
             "status":"SHORTLIST",
             "contacted_person":user_investor.contact_person or "",
-            "funding_stage":user_investor.funding_stage or "",
+            "funding_stage":[{
+                "funding_stages":user_investor.funding_stage or ""
+            }],
             "description":user_investor.description or "",      
             "website":user_investor.website or "", 
             "mail_address":user_investor.investor_email or "",
@@ -195,7 +197,9 @@ def get_contacted_as_user_created_investor(user_id):
             "investor_name":user_investor.investor_name or "",
             "status":"CONTACTED",
             "contacted_person":user_investor.contact_person or "",
-            "funding_stage":user_investor.funding_stage or "",
+            "funding_stage":[{
+                "funding_stages":user_investor.funding_stage or ""
+            }],
             "description":user_investor.description or "",      
             "website":user_investor.website or "", 
             "mail_address":user_investor.investor_email or "",
@@ -253,7 +257,9 @@ def get_pitched_as_user_created_investor(user_id):
             "investor_name":user_investor.investor_name or "",
             "status":"PITCHED",
             "contacted_person":user_investor.contact_person or "",
-            "funding_stage":user_investor.funding_stage or "",
+            "funding_stage":[{
+                "funding_stages":user_investor.funding_stage or ""
+            }],
             "description":user_investor.description or "",      
             "website":user_investor.website or "", 
             "mail_address":user_investor.investor_email or "",
@@ -311,7 +317,9 @@ def get_diligence_as_user_created_investor(user_id):
             "investor_name":user_investor.investor_name or "",
             "status":"DILIGENCE",
             "contacted_person":user_investor.contact_person or "",
-            "funding_stage":user_investor.funding_stage or "",
+            "funding_stage":[{
+                "funding_stages":user_investor.funding_stage or ""
+            }],
             "description":user_investor.description or "",      
             "website":user_investor.website or "", 
             "mail_address":user_investor.investor_email or "",
@@ -369,7 +377,9 @@ def get_won_as_user_created_investor(user_id):
             "investor_name":user_investor.investor_name or "",
             "status":"WON",
             "contacted_person":user_investor.contact_person or "",
-            "funding_stage":user_investor.funding_stage or "",
+            "funding_stage":[{
+                "funding_stages":user_investor.funding_stage or ""
+            }],
             "description":user_investor.description or "",      
             "website":user_investor.website or "", 
             "mail_address":user_investor.investor_email or "",
@@ -427,7 +437,9 @@ def get_lost_as_user_created_investor(user_id):
             "investor_name":user_investor.investor_name or "",
             "status":"LOST",
             "contacted_person":user_investor.contact_person or "",
-            "funding_stage":user_investor.funding_stage or "",
+            "funding_stage":[{
+                "funding_stages":user_investor.funding_stage or ""
+            }],
             "description":user_investor.description or "",      
             "website":user_investor.website or "", 
             "mail_address":user_investor.investor_email or "",
