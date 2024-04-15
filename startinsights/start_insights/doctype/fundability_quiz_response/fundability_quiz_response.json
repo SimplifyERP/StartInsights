@@ -1,9 +1,8 @@
 {
  "actions": [],
  "allow_rename": 1,
- "creation": "2024-02-01 14:38:54.129631",
+ "creation": "2024-04-10 16:09:42.204257",
  "doctype": "DocType",
- "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
   "response"
@@ -18,10 +17,10 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-04-10 18:06:34.362713",
+ "modified": "2024-04-10 16:13:49.767108",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
- "name": "Question",
+ "name": "Fundability Quiz Response",
  "owner": "Administrator",
  "permissions": [
   {
