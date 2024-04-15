@@ -76,7 +76,7 @@ def get_search_investors_list(page_no,funding_stage,user_id,search_key,type_of_u
                 "hq":investors_details.hq or "",
                 "funding_requirements":investors_details.funding_requirements or "",
                 "funding_stages_table":fund_rasing,
-                "sector_focus":sector_focus,          
+                "focus":sector_focus,          
                 "min_check_size":min_formated_currency,
                 "max_check_size":max_formated_currency
             }

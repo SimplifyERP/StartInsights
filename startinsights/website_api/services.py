@@ -43,8 +43,9 @@ def service_list(user_id):
 				"name":service.name,
 				"service_name": service.service_name or "",
 				"service_image":image_url,
-				"pricing":int(service.pricing or 0),
+				"pricing":(service.pricing or 0),
 				"pricing_format":formated_currency,
+				"payment_invoice":"",
 				"short_description": format_short_description or "",
 				"about_service":format_about_service or "",
 				"deliverables":format_deliverables or "",
@@ -72,6 +73,7 @@ def get_my_services_list(user_id):
 	format_about_service = ""
 	format_deliverables = ""
 	image_url = ""
+	invoice_path = ""
 	service_details = []
 	doc_upload_status = False
 	process_status = False
@@ -93,6 +95,10 @@ def get_my_services_list(user_id):
 				image_url = get_domain_name() + service_detail.service_image
 			else:
 				image_url = ""    
+			if service.payment_invoice:
+				invoice_path = get_domain_name() + service.payment_invoice
+			else:
+				invoice_path = ""	
 			service_details = {
 				"id": service.name,
 				"name":service.name,
@@ -100,6 +106,7 @@ def get_my_services_list(user_id):
 				"service_image":image_url,
 				"pricing":service_detail.pricing or 0,
 				"pricing_format":formated_currency,
+				"payment_invoice":invoice_path,
 				"short_description": format_short_description or "",
 				"about_service":format_about_service or "",
 				"deliverables":format_deliverables or "",
@@ -191,6 +198,7 @@ def create_service_payment(service_id,user,payment_id,amount,date):
 #create a my service list for user wise
 def create_my_services(user,service_id,name):
 	try:
+		# get_payment_invoice = frappe.db.get_value("File",{"attached_to_doctype":"Sales Invoice","attached_to_name":get_lms_certificate},["file_url"])
 		get_process = frappe.db.get_all("Process Steps",{"parent":service_id},['steps','tat','status'],order_by='idx ASC')
 		my_service = frappe.new_doc("My Services")
 		my_service.user = user
