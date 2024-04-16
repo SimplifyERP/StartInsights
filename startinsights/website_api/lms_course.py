@@ -148,13 +148,49 @@ def learn_details(course_id, user_id):
                 chapter_data["lessons"].append(lesson_data)
             course_data["chapters"].append(chapter_data)
         course_list.append(course_data)
-        return {"status":True,"course_details":course_list}
+        lms_certificate = show_lms_certificate(course_id,user_id)
+        certficate = {
+            "certificate_status":lms_certificate[0],
+            "certificate_path":lms_certificate[1]
+        }
+        return {"status":True,"course_details":course_list,"certificate":certficate}
     except Exception as e:
         return {"status":False,"message":e}    
+
+def show_lms_certificate(course_id,user_id):
+    get_lesson = frappe.db.get_all("Course Lesson",{'course': course_id},["name"])
+    if len(get_lesson) > 0:
+        course_progress = frappe.db.get_all("LMS Course Progress",{"member":user_id,"course":course_id,"status":"Complete"},['name'])
+        if len(get_lesson) == len(course_progress):
+            get_lms_certificate = frappe.db.get_value("LMS Certificate",{"course":course_id,"member":user_id,"docstatus":1},["name"])
+            if get_lms_certificate:
+                get_file_path = frappe.db.get_value("File",{"attached_to_doctype":"LMS Certificate","attached_to_name":get_lms_certificate},["file_url"])
+                if get_file_path:
+                    certificate_status = True
+                    certificate_path = get_domain_name() + get_file_path
+                else:
+                    certificate_status = False
+                    certificate_path = ""
+            else:
+                certificate_status = False
+                certificate_path = ""
+        else:
+            certificate_status = False
+            certificate_path = ""
+    else:
+        certificate_status = False
+        certificate_path = ""       
+    return certificate_status,certificate_path             
+
+
+
 
 #create a lms course progress for user completed the lesson
 @frappe.whitelist()
 def create_lms_progress(user_id,lesson_id,status,course_id):
+    certificate_status = False
+    certificate_path = ""
+    message = ""
     try:
         if not frappe.db.exists("LMS Course Progress",{'member':user_id,'lesson':lesson_id}):
             new_lms_progress = frappe.new_doc("LMS Course Progress")
@@ -166,22 +202,30 @@ def create_lms_progress(user_id,lesson_id,status,course_id):
 
             course_progress = frappe.db.get_all("LMS Course Progress",{"member":user_id,"course":course_id,"status":"Complete"},['name'])
             get_chapters_len = frappe.db.get_all("Course Lesson",{'course': course_id},["name"])
-            if len(course_progress) == len(get_chapters_len):
-                get_lms_certificate = frappe.db.get_value("LMS Certificate",{"course":course_id,"member":user_id},["name"])
-                get_certificate = frappe.db.get_value("File",{"attached_to_doctype":"LMS Certificate","attached_to_name":get_lms_certificate},["file_url"])
-                if get_certificate:
-                    certificate_status = True
-                    certificate_path = get_domain_name() + get_certificate
+            if len(course_progress) == len(get_chapters_len or 0):
+                get_lms_certificate = frappe.db.get_value("LMS Certificate",{"course":course_id,"member":user_id,"docstatus":1},["name"])
+                if get_lms_certificate:
+                    get_certificate = frappe.db.get_value("File",{"attached_to_doctype":"LMS Certificate","attached_to_name":get_lms_certificate},["file_url"])
+                    if get_certificate:
+                        message = "Success"
+                        certificate_status = True
+                        certificate_path = get_domain_name() + get_certificate
+                    else:
+                        message = "Certificate Not attached in file"
+                        certificate_status = False
+                        certificate_path = ""
                 else:
+                    message = "Certificate Not Created Contact admin"      
                     certificate_status = False
                     certificate_path = ""
             course_progress = {
                 "certificate_status":certificate_status,
                 "certifticate_path":certificate_path
             }
-            return {"status":True,"message":course_progress}
-        else:    
-            return {"status":False,"message":"Already User have Progress for the lesson"}
+            return {"status":True,"message":message,"certificate":course_progress}
+        else: 
+            message = "Already User have Progress for the lesson"
+            return {"status":False,"message":message}
     except Exception as e:
         return {"status":False,"message":e}
 
