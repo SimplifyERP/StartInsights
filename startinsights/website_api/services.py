@@ -15,7 +15,6 @@ import locale
 def service_list(user_id):
 	purchase_status = False
 	image_url = ""
-	format_short_description = ""
 	format_about_service = ""
 	format_deliverables = ""
 	try:
@@ -28,7 +27,6 @@ def service_list(user_id):
 			else:
 				purchase_status = False	
 			#the below format is giving the text editor field data removed html tags
-			format_short_description = html2text.html2text(service.short_description or "").strip() 
 			format_about_service = html2text.html2text(service.about_service or "").strip() 
 			format_deliverables = html2text.html2text(service.deliverables or "").strip() 
 			formated_currency = "{:,.0f}".format(service.pricing)
@@ -45,8 +43,6 @@ def service_list(user_id):
 				"service_image":image_url,
 				"pricing":(service.pricing or 0),
 				"pricing_format":formated_currency,
-				"payment_invoice":"",
-				"short_description": format_short_description or "",
 				"about_service":format_about_service or "",
 				"deliverables":format_deliverables or "",
 				"documents":[],
@@ -69,11 +65,9 @@ def service_list(user_id):
 
 #by using this method for my service list for separate user
 def get_my_services_list(user_id):
-	format_short_description = ""
 	format_about_service = ""
 	format_deliverables = ""
 	image_url = ""
-	invoice_path = ""
 	service_details = []
 	doc_upload_status = False
 	process_status = False
@@ -86,7 +80,6 @@ def get_my_services_list(user_id):
 			#by passing the service id to get all service details
 			service_detail = frappe.get_doc("Services",service.service_id)
 			#by getting the text editor data to remove the html tags
-			format_short_description = html2text.html2text(service_detail.short_description or "").strip() 
 			format_about_service = html2text.html2text(service_detail.about_service or "").strip() 
 			format_deliverables = html2text.html2text(service_detail.deliverables or "").strip() 
 			formated_currency = "{:,.0f}".format(service_detail.pricing)
@@ -95,10 +88,6 @@ def get_my_services_list(user_id):
 				image_url = get_domain_name() + service_detail.service_image
 			else:
 				image_url = ""    
-			if service.payment_invoice:
-				invoice_path = get_domain_name() + service.payment_invoice
-			else:
-				invoice_path = ""	
 			service_details = {
 				"id": service.name,
 				"name":service.name,
@@ -106,8 +95,6 @@ def get_my_services_list(user_id):
 				"service_image":image_url,
 				"pricing":service_detail.pricing or 0,
 				"pricing_format":formated_currency,
-				"payment_invoice":invoice_path,
-				"short_description": format_short_description or "",
 				"about_service":format_about_service or "",
 				"deliverables":format_deliverables or "",
 				"documents":[],
@@ -228,7 +215,6 @@ def get_my_service_details(my_service_id,doctype,user_id):
 	payment_details = []
 	process_status = False
 	doc_upload_status = False
-	format_short_description = ""
 	format_about_service = ""
 	format_deliverables = ""
 	try:
@@ -239,7 +225,6 @@ def get_my_service_details(my_service_id,doctype,user_id):
 				image_url = get_domain_name() + get_master_services.service_image
 		else:
 			image_url = ""    
-		format_short_description = html2text.html2text(get_master_services.short_description or "").strip() 
 		format_about_service = html2text.html2text(get_master_services.about_service or "").strip() 
 		format_deliverables = html2text.html2text(get_master_services.deliverables or "").strip()
 		formated_currency = "{:,.0f}".format(get_master_services.pricing)
@@ -250,7 +235,6 @@ def get_my_service_details(my_service_id,doctype,user_id):
 			"service_image":image_url,
 			"pricing":get_master_services.pricing or 0,
 			"pricing_format": formated_currency,
-			"short_description": format_short_description or "",
 			"about_service":format_about_service or "",
 			"deliverables":format_deliverables or "",
 			"documents":[],
@@ -326,15 +310,22 @@ def get_my_service_details(my_service_id,doctype,user_id):
 		return {"status":False,"message":e}
 	
 #getting the service purchase details
-def get_service_payment_details(service_payment_id):
+def get_service_payment_details(service_payment_id,my_service_id):
+	payment_invoice = ""
 	service_payment_details = []
 	get_service_payment = frappe.db.get_all("Service Payment",{"name":service_payment_id},['name','payment_id','service_booked_date','amount'],order_by='idx ASC')
 	for payment in get_service_payment:
+		get_payment_invoice = frappe.db.get_value("My Services",{"name":my_service_id},["payment_invoice"])
+		if get_payment_invoice:
+			payment_invoice = get_domain_name() + get_payment_invoice
+		else:
+			payment_invoice = ""	
 		service_payment_details = {
 			"id":payment.name,
 			"payment_id":payment.payment_id,
 			"payment_date":format_date(payment.service_booked_date),
 			"amount_paid":payment.amount,
+			"payment_invoice":payment_invoice
 		}
 	return service_payment_details
 
