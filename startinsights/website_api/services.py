@@ -302,7 +302,7 @@ def get_my_service_details(my_service_id,doctype,user_id):
 			"mobile_no":my_service.mobile_no or "",
 			"image":user_image
 		}	
-		payment_details = get_service_payment_details(my_service.service_payment_id)			
+		payment_details = get_service_payment_details(my_service.service_payment_id,my_service_id)			
 		my_service_list.append(my_service_details)
 		chat_conversation = get_chat_conversation(my_service,doctype,user_id)
 		return {"status":True,"my_service_details":my_service_list,"assigned_user":assigned_user,"payment_details":payment_details,"chat_conversation":chat_conversation}
