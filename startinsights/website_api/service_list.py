@@ -3,7 +3,7 @@ from datetime import datetime
 from frappe.utils import now,getdate,today,format_date,nowdate,add_months,get_time
 
 @frappe.whitelist()
-def create_service_list(expert_name,service_date,start_time,end_time,user,booking_id,payment_id,amount,payment_method):
+def create_service_list(expert_name,service_date,start_time,end_time,user,booking_id,payment_id,amount):
     status = ""
     message = ""
     try:
@@ -17,7 +17,7 @@ def create_service_list(expert_name,service_date,start_time,end_time,user,bookin
         new_service.start_time = start_time_format
         new_service.end_time = end_time_format
         new_service.user = user
-        new_service.book_an_expert = booking_id
+        new_service.fundraising_experts = booking_id
         new_service.status = "Paid"
         new_service.payment_id = payment_id
         new_service.service_amount = amount

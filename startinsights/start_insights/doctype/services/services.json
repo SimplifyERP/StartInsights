@@ -15,8 +15,6 @@
   "price_list",
   "pricing",
   "disabled",
-  "description_section",
-  "short_description",
   "overview_tab",
   "overview_section",
   "about_service",
@@ -85,18 +83,6 @@
   {
    "fieldname": "section_break_edpw",
    "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "description_section",
-   "fieldtype": "Section Break",
-   "label": "Description"
-  },
-  {
-   "fetch_from": "service_id.description",
-   "fieldname": "short_description",
-   "fieldtype": "Text Editor",
-   "label": "Short Description",
-   "reqd": 1
   },
   {
    "fieldname": "amended_from",
@@ -173,7 +159,7 @@
    "link_fieldname": "service_id"
   }
  ],
- "modified": "2024-04-08 17:41:46.781016",
+ "modified": "2024-04-16 16:12:34.298162",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Services",
