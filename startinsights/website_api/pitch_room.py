@@ -141,9 +141,9 @@ def pitch_room_update(room_id,room_name,about_startup,cover_image,upload_doc,use
         get_room.room_name = room_name
         get_room.about_startup = about_startup
         get_room.set("shared_users",[])
-        for user_id in decode_json_users:
+        for user in decode_json_users:
             get_room.append("shared_users",{
-                "user_id":user_id
+                "user_id":user.get("user_id")
             })
         get_room.save(ignore_permissions=True)
         frappe.db.commit()
@@ -164,7 +164,7 @@ def pitch_room_update(room_id,room_name,about_startup,cover_image,upload_doc,use
             frappe.db.commit()
             frappe.db.set_value("Pitch Room",get_room.name,'cover_image',new_file_inside.file_url)
 
-        if not upload_doc == []:
+        if not decode_doc_json == []:
             doc_table_count = (len(get_room.pitch_room_documents_upload) + len(upload_doc))
             if doc_table_count > 10:
                 for document in decode_doc_json:
@@ -199,7 +199,9 @@ def pitch_room_update(room_id,room_name,about_startup,cover_image,upload_doc,use
                         message = "The given document type is not supported"    
             else:
                 status = False
-                message = "File limit is 10 Please remove extra files"   
+                message = "File limit is 10 Please remove extra files"
+        else:
+            message = "Room updated Successfully"           
         return {"status":status,"message":message}
     except Exception as e:
         return {"status": False, "message": str(e)}
@@ -211,9 +213,9 @@ def shared_user(user_ids, pitch_room_id):
     try:
         decode_user_id = json.loads(user_ids)
         pitch_room = frappe.get_doc('Pitch Room', pitch_room_id)
-        for user_id in decode_user_id:
+        for user in decode_user_id:
             pitch_room.append("shared_users",{
-                "user_id":user_id
+                "user_id":user.get("user_id")
             })
         pitch_room.save(ignore_permissions=True)
         frappe.db.commit()
@@ -231,7 +233,7 @@ def get_users_with_role(pitch_room_id):
         exclude_user = False 
         get_shared_users = frappe.db.get_all("Shared Users", {'parent': pitch_room_id}, ["user_id"])
         for share_users in get_shared_users:
-            if share_users.user_id == profile.user_id:
+            if share_users.user_id == profile.name:
                 exclude_user = True
                 break
         if not exclude_user:

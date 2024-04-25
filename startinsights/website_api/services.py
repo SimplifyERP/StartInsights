@@ -207,7 +207,7 @@ def create_my_services(user,service_id,name):
 	
 #getting the my service details
 @frappe.whitelist()
-def get_my_service_details(my_service_id,doctype,user_id):
+def get_my_service_details(my_service_id,doctype):
 	image_url = ""
 	user_image = ""
 	assigned_user = []
@@ -304,7 +304,7 @@ def get_my_service_details(my_service_id,doctype,user_id):
 		}	
 		payment_details = get_service_payment_details(my_service.service_payment_id,my_service_id)			
 		my_service_list.append(my_service_details)
-		chat_conversation = get_chat_conversation(my_service,doctype,user_id)
+		chat_conversation = get_chat_conversation(my_service_id,doctype)
 		return {"status":True,"my_service_details":my_service_list,"assigned_user":assigned_user,"payment_details":payment_details,"chat_conversation":chat_conversation}
 	except Exception as e:
 		return {"status":False,"message":e}
@@ -379,30 +379,26 @@ def my_services_doc_upload(my_service_id,upload_doc):
 
 #get the all chat conversations against the user and service id
 # @frappe.whitelist()
-def get_chat_conversation(service_id,doctype,user_id):
-	chat_boxes = []
-	comments = frappe.db.get_all("Comment",filters={"reference_name":service_id,"reference_doctype":doctype,"comment_email":user_id},fields=['content','creation','custom_user'], order_by="creation ASC")
-	if comments:
-		# Extract comment content and format into chat box format
-		chat_boxes = []
-		for comment in comments:
-			content = comment.get('content')
-			custom_user = comment.get('custom_user')
-			if content:
-				# Remove HTML tags from the comment content
-				comment_text = BeautifulSoup(content, "html.parser").get_text()
-				# Convert creation timestamp to string
-				creation_timestamp = str(comment.get('creation'))
-				creation_date = format_date(creation_timestamp)
-				creation_time = format_time(creation_timestamp)
-				# Determine the position of the chat box based on custom_user checkbox
-				place = "Right" if custom_user else "Left"
-				chat_boxes.append({
-					"chat_box": comment_text,
-					"chat_date": creation_date,
-					"chate_time": creation_time,
-					"place": place
-				})
-		return chat_boxes
-	else:
-		return chat_boxes
+def get_chat_conversation(service_id,doctype):
+	chat = []
+	user_conversation = frappe.db.get_all("Comment",filters={"reference_name":service_id,"reference_doctype":doctype,"comment_type":"Comment"},fields=['*'], order_by="creation ASC")
+	for comment in user_conversation:
+		content = comment.get('content')
+		custom_user = comment.get('custom_user')
+		if content:
+			comment_text = BeautifulSoup(content, "html.parser").get_text()
+			creation_timestamp = str(comment.get('creation'))
+			creation_date = format_date(creation_timestamp)
+			creation_time = format_time(creation_timestamp)
+			if custom_user == 1:
+				place = "Right"
+			else:
+				place = "Left"		
+		chat_boxes = {
+			"chat_box": comment_text,
+			"chat_date": creation_date,
+			"chate_time": creation_time,
+			"place":place
+		}
+		chat.append(chat_boxes)
+	return chat
