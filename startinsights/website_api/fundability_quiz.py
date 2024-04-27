@@ -1,133 +1,62 @@
-
 import frappe
 import html2text
-# @frappe.whitelist()
-# def get_quiz(lesson_id):
-#     try:
-#         get_lesson = frappe.db.get_all("Course Lesson",{'name':lesson_id},['*'])
-#         return {"status":True,"quiz":get_lesson}
-#     except Exception as e:
-#         return {"status":False,"message":e}
-
-
-
-import html2text
-import frappe
 
 @frappe.whitelist()
-def get_fund_quiz():
-	try:
-		fund_quizzes = frappe.db.get_all("Fundability Quiz", ['*'])
-		formatted_fund_quizzes = []
-		
-		for fund_quiz in fund_quizzes:
-			question = html2text.html2text(fund_quiz.question or "").strip()
-			if fund_quiz.type == "Multi select":
-				fund_quiz_details = {
-					"id": fund_quiz.name,
-					"quiz_question": question,
-					"quiz_type": fund_quiz.type,
-					"choice_1": fund_quiz.select_1,
-					"choice_2": fund_quiz.select_2,
-					"choice_3": fund_quiz.select_3,
-					"choice_4": fund_quiz.select_4,
-					"choice_5": fund_quiz.select_5,
-
-				}
-			elif fund_quiz.type == "Choices":
-				fund_quiz_details = {
-					"id": fund_quiz.name,
-					"quiz_question": question,
-					"quiz_type": fund_quiz.type,
-					"choice_1": fund_quiz.option_1,
-					"choice_2": fund_quiz.option_2,
-					"choice_3": fund_quiz.option_3,
-					"choice_4": fund_quiz.option_4,
-				}
-			else:
-				fund_quiz_details = {
-					"id": fund_quiz.name,
-					"quiz_question": question,
-					"quiz_type": fund_quiz.type,
-					"select_1": fund_quiz.display_1,
-					"select_2": fund_quiz.display_2,
-					"show": [
-						{
-							"choice_1": getattr(fund_quiz, "display2_select_1"),
-							"choice_2": getattr(fund_quiz, "display2_select_2"),
-							"choice_3": getattr(fund_quiz, "display2_select_3"),
-						}
-					],
-					"select_3": fund_quiz.display_3,
-					"show1": [
-						{
-							"choice_1": getattr(fund_quiz, "display3_select_1"),
-							"choice_2": getattr(fund_quiz, "display3_select_2"),    
-							"choice_3": getattr(fund_quiz, "display3_select_3"),
-						}
-					]
-				}
-			formatted_fund_quizzes.append(fund_quiz_details)
-
-		return {"status": True, "fundability_quiz": formatted_fund_quizzes}
-	except Exception as e:
-		return {"status": False, "message": str(e)}
-
-
-@frappe.whitelist()
-def response_details(data):
-	try:
-		fund_response = frappe.new_doc("Fundability Quiz Response")
-		response_marks = []
-		for entry in data:
-			quiz_id = entry.get("quiz_id")
-			single_choice = entry.get("single_choice", None)
-			multi_choice = entry.get("multi_choice", None)
-			quiz_doc = frappe.get_doc("Fundability Quiz", quiz_id)
-			marks = 0
-			if single_choice is not None:
-				mark_attr_name = f"mark{int(single_choice)}"
-				if hasattr(quiz_doc, mark_attr_name):
-					marks = getattr(quiz_doc, mark_attr_name)
-					response_marks.append(marks)  # Append marks for this choice
-					fund_response.append("response", {
-							"id": quiz_id,
-							"choices": str(single_choice),
-							"marks": marks
-						})
-				else:
-					raise AttributeError(f"'{quiz_id}' object has no attribute '{mark_attr_name}'")
-			elif multi_choice is not None:
-				if isinstance(multi_choice, list):
-					for choice in multi_choice:
-						mark_attr_name = f"mark_{int(choice)}"
-						if hasattr(quiz_doc, mark_attr_name):
-							marks = getattr(quiz_doc, mark_attr_name)
-							response_marks.append(marks)  # Append marks for this choice
-							fund_response.append("response", {
-								"id": quiz_id,
-								"choices": str(choice),
-								"marks": marks
-							})
-						else:
-							raise AttributeError(f"'{quiz_id}' object has no attribute '{mark_attr_name}'")
-				else:
-					mark_attr_name = f"mark_{int(multi_choice)}"
-					if hasattr(quiz_doc, mark_attr_name):
-						marks = getattr(quiz_doc, mark_attr_name)
-						response_marks.append(marks)
-						fund_response.append("response", {
-							"id": quiz_id,
-							"choices": str(multi_choice),
-							"marks": marks 
-						})
-					else:
-						raise AttributeError(f"'{quiz_id}' object has no attribute '{mark_attr_name}'")
-			
-		fund_response.insert(ignore_permissions=True)
-		frappe.db.commit()  
-		# Calculate total marks
-		total_marks = sum(response_marks)
-		return {"status": True, "message": "Responses created successfully", "total": total_marks}
-	except Exception as e:
-		return {"status": False, "message": str(e)}
+def get_fundability_quiz(customer_group,question_id,option):
+    status = False
+    message = ""
+    option_map = {
+        0:"All Option",
+        1:"First Option",
+        2:"Second Option",
+        3:"Third Option",
+        4:"Fourth Option",
+        5:"Fifth Option",
+        6:"Sixth Option"    
+    }
+    try:
+        get_quiz = frappe.db.get_value("Fundability Quiz Flow",{"disabled":0,"customer_group":customer_group},["name"])
+        quiz_list = []
+        if not question_id and option == "":
+            quiz_flow_table = frappe.db.get_all("Fundability Quiz Flow Table",{"parent":get_quiz},["*"],order_by='idx ASC',limit=1)
+            for quiz in quiz_flow_table:
+                quiz_question_remove_html = html2text.html2text(quiz.question_name or "").strip()
+                quiz_details = {
+                    "id":get_quiz, 
+                    "question_id":quiz.fundability_quiz_question,
+                    "question_name":quiz_question_remove_html,
+                    "option_1":quiz.option_1 or "",
+                    "option_2":quiz.option_2 or "",
+                    "option_3":quiz.option_3 or "",
+                    "option_4":quiz.option_4 or "",
+                    "option_5":quiz.option_5 or "",
+                    "option_6":quiz.option_6 or "",           
+                }
+                quiz_list.append(quiz_details)
+                status = True
+                message = "Success"
+        else:
+            quiz_flow_table = frappe.db.get_value("Fundability Quiz Flow Table",{"parent":get_quiz,"fundability_quiz_question":question_id,"select_option":option_map.get(option)},["next_display_question_no"])
+            if quiz_flow_table:
+                get_question_and_options = frappe.get_doc("Fundability Quiz",quiz_flow_table)
+                quiz_question_remove_html = html2text.html2text(get_question_and_options.question or "").strip()
+                quiz_details = {
+                    "id":get_quiz, 
+                    "question_id":get_question_and_options.name,
+                    "question_name":quiz_question_remove_html,
+                    "option_1":get_question_and_options.option_1 or "",
+                    "option_2":get_question_and_options.option_2 or "",
+                    "option_3":get_question_and_options.option_3 or "",
+                    "option_4":get_question_and_options.option_4 or "",
+                    "option_5":get_question_and_options.option_5 or "",
+                    "option_6":get_question_and_options.option_6 or "",           
+                }
+                quiz_list.append(quiz_details)
+                status = True
+                message = "Success"
+            else:
+                status = False
+                message = "Wrong Option or Wrong Question ID"    
+        return {"status":status,"message":message,"fundability_details":quiz_list}
+    except Exception as e:
+        return {"status":False,"message":e}	
