@@ -197,8 +197,17 @@
  ],
  "image_field": "investor_logo",
  "index_web_pages_for_search": 1,
- "links": [],
- "modified": "2024-04-09 16:45:40.104774",
+ "links": [
+  {
+   "link_doctype": "Search Investors Favourites",
+   "link_fieldname": "investors"
+  },
+  {
+   "link_doctype": "Funding CRM",
+   "link_fieldname": "search_investor_id"
+  }
+ ],
+ "modified": "2024-04-28 19:47:12.972782",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Search Investors",
