@@ -21,8 +21,10 @@ def get_fundability_quiz(customer_group,question_id,option):
             quiz_flow_table = frappe.db.get_all("Fundability Quiz Flow Table",{"parent":get_quiz},["*"],order_by='idx ASC',limit=1)
             for quiz in quiz_flow_table:
                 quiz_question_remove_html = html2text.html2text(quiz.question_name or "").strip()
+                get_type_of_question = frappe.get_doc("Fundability Quiz",quiz.fundability_quiz_question)
                 quiz_details = {
                     "id":get_quiz, 
+                    "type_of_question":get_type_of_question.type,
                     "question_id":quiz.fundability_quiz_question,
                     "question_name":quiz_question_remove_html,
                     "option_1":quiz.option_1 or "",
@@ -42,6 +44,7 @@ def get_fundability_quiz(customer_group,question_id,option):
                 quiz_question_remove_html = html2text.html2text(get_question_and_options.question or "").strip()
                 quiz_details = {
                     "id":get_quiz, 
+                    "type_of_question":get_question_and_options.type,
                     "question_id":get_question_and_options.name,
                     "question_name":quiz_question_remove_html,
                     "option_1":get_question_and_options.option_1 or "",

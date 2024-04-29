@@ -16,35 +16,35 @@ def get_search_investors_list(page_no,funding_stage,user_id,search_key,type_of_u
         page_no_calulate = calculate_count(page_no)
         if type_of_user == "Investors":
             if funding_stages_tuple == "":
-                search_investors_list = frappe.db.sql(""" SELECT * FROM `tabSearch Investors` WHERE investor_title LIKE %s  ORDER BY name ASC LIMIT %s OFFSET %s """,('%'+search_key+'%',page_no_calulate[1],page_no_calulate[0]),as_dict=True)
-                investors_count = frappe.db.sql(""" SELECT name FROM `tabSearch Investors` WHERE investor_title LIKE %s  ORDER BY name ASC LIMIT %s OFFSET %s """,('%'+search_key+'%',page_no_calulate[1],page_no_calulate[0]),as_dict=True)
+                search_investors_list = frappe.db.sql(""" SELECT * FROM `tabSearch Investors` WHERE disabled = 0 AND investor_title LIKE %s  ORDER BY name ASC LIMIT %s OFFSET %s """,('%'+search_key+'%',page_no_calulate[1],page_no_calulate[0]),as_dict=True)
+                investors_count = frappe.db.sql(""" SELECT name FROM `tabSearch Investors` WHERE disabled = 0 AND investor_title LIKE %s  ORDER BY name ASC LIMIT %s OFFSET %s """,('%'+search_key+'%',page_no_calulate[1],page_no_calulate[0]),as_dict=True)
             else:    
                 search_investors_list = frappe.db.sql(""" SELECT si.* FROM `tabSearch Investors` si  LEFT JOIN `tabInvestor Funding Stages` fs ON si.name = fs.parent 
-                    WHERE fs.funding_stages IN (%s) AND si.investor_title LIKE %s  ORDER BY si.name ASC LIMIT %s OFFSET %s """, (funding_stages_tuple,'%' + search_key + '%',page_no_calulate[1], page_no_calulate[0]), as_dict=True)
+                    WHERE fs.funding_stages IN (%s) AND si.disabled = 0 AND si.investor_title LIKE %s  ORDER BY si.name ASC LIMIT %s OFFSET %s """, (funding_stages_tuple,'%' + search_key + '%',page_no_calulate[1], page_no_calulate[0]), as_dict=True)
                 investors_count = frappe.db.sql(""" SELECT si.name FROM `tabSearch Investors` si  LEFT JOIN `tabInvestor Funding Stages` fs ON si.name = fs.parent 
-                                    WHERE fs.funding_stages IN (%s) AND si.investor_title LIKE %s  ORDER BY si.name ASC LIMIT %s OFFSET %s """, (funding_stages_tuple,'%' + search_key + '%',page_no_calulate[1], page_no_calulate[0]), as_dict=True)
+                                    WHERE fs.funding_stages IN (%s) AND si.disabled = 0 AND si.investor_title LIKE %s  ORDER BY si.name ASC LIMIT %s OFFSET %s """, (funding_stages_tuple,'%' + search_key + '%',page_no_calulate[1], page_no_calulate[0]), as_dict=True)
         elif type_of_user == "Industry":
             if funding_stages_tuple == "":
                 search_investors_list = frappe.db.sql(""" SELECT si.* FROM `tabSearch Investors` si  LEFT JOIN `tabSector Focus Table` fs ON si.name = fs.parent 
-                    WHERE fs.sector_focus LIKE %s ORDER BY name ASC LIMIT %s OFFSET %s """, ('%' + search_key + '%',page_no_calulate[1], page_no_calulate[0]), as_dict=True)
+                    WHERE si.disabled = 0 AND fs.sector_focus LIKE %s ORDER BY name ASC LIMIT %s OFFSET %s """, ('%' + search_key + '%',page_no_calulate[1], page_no_calulate[0]), as_dict=True)
                 investors_count = frappe.db.sql(""" SELECT si.name FROM `tabSearch Investors` si  LEFT JOIN `tabSector Focus Table` fs ON si.name = fs.parent 
-                    WHERE fs.sector_focus LIKE %s ORDER BY name ASC LIMIT %s OFFSET %s """, ('%' + search_key + '%',page_no_calulate[1], page_no_calulate[0]), as_dict=True)
+                    WHERE si.disabled = 0 AND fs.sector_focus LIKE %s ORDER BY name ASC LIMIT %s OFFSET %s """, ('%' + search_key + '%',page_no_calulate[1], page_no_calulate[0]), as_dict=True)
             else:
                 search_investors_list = frappe.db.sql(""" SELECT si.* FROM `tabSearch Investors` si  LEFT JOIN `tabSector Focus Table` fs ON si.name = fs.parent 
                                         LEFT JOIN `tabInvestor Funding Stages` ifs ON si.name = ifs.parent
-                                        WHERE fs.sector_focus LIKE %s AND ifs.funding_stages IN (%s) ORDER BY si.name ASC LIMIT %s OFFSET %s """, ('%' + search_key + '%',funding_stages_tuple,page_no_calulate[1], page_no_calulate[0]), as_dict=True)
+                                        WHERE si.disabled = 0 AND fs.sector_focus LIKE %s AND ifs.funding_stages IN (%s) ORDER BY si.name ASC LIMIT %s OFFSET %s """, ('%' + search_key + '%',funding_stages_tuple,page_no_calulate[1], page_no_calulate[0]), as_dict=True)
                 investors_count = frappe.db.sql(""" SELECT si.name FROM `tabSearch Investors` si  LEFT JOIN `tabSector Focus Table` fs ON si.name = fs.parent 
                                         LEFT JOIN `tabInvestor Funding Stages` ifs ON si.name = ifs.parent
-                                        WHERE fs.sector_focus LIKE %s AND ifs.funding_stages IN (%s) ORDER BY si.name ASC LIMIT %s OFFSET %s """, ('%' + search_key + '%',funding_stages_tuple,page_no_calulate[1], page_no_calulate[0]), as_dict=True)
+                                        WHERE si.disabled = 0 AND fs.sector_focus LIKE %s AND ifs.funding_stages IN (%s) ORDER BY si.name ASC LIMIT %s OFFSET %s """, ('%' + search_key + '%',funding_stages_tuple,page_no_calulate[1], page_no_calulate[0]), as_dict=True)
         else:
             if funding_stage == "":
-                search_investors_list = frappe.db.sql(""" SELECT * FROM `tabSearch Investors`  ORDER BY name ASC LIMIT %s OFFSET %s """,(page_no_calulate[1],page_no_calulate[0]),as_dict=True)
-                investors_count = frappe.db.sql(""" SELECT name  FROM `tabSearch Investors`  ORDER BY name ASC  LIMIT %s OFFSET %s """,(page_no_calulate[1],page_no_calulate[0]),as_dict=True)
+                search_investors_list = frappe.db.sql(""" SELECT * FROM `tabSearch Investors`  WHERE disabled = 0  ORDER BY name ASC LIMIT %s OFFSET %s """,(page_no_calulate[1],page_no_calulate[0]),as_dict=True)
+                investors_count = frappe.db.sql(""" SELECT name  FROM `tabSearch Investors`  WHERE disabled = 0    ORDER BY name ASC  LIMIT %s OFFSET %s """,(page_no_calulate[1],page_no_calulate[0]),as_dict=True)
             else:
                 search_investors_list = frappe.db.sql(""" SELECT si.* FROM `tabSearch Investors` si  LEFT JOIN `tabInvestor Funding Stages` fs ON si.name = fs.parent 
-                    WHERE fs.funding_stages IN (%s) ORDER BY name ASC LIMIT %s OFFSET %s """, (funding_stages_tuple,page_no_calulate[1], page_no_calulate[0]), as_dict=True)
+                    WHERE si.disabled = 0 AND fs.funding_stages IN (%s) ORDER BY name ASC LIMIT %s OFFSET %s """, (funding_stages_tuple,page_no_calulate[1], page_no_calulate[0]), as_dict=True)
                 investors_count = frappe.db.sql(""" SELECT si.name  FROM `tabSearch Investors` si  LEFT JOIN `tabInvestor Funding Stages` fs ON si.name = fs.parent 
-                    WHERE fs.funding_stages IN (%s)  ORDER BY si.name ASC LIMIT %s OFFSET %s """, (funding_stages_tuple,page_no_calulate[1], page_no_calulate[0]), as_dict=True)
+                    WHERE si.disabled = 0 AND fs.funding_stages IN (%s)  ORDER BY si.name ASC LIMIT %s OFFSET %s """, (funding_stages_tuple,page_no_calulate[1], page_no_calulate[0]), as_dict=True)
         
         for investors_details in search_investors_list: 
             favourite_investor = frappe.db.get_value("Search Investors Favourites",{"user_id":user_id,"investors":investors_details.name},['favourites_status'])
