@@ -50,7 +50,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Type",
-   "options": "\nChoices Type\nMulti select Type\nDisplay options based on selection"
+   "options": "\nSingle\nMulitple"
   },
   {
    "default": "0",
@@ -187,7 +187,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-04-24 19:00:36.960958",
+ "modified": "2024-04-27 13:54:02.617907",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Fundability Quiz",
