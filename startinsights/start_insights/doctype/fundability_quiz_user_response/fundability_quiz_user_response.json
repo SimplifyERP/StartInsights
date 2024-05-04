@@ -1,0 +1,80 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-04-10 16:09:42.204257",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "user",
+  "full_name",
+  "column_break_jxfw",
+  "customer_group",
+  "attempt_status",
+  "section_break_bxeb",
+  "response"
+ ],
+ "fields": [
+  {
+   "fieldname": "response",
+   "fieldtype": "Table",
+   "label": "Response",
+   "options": "Quiz Response"
+  },
+  {
+   "fieldname": "customer_group",
+   "fieldtype": "Link",
+   "label": "Customer group",
+   "options": "Customer Group"
+  },
+  {
+   "fieldname": "section_break_bxeb",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_jxfw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "User",
+   "options": "User"
+  },
+  {
+   "fetch_from": "user.full_name",
+   "fieldname": "full_name",
+   "fieldtype": "Data",
+   "label": "Full Name"
+  },
+  {
+   "default": "0",
+   "fieldname": "attempt_status",
+   "fieldtype": "Check",
+   "label": "Attempt Status"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-05-03 13:39:12.628200",
+ "modified_by": "Administrator",
+ "module": "START INSIGHTS",
+ "name": "Fundability Quiz User Response",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
