@@ -308,6 +308,66 @@ def get_pitch_room_quotes():
     except Exception as e:
         return {"status":False,"message":str(e)}
 
+@frappe.whitelist()
+def get_share_link_list():
+    try:
+        # id = "PR-0001"
+        url = "http://127.0.0.1:8000/api/method/startinsights.website_api.pitch_room.get_share_link_list/PR-0001"
+        parts = url.split("/")
+        pr_part = next((part for part in parts if part.startswith("PR-")), None)
+        get_pitch_room = frappe.get_doc("Pitch Room",pr_part)
+        get_pitch_room_list = []
+        get_company_name = frappe.db.get_value("Profile Application",{'user_id':get_pitch_room.user_id},['company_name'])
+        if get_company_name:
+            company_name = get_company_name
+        else:
+            company_name = ""    
+        if get_pitch_room.cover_image:
+            image_url = get_domain_name() + get_pitch_room.cover_image
+        else:
+            image_url = ""
+        pitch_room_details = {
+            "id": get_pitch_room.name,
+            "cover_image":image_url,
+            "room_name": get_pitch_room.room_name,
+            "company_name":company_name,
+            "about_startup": get_pitch_room.about_startup or "",
+            "notes":get_room_notes() or "",
+            "documents":[],
+            "shared_users":[]
+        }
+        get_documents = frappe.db.get_all("Pitch Craft Document Table",{'parent':get_pitch_room.name},['name','doc_name','document_type','attach'],order_by='idx ASC')
+        for documents in get_documents:
+            get_file = frappe.db.get_value("File",{"attached_to_doctype":"Pitch Room","attached_to_name":get_pitch_room.name},['creation'])
+            if documents.attach:
+                doc_url = get_domain_name() + documents.attach
+            else:
+                doc_url = ""    
+            pitch_room_details["documents"].append({
+                "doc_id":documents.name,
+                "doc_name":documents.doc_name or "",
+                "document_type":documents.document_type,
+                "attach": doc_url,
+                "is_upload":True,
+                "created_date":format_date(get_file.date()),
+                "created_time":change_time_format(format_time(get_file)),
+            })
+        get_share_users = frappe.db.get_all("Shared Users",{'parent':get_pitch_room.name},['user_id','user_name'],order_by='idx ASC')
+        for users in get_share_users:
+            pitch_room_details["shared_users"].append({
+                "user_id":users.user_id,
+                "user_name": users.user_name or ""
+            })    
+        get_pitch_room_list.append(pitch_room_details)
+        return {"status":True,"pitch_room":get_pitch_room_list}
+    except Exception as e:
+        return {"status":False,"message":str(e)}
+    
+
+
+
+
+
 
 # @frappe.whitelist()
 # def get_pitch_room_share_list(pitch_room_id):
