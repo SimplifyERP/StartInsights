@@ -309,13 +309,9 @@ def get_pitch_room_quotes():
         return {"status":False,"message":str(e)}
 
 @frappe.whitelist()
-def get_share_link_list():
+def get_share_link_list(pitch_room_id):
     try:
-        # id = "PR-0001"
-        url = "http://127.0.0.1:8000/api/method/startinsights.website_api.pitch_room.get_share_link_list/PR-0001"
-        parts = url.split("/")
-        pr_part = next((part for part in parts if part.startswith("PR-")), None)
-        get_pitch_room = frappe.get_doc("Pitch Room",pr_part)
+        get_pitch_room = frappe.get_doc("Pitch Room",pitch_room_id)
         get_pitch_room_list = []
         get_company_name = frappe.db.get_value("Profile Application",{'user_id':get_pitch_room.user_id},['company_name'])
         if get_company_name:
