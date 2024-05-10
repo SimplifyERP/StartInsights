@@ -7,9 +7,18 @@
  "engine": "InnoDB",
  "field_order": [
   "question_id",
+  "user_response_option",
+  "marks",
+  "column_break_yseu",
   "question",
-  "choices",
-  "marks"
+  "options_section",
+  "option_1",
+  "option_3",
+  "option_5",
+  "column_break_nkiy",
+  "option_2",
+  "option_4",
+  "option_6"
  ],
  "fields": [
   {
@@ -17,12 +26,6 @@
    "fieldtype": "Int",
    "in_list_view": 1,
    "label": "Marks"
-  },
-  {
-   "fieldname": "choices",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Choice"
   },
   {
    "fieldname": "question_id",
@@ -36,12 +39,61 @@
    "fieldname": "question",
    "fieldtype": "Text Editor",
    "label": "Question"
+  },
+  {
+   "fieldname": "column_break_yseu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "options_section",
+   "fieldtype": "Section Break",
+   "label": "Options"
+  },
+  {
+   "fieldname": "option_1",
+   "fieldtype": "Small Text",
+   "label": "Option 1"
+  },
+  {
+   "fieldname": "column_break_nkiy",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "option_2",
+   "fieldtype": "Small Text",
+   "label": "Option 2"
+  },
+  {
+   "fieldname": "option_3",
+   "fieldtype": "Small Text",
+   "label": "Option 3"
+  },
+  {
+   "fieldname": "option_4",
+   "fieldtype": "Small Text",
+   "label": "Option 4"
+  },
+  {
+   "fieldname": "option_5",
+   "fieldtype": "Small Text",
+   "label": "Option 5"
+  },
+  {
+   "fieldname": "option_6",
+   "fieldtype": "Small Text",
+   "label": "Option 6"
+  },
+  {
+   "fieldname": "user_response_option",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "User Response option"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-05-02 15:44:34.300743",
+ "modified": "2024-05-08 17:38:16.010156",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Quiz Response",

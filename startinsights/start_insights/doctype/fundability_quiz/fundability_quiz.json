@@ -12,6 +12,7 @@
   "section_break_hyjj",
   "type",
   "column_break_jsme",
+  "customer_group",
   "disabled",
   "options_and_marks_tab",
   "option_1",
@@ -50,7 +51,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Type",
-   "options": "\nSingle\nMulitple"
+   "options": "\nSingle\nMultiSelect"
   },
   {
    "default": "0",
@@ -183,11 +184,17 @@
    "fieldname": "mark_6",
    "fieldtype": "Int",
    "label": "Mark 6"
+  },
+  {
+   "fieldname": "customer_group",
+   "fieldtype": "Link",
+   "label": "Customer Group",
+   "options": "Customer Group"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-04-27 13:54:02.617907",
+ "modified": "2024-05-09 13:28:56.406849",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Fundability Quiz",
