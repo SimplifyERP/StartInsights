@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "FUND-RESPONSE-.####",
  "creation": "2024-04-10 16:09:42.204257",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -9,7 +10,7 @@
   "full_name",
   "column_break_jxfw",
   "customer_group",
-  "attempt_status",
+  "total_quiz_marks",
   "section_break_bxeb",
   "response"
  ],
@@ -47,18 +48,18 @@
    "label": "Full Name"
   },
   {
-   "default": "0",
-   "fieldname": "attempt_status",
-   "fieldtype": "Check",
-   "label": "Attempt Status"
+   "fieldname": "total_quiz_marks",
+   "fieldtype": "Int",
+   "label": "Total Quiz Marks"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-05-03 13:39:12.628200",
+ "modified": "2024-05-09 21:48:30.286461",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Fundability Quiz User Response",
+ "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
   {
