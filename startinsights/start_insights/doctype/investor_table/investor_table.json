@@ -1,0 +1,52 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-04-16 11:22:59.929774",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "investor_name",
+  "invested_amount",
+  "_shareholding",
+  "no_of_shares_alloted"
+ ],
+ "fields": [
+  {
+   "fieldname": "investor_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Investor Name"
+  },
+  {
+   "fieldname": "invested_amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Invested Amount"
+  },
+  {
+   "fieldname": "_shareholding",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
+   "label": "% shareholding"
+  },
+  {
+   "fieldname": "no_of_shares_alloted",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "No. of Shares Alloted"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-04-16 11:24:21.404497",
+ "modified_by": "Administrator",
+ "module": "START INSIGHTS",
+ "name": "Investor Table",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

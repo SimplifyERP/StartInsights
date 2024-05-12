@@ -60,13 +60,13 @@ def get_fundability_quiz(user_id,customer_group,question_id,option,attempt_statu
                 }
                 quiz_list.append(quiz_details)
                 fundability = mark_fundability_quiz(user_id,customer_group,question_id,option,attempt_status,type_of_question,fundability_quiz_response_id)
-                get_total_marks(quiz_completed,fundability_quiz_response_id)
+                # get_total_marks(quiz_completed,fundability_quiz_response_id)
                 status = True
                 message = "Success"
             else:
                 status = False
                 message = "Selected Option has not Question"    
-        return {"status":status,"message":message,"fundability_details":quiz_list,"fundability_id":fundability or ""}
+        return {"status":status,"message":message,"fundability_details":quiz_list,"fundability_id":fundability}
     except Exception as e:
         return {"status":False,"message":e}	
     

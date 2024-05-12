@@ -8,62 +8,100 @@ from frappe.utils import now, getdate, today, format_date
 
 
 @frappe.whitelist()
-def create_captable_managment(user_id,investor_name,tag_name,allotment_date,amount_invested,shares_allotted,fully_diluted_shares,class_of_shares,
-                        folio_number,distinctive_share_no,shareholding,round_name,round_type,
-                        price_per_share,pre_money_valuation,dilution_for_this_round,attach_certificate):
-    status = ""
-    message = ""
+def create_captable_managment(user,round_type,bridge_round_from,bridge_round_to,instrument,floor_cn,ceiling_cn,pre_money_valuation,amount_raised,no_of_investors,investors):
     try:
-        date = datetime.strptime(allotment_date, "%d-%m-%Y").date()
-        # closing_date = datetime.strptime(closing_date_round, "%d-%m-%Y").date()
-        certificate = base64.b64decode(attach_certificate)
-        color_code = get_random_color_code()
-        # if not frappe.db.exists("Captable Management",{'user':user_id}):
-        captable_management = frappe.new_doc("Captable Management")
-        captable_management.investor_name = investor_name
-        captable_management.tag_name = tag_name
-        captable_management.date_of_allotment = date
-        captable_management.amount_invested = amount_invested
-        captable_management.shares_allotted = shares_allotted
-        captable_management.fully_diluted_shares = fully_diluted_shares
-        captable_management.class_of_shares = class_of_shares
-        captable_management.folio_number = folio_number
-        captable_management.distinctive_share_no = distinctive_share_no
-        captable_management._shareholding = shareholding
-        # captable_management.description = description
-        captable_management.round_name = round_name
-        captable_management.round_type = round_type
-        # captable_management.select_security_prefix = select_security_prefix
-        # captable_management.closing_date_of_the_round = closing_date
-        captable_management.price_per_share = price_per_share
-        captable_management.pre_money_valuation = pre_money_valuation
-        captable_management.dilution_for_this_round_ = dilution_for_this_round
-        captable_management.user = user_id
-        captable_management.color_code = color_code
-        captable_management.save(ignore_permissions=True)
-        frappe.db.commit()
-
-        frappe.db.set_value("Captable Management",captable_management.name,'owner',user_id)
-        
-        if attach_certificate:
-            file_name_inside = f"{captable_management.name.replace(' ', '_')}_image.pdf"
-            new_file_inside = frappe.new_doc('File')
-            new_file_inside.file_name = file_name_inside
-            new_file_inside.content = certificate
-            new_file_inside.attached_to_doctype = "Captable Management"
-            new_file_inside.attached_to_name = captable_management.name
-            new_file_inside.attached_to_field = "share_certificate"
-            new_file_inside.is_private = 0
-            new_file_inside.save(ignore_permissions=True)
-            frappe.db.commit()
-            frappe.db.set_value("Captable Management", captable_management.name, 'share_certificate', new_file_inside.file_url)
-
-        status = True
-        message = "New Captable Created"
-        # else:
-        #     status = False
-        #     message = "Already Created"
-        return {"status":status,"message":message}
+        if int(no_of_investors) > 0:
+            if round_type == "Bridge Round":
+                if instrument == "CN":
+                    new_captable = frappe.new_doc("Captable Management")
+                    new_captable.user = user
+                    new_captable.round_type = round_type
+                    new_captable.bridge_round_from = bridge_round_from
+                    new_captable.bridge_round_to = bridge_round_to
+                    new_captable.instrument = instrument
+                    new_captable.floor_rs = floor_cn
+                    new_captable.ceiling_rs = ceiling_cn
+                    new_captable.pre_money_valuation = pre_money_valuation
+                    new_captable.amount_raised = amount_raised
+                    new_captable.no_of_investor = no_of_investors
+                    for invest in investors:
+                        new_captable.append("investor_table",{
+                            "investor_name":invest.get("investor_name"),
+                            "invested_amount":invest.get("amount")
+                        })
+                    new_captable.save(ignore_permissions=True)
+                    frappe.db.commit()
+                else:
+                    new_captable = frappe.new_doc("Captable Management")
+                    new_captable.user = user
+                    new_captable.round_type = round_type
+                    new_captable.bridge_round_from = bridge_round_from
+                    new_captable.bridge_round_to = bridge_round_to
+                    new_captable.instrument = instrument
+                    new_captable.pre_money_valuation = pre_money_valuation
+                    new_captable.amount_raised = amount_raised
+                    new_captable.no_of_investor = no_of_investors
+                    for invest in investors:
+                        new_captable.append("investor_table",{
+                            "investor_name":invest.get("investor_name"),
+                            "invested_amount":invest.get("amount")
+                        })
+                    new_captable.save(ignore_permissions=True)
+                    frappe.db.commit() 
+            else:
+                new_captable = frappe.new_doc("Captable Management")
+                new_captable.user = user    
+                new_captable.round_type = round_type
+                new_captable.instrument = instrument
+                new_captable.pre_money_valuation = pre_money_valuation
+                new_captable.amount_raised = amount_raised
+                new_captable.no_of_investor = no_of_investors
+                for invest in investors:
+                    new_captable.append("investor_table",{
+                        "investor_name":invest.get("investor_name"),
+                        "invested_amount":invest.get("amount")
+                    })
+                new_captable.save(ignore_permissions=True)
+                frappe.db.commit()
+        else:
+            if round_type == "Bridge Round":
+                if instrument == "CN":
+                    new_captable = frappe.new_doc("Captable Management")
+                    new_captable.user = user
+                    new_captable.round_type = round_type
+                    new_captable.bridge_round_from = bridge_round_from
+                    new_captable.bridge_round_to = bridge_round_to
+                    new_captable.instrument = instrument
+                    new_captable.floor_rs = floor_cn
+                    new_captable.ceiling_rs = ceiling_cn
+                    new_captable.pre_money_valuation = pre_money_valuation
+                    new_captable.amount_raised = amount_raised
+                    new_captable.no_of_investor = no_of_investors
+                    new_captable.save(ignore_permissions=True)
+                    frappe.db.commit()
+                else:
+                    new_captable = frappe.new_doc("Captable Management")
+                    new_captable.user = user
+                    new_captable.round_type = round_type
+                    new_captable.bridge_round_from = bridge_round_from
+                    new_captable.bridge_round_to = bridge_round_to
+                    new_captable.instrument = instrument
+                    new_captable.pre_money_valuation = pre_money_valuation
+                    new_captable.amount_raised = amount_raised
+                    new_captable.no_of_investor = no_of_investors
+                    new_captable.save(ignore_permissions=True)
+                    frappe.db.commit() 
+            else:
+                new_captable = frappe.new_doc("Captable Management")
+                new_captable.user = user    
+                new_captable.round_type = round_type
+                new_captable.instrument = instrument
+                new_captable.pre_money_valuation = pre_money_valuation
+                new_captable.amount_raised = amount_raised
+                new_captable.no_of_investor = no_of_investors
+                new_captable.save(ignore_permissions=True)
+                frappe.db.commit()               
+        return {"status":True,"message":"Captable Created Successfully"}
     except Exception as e:
         return {"status":False,"message":e}
     
