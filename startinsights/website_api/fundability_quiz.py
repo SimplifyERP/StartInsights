@@ -3,6 +3,7 @@ import html2text
 
 @frappe.whitelist()
 def get_fundability_quiz(user_id,customer_group,question_id,option,attempt_status,type_of_question,fundability_quiz_response_id,quiz_completed):
+    fundability = []
     status = False
     message = ""
     option_map = {
@@ -20,6 +21,14 @@ def get_fundability_quiz(user_id,customer_group,question_id,option,attempt_statu
         if not (question_id and option == []) and type_of_question == "" :
             quiz_flow_table = frappe.db.get_all("Fundability Quiz Flow Table",{"parent":get_quiz},["*"],order_by='idx ASC',limit=1)
             for quiz in quiz_flow_table:
+                options_dict = {
+                    "option_1": quiz.option_1 or "",
+                    "option_2": quiz.option_2 or "",
+                    "option_3": quiz.option_3 or "",
+                    "option_4": quiz.option_4 or "",
+                    "option_5": quiz.option_5 or "",
+                    "option_6": quiz.option_6 or "",
+                }
                 quiz_question_remove_html = html2text.html2text(quiz.question_name or "").strip()
                 get_type_of_question = frappe.get_doc("Fundability Quiz",quiz.fundability_quiz_question)
                 quiz_details = {
@@ -27,46 +36,48 @@ def get_fundability_quiz(user_id,customer_group,question_id,option,attempt_statu
                     "type_of_question":get_type_of_question.type,
                     "question_id":quiz.fundability_quiz_question,
                     "question_name":quiz_question_remove_html,
-                    "option_1":quiz.option_1 or "",
-                    "option_2":quiz.option_2 or "",
-                    "option_3":quiz.option_3 or "",
-                    "option_4":quiz.option_4 or "",
-                    "option_5":quiz.option_5 or "",
-                    "option_6":quiz.option_6 or "",           
+                    "options": [options_dict],      
                 }
                 quiz_list.append(quiz_details)
                 status = True
                 message = "Success"
         else:
             if type_of_question == "Single" and len(option) == 1:
-                quiz_flow_table = frappe.db.get_value("Fundability Quiz Flow Table",{"parent":get_quiz,"fundability_quiz_question":question_id,"select_option":option_map.get(option[0])},["next_display_question_no"])
+                quiz_flow_table = frappe.db.get_value("Fundability Quiz Flow Table",{"parent":get_quiz,"fundability_quiz_question":question_id},["select_option"])
+                if quiz_flow_table == option_map.get(0):
+                    next_question = frappe.db.get_value("Fundability Quiz Flow Table",{"parent":get_quiz,"fundability_quiz_question":question_id},["next_display_question_no"])
+                else:
+                    next_question = frappe.db.get_value("Fundability Quiz Flow Table",{"parent":get_quiz,"fundability_quiz_question":question_id,"select_option":option_map.get(option[0])},["next_display_question_no"])   
             elif type_of_question == "MultiSelect":
-                quiz_flow_table = frappe.db.get_value("Fundability Quiz Flow Table",{"parent":get_quiz,"fundability_quiz_question":question_id,"select_option":option_map.get(0)},["next_display_question_no"])
-                
-            if quiz_flow_table:
-                get_question_and_options = frappe.get_doc("Fundability Quiz",quiz_flow_table)
+                next_question = frappe.db.get_value("Fundability Quiz Flow Table",{"parent":get_quiz,"fundability_quiz_question":question_id,"select_option":option_map.get(0)},["next_display_question_no"])
+              
+            if next_question:
+                get_question_and_options = frappe.get_doc("Fundability Quiz",next_question)
                 quiz_question_remove_html = html2text.html2text(get_question_and_options.question or "").strip()
-                quiz_details = {
-                    "id":get_quiz, 
-                    "type_of_question":get_question_and_options.type,
-                    "question_id":get_question_and_options.name,
-                    "question_name":quiz_question_remove_html,
+                options_dict = {
                     "option_1":get_question_and_options.option_1 or "",
                     "option_2":get_question_and_options.option_2 or "",
                     "option_3":get_question_and_options.option_3 or "",
                     "option_4":get_question_and_options.option_4 or "",
                     "option_5":get_question_and_options.option_5 or "",
-                    "option_6":get_question_and_options.option_6 or "",           
+                    "option_6":get_question_and_options.option_6 or "",    
+                }
+                quiz_details = {
+                    "id":get_quiz, 
+                    "type_of_question":get_question_and_options.type,
+                    "question_id":get_question_and_options.name,
+                    "question_name":quiz_question_remove_html,
+                    "options": [options_dict],                 
                 }
                 quiz_list.append(quiz_details)
                 fundability = mark_fundability_quiz(user_id,customer_group,question_id,option,attempt_status,type_of_question,fundability_quiz_response_id)
-                # get_total_marks(quiz_completed,fundability_quiz_response_id)
+                get_total_marks(quiz_completed,fundability_quiz_response_id)
                 status = True
                 message = "Success"
             else:
                 status = False
                 message = "Selected Option has not Question"    
-        return {"status":status,"message":message,"fundability_details":quiz_list,"fundability_id":fundability}
+        return {"status":status,"message":message,"fundability_details":quiz_list,"fundability_id":fundability or ""}
     except Exception as e:
         return {"status":False,"message":e}	
     
