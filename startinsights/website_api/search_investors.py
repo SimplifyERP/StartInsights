@@ -185,7 +185,7 @@ def get_recommended_search_investors():
     search_investors = []
     fund_rasing = []
     try:
-        search_investors_list = frappe.db.sql(""" SELECT * FROM `tabSearch Investors` WHERE recommended_investors_count > 0  ORDER BY recommended_investors_count DESC LIMIT 4 """,as_dict=1)
+        search_investors_list = frappe.db.sql(""" SELECT * FROM `tabSearch Investors` WHERE recommended_investors_count > 0  ORDER BY recommended_investors_count DESC LIMIT 5 """,as_dict=1)
         for investors_details in search_investors_list:
             if investors_details.investor_logo:
                 image_url = get_domain_name() + investors_details.get('investor_logo')

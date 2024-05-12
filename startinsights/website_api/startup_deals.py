@@ -23,17 +23,17 @@ def get_deal_list(user_id):
                 "name":deal.name,
                 "service_provider_name": deal.service_provider_name,
                 "attach_image": image_url,
-                "service_headline": deal.service_headline,
-                "short_description": deal.short_description,
-                "feature_service": deal.feature_service,
-                "popular_service": deal.popular_service,
+                "service_headline": deal.service_headline or "",
+                "short_description": deal.short_description or "", 
+                "feature_service": deal.feature_service or 0,
+                "popular_service": deal.popular_service or 0,
                 "redeem_status":redeem_status,
                 "startup": []
             }
             startup_list = frappe.get_all('Service Providing List', filters={'parent': deal.name}, fields=['type_of_service'])
             for start in startup_list:
                 get_deal['startup'].append({
-                    "type_of_service": start.type_of_service,
+                    "type_of_service": start.type_of_service or "",
                 })
             deal_list_append.append(get_deal)
         return {"status": True, "deal_list": deal_list_append}
