@@ -6,158 +6,155 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "investor_name",
-  "tag_name",
-  "date_of_allotment",
-  "amount_invested",
-  "shares_allotted",
-  "fully_diluted_shares",
-  "class_of_shares",
-  "folio_number",
-  "distinctive_share_no",
-  "_shareholding",
-  "share_certificate",
-  "description",
-  "column_break_tnfx",
-  "round_name",
-  "round_type",
-  "select_security_prefix",
-  "closing_date_of_the_round",
-  "price_per_share",
-  "pre_money_valuation",
-  "dilution_for_this_round_",
-  "color_code",
   "user",
-  "disabled"
+  "column_break_kdsh",
+  "company",
+  "section_break_aocj",
+  "round_type",
+  "column_break_nafc",
+  "instrument",
+  "bridge_round_section",
+  "bridge_round_from",
+  "column_break_sfra",
+  "bridge_round_to",
+  "cn_section",
+  "floor_rs",
+  "column_break_vzuv",
+  "ceiling_rs",
+  "section_break_lkgz",
+  "pre_money_valuation",
+  "post_money_valuation",
+  "no_of_investor",
+  "column_break_yjrk",
+  "amount_raised",
+  "dilution_for_the_round",
+  "section_break_kbvp",
+  "investor_table"
  ],
  "fields": [
   {
    "fieldname": "round_type",
-   "fieldtype": "Link",
+   "fieldtype": "Select",
    "label": "Round Type",
-   "options": "Round Type"
+   "options": "\nFriends & Family\nPre-Seed\nSeed\nPre-Series A\nSeries A\nBridge Round"
   },
   {
-   "fieldname": "closing_date_of_the_round",
-   "fieldtype": "Date",
-   "label": "Closing date of the Round"
+   "fieldname": "bridge_round_section",
+   "fieldtype": "Section Break",
+   "label": "Bridge Round"
   },
   {
-   "fieldname": "description",
-   "fieldtype": "Small Text",
-   "label": "Description"
+   "fieldname": "column_break_sfra",
+   "fieldtype": "Column Break"
   },
   {
-   "depends_on": "eval:doc.round_type == \"CCD\" || doc.round_type =='CN' || doc.round_type =='iSAFE' ",
-   "description": "Note : This field only display on Round Type based on \"CCD\",\"CN\",\"iSAFE\"",
-   "fieldname": "select_security_prefix",
-   "fieldtype": "Data",
-   "label": "Select Security Prefix"
+   "fieldname": "instrument",
+   "fieldtype": "Select",
+   "label": "Instrument",
+   "options": "\nEquity\niSAFE\nCN"
   },
   {
-   "fieldname": "price_per_share",
+   "fieldname": "cn_section",
+   "fieldtype": "Section Break",
+   "label": "CN"
+  },
+  {
+   "fieldname": "floor_rs",
    "fieldtype": "Currency",
-   "label": "Price per share"
+   "label": "Floor (Rs.)"
+  },
+  {
+   "fieldname": "column_break_vzuv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ceiling_rs",
+   "fieldtype": "Currency",
+   "label": "Ceiling (Rs.)"
+  },
+  {
+   "fieldname": "column_break_kdsh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_lkgz",
+   "fieldtype": "Section Break"
   },
   {
    "fieldname": "pre_money_valuation",
    "fieldtype": "Currency",
-   "label": "Pre-Money Valuation"
+   "label": "Pre Money Valuation"
   },
   {
-   "fieldname": "dilution_for_this_round_",
-   "fieldtype": "Data",
-   "label": "Dilution for this round (%)"
-  },
-  {
-   "fieldname": "color_code",
-   "fieldtype": "Color",
-   "label": "Color Code"
-  },
-  {
-   "fieldname": "investor_name",
-   "fieldtype": "Data",
-   "label": "Investor Name"
-  },
-  {
-   "fieldname": "tag_name",
-   "fieldtype": "Link",
-   "label": "Tag Name",
-   "options": "Tag Name"
-  },
-  {
-   "fieldname": "date_of_allotment",
-   "fieldtype": "Date",
-   "label": "Date of Allotment"
-  },
-  {
-   "fieldname": "amount_invested",
+   "fieldname": "post_money_valuation",
    "fieldtype": "Currency",
-   "label": "Amount Invested"
+   "label": "Post Money Valuation"
   },
   {
-   "fieldname": "distinctive_share_no",
-   "fieldtype": "Data",
-   "label": "Distinctive Share No"
-  },
-  {
-   "fieldname": "share_certificate",
-   "fieldtype": "Attach",
-   "label": "Share Certificate"
-  },
-  {
-   "fieldname": "shares_allotted",
-   "fieldtype": "Data",
-   "label": "Shares Allotted"
-  },
-  {
-   "fieldname": "fully_diluted_shares",
-   "fieldtype": "Data",
-   "label": "Fully Diluted Shares"
-  },
-  {
-   "fieldname": "class_of_shares",
-   "fieldtype": "Data",
-   "label": "Class Of Shares"
-  },
-  {
-   "fieldname": "folio_number",
-   "fieldtype": "Data",
-   "label": "Folio Number"
-  },
-  {
-   "fieldname": "_shareholding",
-   "fieldtype": "Data",
-   "label": "% Shareholding"
-  },
-  {
-   "description": "Note : Type of Round",
-   "fieldname": "round_name",
-   "fieldtype": "Link",
-   "label": "Round Name",
-   "options": "Name of the Round"
-  },
-  {
-   "fieldname": "column_break_tnfx",
+   "fieldname": "column_break_yjrk",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "amount_raised",
+   "fieldtype": "Currency",
+   "label": "Amount Raised"
+  },
+  {
+   "fieldname": "dilution_for_the_round",
+   "fieldtype": "Percent",
+   "label": "Dilution for the Round"
+  },
+  {
+   "fieldname": "no_of_investor",
+   "fieldtype": "Currency",
+   "label": "No. of Investor"
+  },
+  {
+   "fieldname": "section_break_kbvp",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "investor_table",
+   "fieldtype": "Table",
+   "label": "Investor Table",
+   "options": "Investor Table"
+  },
+  {
+   "fieldname": "bridge_round_from",
+   "fieldtype": "Select",
+   "label": "From",
+   "options": "\nPre-Seed\nSeed\nPre-Series A"
+  },
+  {
+   "fieldname": "bridge_round_to",
+   "fieldtype": "Data",
+   "label": "To"
   },
   {
    "fieldname": "user",
    "fieldtype": "Link",
    "label": "User",
-   "options": "User",
+   "options": "Profile Application"
+  },
+  {
+   "fetch_from": "user.company_name",
+   "fieldname": "company",
+   "fieldtype": "Data",
+   "label": "Company",
    "read_only": 1
   },
   {
-   "default": "0",
-   "fieldname": "disabled",
-   "fieldtype": "Check",
-   "label": "Disabled"
+   "fieldname": "section_break_aocj",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_nafc",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-04 10:45:30.923346",
+ "modified": "2024-05-10 15:47:28.927985",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Captable Management",

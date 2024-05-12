@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class FundabilityQuizResponse(Document):
+class InvestorTable(Document):
 	pass
