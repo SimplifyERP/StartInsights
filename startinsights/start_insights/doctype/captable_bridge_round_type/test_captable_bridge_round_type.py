@@ -5,5 +5,5 @@
 from frappe.tests.utils import FrappeTestCase
 
 
-class TestRoundType(FrappeTestCase):
+class TestCaptableBridgeRoundType(FrappeTestCase):
 	pass

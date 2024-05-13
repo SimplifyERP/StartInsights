@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class RoundType(Document):
+class CaptableInstrument(Document):
 	pass

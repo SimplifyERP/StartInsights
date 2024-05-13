@@ -34,9 +34,9 @@
  "fields": [
   {
    "fieldname": "round_type",
-   "fieldtype": "Select",
+   "fieldtype": "Link",
    "label": "Round Type",
-   "options": "\nFriends & Family\nPre-Seed\nSeed\nPre-Series A\nSeries A\nBridge Round"
+   "options": "Captable Round Type"
   },
   {
    "fieldname": "bridge_round_section",
@@ -49,9 +49,9 @@
   },
   {
    "fieldname": "instrument",
-   "fieldtype": "Select",
+   "fieldtype": "Link",
    "label": "Instrument",
-   "options": "\nEquity\niSAFE\nCN"
+   "options": "Captable Instrument"
   },
   {
    "fieldname": "cn_section",
@@ -121,9 +121,8 @@
   },
   {
    "fieldname": "bridge_round_from",
-   "fieldtype": "Select",
-   "label": "From",
-   "options": "\nPre-Seed\nSeed\nPre-Series A"
+   "fieldtype": "Data",
+   "label": "From"
   },
   {
    "fieldname": "bridge_round_to",
@@ -154,7 +153,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-05-10 15:47:28.927985",
+ "modified": "2024-05-13 13:01:23.483002",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Captable Management",

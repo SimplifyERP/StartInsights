@@ -1,0 +1,53 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-05-13 13:00:10.117829",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "bridge_round_series",
+  "column_break_clye",
+  "disabled"
+ ],
+ "fields": [
+  {
+   "fieldname": "bridge_round_series",
+   "fieldtype": "Data",
+   "label": "Bridge Round Series"
+  },
+  {
+   "fieldname": "column_break_clye",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-05-13 13:00:38.176834",
+ "modified_by": "Administrator",
+ "module": "START INSIGHTS",
+ "name": "Captable Bridge Round Type",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

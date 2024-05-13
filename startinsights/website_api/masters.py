@@ -5,49 +5,12 @@ import frappe
 def get_masters():
     try:
         masters_data_list = {
-            "user_type": get_user_type(),
-            "round_type_masters":get_round_type_masters(),
-            "tag_name_masters":get_tag_name_masters(),
-            "invested_round_masters":get_invested_round_masters(),
             "countries":get_territory(),
-            "funding_stages":get_funding_stages()
         }
         return {"status": True, "masters_data": masters_data_list}
     except:
         return {"status": False}
 
-#get the user type
-def get_user_type():
-    user_type = frappe.db.get_all('Start Insight User',['name as user_type_name'])
-    return user_type
-
-# the below method is capatable masters(round_type,tag_name,invested_round_masters)
-def get_round_type_masters():
-    round_type_masters = []
-    round_type = frappe.db.get_all("Round Type",['round_type','description'])
-    if round_type:
-        round_type_masters = round_type
-    else:
-        round_type_masters = []
-    return round_type_masters       
-
-def get_tag_name_masters():
-    tag_name_masters = []
-    tag_name = frappe.db.get_all("Tag Name",['tag_name'])
-    if tag_name:
-        tag_name_masters = tag_name
-    else:
-        tag_name_masters = []
-    return tag_name_masters    
-
-def get_invested_round_masters():
-    invested_round_masters = []
-    invested_round = frappe.db.get_all("Invested Round",['invested_round'])
-    if invested_round:
-        invested_round_masters = invested_round
-    else:
-        invested_round_masters = []
-    return invested_round_masters    
 
 # the below method is Investors Masters(territory,funding stages)  
 def get_territory():
@@ -66,4 +29,44 @@ def get_funding_stages():
         funding_stages = get_funding_stages_list
     else:
         funding_stages = []
-    return funding_stages        
+    return funding_stages       
+
+@frappe.whitelist()
+def get_captable_masters():
+    try:
+        captable_masters = {
+            "round_type_list":get_captable_round_type_masters(),
+            "instrument_type_list":get_captable_instrument_masters(),
+            "bridge_round_type_list":get_captable_bridge_round_type()
+            }
+        return {"status":True,"captable_masters":captable_masters}
+    except Exception as e:
+        return {"status":False,"message":e}
+
+def get_captable_round_type_masters():
+    captable_round_type = []
+    get_round_type_masters = frappe.db.get_all("Captable Round Type",{"disabled":0},["round_type"])
+    if get_round_type_masters:
+        captable_round_type = get_round_type_masters
+    else:
+        captable_round_type = []
+    return captable_round_type    
+
+def get_captable_instrument_masters():
+    instrument_type = []
+    get_instrument_type_masters = frappe.db.get_all("Captable Instrument",{"disabled":0},["instrument"])
+    if get_instrument_type_masters:
+        instrument_type = get_instrument_type_masters
+    else:
+        instrument_type = []
+    return instrument_type       
+
+def get_captable_bridge_round_type():
+    bridge_round_type = []
+    get_bridge_round_type_masters = frappe.db.get_all("Captable Bridge Round Type",{"disabled":0},["bridge_round_series"])
+    if get_bridge_round_type_masters:
+        bridge_round_type = get_bridge_round_type_masters
+    else:
+        bridge_round_type = []
+    return bridge_round_type        
+ 

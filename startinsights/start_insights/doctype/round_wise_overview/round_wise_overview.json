@@ -30,7 +30,7 @@
    "fieldname": "round_type",
    "fieldtype": "Link",
    "label": "Round Type",
-   "options": "Round Type"
+   "options": "Captable Round Type"
   },
   {
    "fieldname": "closing_date_of_the_round",
@@ -94,7 +94,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-04 10:41:00.180172",
+ "modified": "2024-05-13 12:57:54.361489",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Round-wise Overview",
