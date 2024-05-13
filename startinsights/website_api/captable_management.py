@@ -114,64 +114,47 @@ def get_random_color_code():
 
 @frappe.whitelist()
 def captable_management_list(user_id):
-    image_url = ""
-    investor_wise_list = []
-    round_wise_list = []
     try:
-        get_management = frappe.db.get_all("Captable Management",{'user':user_id},['*'])
-        format_management = []
-        format_round_wise = []
-        for management in get_management:
-            # checking whether the user id is created any document
-            if management.user:
-                #get the image to concendation in domain name
-                if management.share_certificate:
-                    image_url = get_domain_name() + management.share_certificate
-                else:
-                    image_url = ""    
-                investor_wise_list = {
-                    "investor_name":management.investor_name,
-                    "tag_name":management.tag_name,
-                    "date_of_allotment":format_date(management.date_of_allotment),
-                    "round_name":management.round_name,
-                    "amount_invested":management.amount_invested,
-                    "distinctive_share_no":management.distinctive_share_no,
-                    "share_certificate":image_url,
-                    "shares_allotted":management.shares_allotted,
-                    "price_per_share":management.price_per_share,
-                    "fully_diluted_shares":management.fully_diluted_shares,
-                    "class_of_shares":management.class_of_shares,
-                    "folio_number":management.folio_number,
-                    "shareholding":management._shareholding,
-                }
-                format_management.append(investor_wise_list)
-                #the below to sum the amount invested amount
-                amount_raised_sum = frappe.db.sql(""" select sum(amount_invested) as invest_amount from `tabCaptable Management` where round_name = '%s' and user = '%s' """%(management.round_name,user_id),as_dict=1)
-                if amount_raised_sum:
-                    amount_raised = amount_raised_sum[0].get('invest_amount', 0.0)
-                else:
-                    amount_raised = 0.0
-                #round wise list view
-                round_wise_list = {
-                    "round_name":management.round_name,
-                    "round_type":management.round_type,
-                    "round_closing_date":management.closing_date_of_the_round,
-                    "description":management.description,
-                    "select_security_prefix":management.select_security_prefix,
-                    "amount_raised":amount_raised,
-                    "price_per_share":management.price_per_share,
-                    "pre_money_valuation":management.pre_money_valuation,
-                    "dilution_for_this_round_":management.dilution_for_this_round_
-                }
-                format_round_wise.append(round_wise_list)
-            else:
-                investor_wise_list = []  
-                round_wise_list = []
-        return {
-            "status":True,"investor_wise":format_management,
-            "round_wise":format_round_wise,
-            "investor_wise_graph":get_investor_wise_graph(user_id),
-            "round_wise_graph":get_round_wise_graph(user_id)}
+        captable_list = []
+        get_management = frappe.db.get_all("Captable Management",{'user':user_id},['name'])
+        get_captable_data = frappe.get_doc("Captable Management",get_management)
+        formated_floor_rs = "{:,.0f}".format(get_captable_data.floor_rs)
+        formated_ceiling_rs = "{:,.0f}".format(get_captable_data.ceiling_rs)
+        formated_pre_money_valuation = "{:,.0f}".format(get_captable_data.pre_money_valuation)
+        formated_amount_raised = "{:,.0f}".format(get_captable_data.amount_raised)
+        formated_post_money_valuation = "{:,.0f}".format(get_captable_data.post_money_valuation)
+        formated_dilution_for_the_round = "{:,.0f}".format(get_captable_data.dilution_for_the_round)
+        captable_data = {
+            "id":get_captable_data.name,
+            "name":get_captable_data.name,
+            "user":get_captable_data.user or "",
+            "company":get_captable_data.company or "",
+            "round_type":get_captable_data.round_type or "",
+            "instrument":get_captable_data.instrument or "",
+            "bridge_round_from":get_captable_data.bridge_round_from or "",
+            "bridge_round_to":get_captable_data.bridge_round_to or "",
+            "floor_rs":formated_floor_rs or 0,
+            "ceiling_rs":formated_ceiling_rs or 0,
+            "pre_money_valuation":formated_pre_money_valuation or 0,
+            "amount_raised":formated_amount_raised or 0,
+            "post_money_valuation":formated_post_money_valuation or 0,
+            "dilution_for_the_round":formated_dilution_for_the_round + "%" or 0,
+            "no_of_investor":int(get_captable_data.no_of_investor or 0),
+            "investors":[]
+        }
+        get_investors_table = frappe.db.get_all("Investor Table",{"parent":get_captable_data.name},["investor_name","invested_amount","_shareholding","no_of_shares_alloted"],order_by='idx ASC')
+        for investors in get_investors_table:
+            formated_invested_amount = "{:,.0f}".format(investors.invested_amount)
+            formated_shareholding = "{:,.0f}".format(investors.invested_amount)
+            formated_no_of_shares_alloted = "{:,.0f}".format(investors.no_of_shares_alloted)
+            captable_data["investors"].append({
+                "investor_name":investors.investor_name or "",
+                "invested_amount":formated_invested_amount or 0,
+                "shareholding":formated_shareholding or 0,
+                "no_of_shares_alloted":formated_no_of_shares_alloted or 0
+            })
+        captable_list.append(captable_data)
+        return {"status":True,"captable_list":captable_list}
     except Exception as e:
         return {"status":False,"message":e}
 
