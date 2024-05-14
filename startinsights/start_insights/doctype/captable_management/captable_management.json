@@ -7,8 +7,10 @@
  "engine": "InnoDB",
  "field_order": [
   "user",
+  "color_code",
   "column_break_kdsh",
   "company",
+  "disabled",
   "section_break_aocj",
   "round_type",
   "column_break_nafc",
@@ -28,8 +30,11 @@
   "column_break_yjrk",
   "amount_raised",
   "dilution_for_the_round",
-  "section_break_kbvp",
-  "investor_table"
+  "no_of_founders",
+  "investors_tab",
+  "investors_table",
+  "founder_details_tab",
+  "founders_details_table"
  ],
  "fields": [
   {
@@ -106,18 +111,8 @@
   },
   {
    "fieldname": "no_of_investor",
-   "fieldtype": "Currency",
+   "fieldtype": "Int",
    "label": "No. of Investor"
-  },
-  {
-   "fieldname": "section_break_kbvp",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "investor_table",
-   "fieldtype": "Table",
-   "label": "Investor Table",
-   "options": "Investor Table"
   },
   {
    "fieldname": "bridge_round_from",
@@ -149,11 +144,49 @@
   {
    "fieldname": "column_break_nafc",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "no_of_founders",
+   "fieldtype": "Int",
+   "label": "No of Founders"
+  },
+  {
+   "fieldname": "investors_tab",
+   "fieldtype": "Tab Break",
+   "label": "Investors Details"
+  },
+  {
+   "fieldname": "investors_table",
+   "fieldtype": "Table",
+   "label": "Investors Table",
+   "options": "Investor Table"
+  },
+  {
+   "fieldname": "founder_details_tab",
+   "fieldtype": "Tab Break",
+   "label": "Founder Details"
+  },
+  {
+   "fieldname": "founders_details_table",
+   "fieldtype": "Table",
+   "label": "Founders Details Table",
+   "options": "Founders Table"
+  },
+  {
+   "fieldname": "color_code",
+   "fieldtype": "Color",
+   "label": "Color Code"
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-05-13 13:01:23.483002",
+ "modified": "2024-05-13 22:23:53.710555",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Captable Management",
