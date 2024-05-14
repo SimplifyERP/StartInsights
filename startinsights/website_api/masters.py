@@ -54,7 +54,7 @@ def get_captable_round_type_masters():
 
 def get_captable_instrument_masters():
     instrument_type = []
-    get_instrument_type_masters = frappe.db.get_all("Captable Instrument",{"disabled":0},["instrument"])
+    get_instrument_type_masters = frappe.db.get_all("Captable Instrument",{"disabled":0},["instrument"],order_by="order_wise ASC")
     if get_instrument_type_masters:
         instrument_type = get_instrument_type_masters
     else:
@@ -63,7 +63,7 @@ def get_captable_instrument_masters():
 
 def get_captable_bridge_round_type():
     bridge_round_type = []
-    get_bridge_round_type_masters = frappe.db.get_all("Captable Bridge Round Type",{"disabled":0},["bridge_round_series"])
+    get_bridge_round_type_masters = frappe.db.get_all("Captable Bridge Round Type",{"disabled":0},["bridge_round_series"],order_by="order_wise ASC")
     if get_bridge_round_type_masters:
         bridge_round_type = get_bridge_round_type_masters
     else:
