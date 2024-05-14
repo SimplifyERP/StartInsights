@@ -35,13 +35,12 @@
    "fieldtype": "Int",
    "in_list_view": 1,
    "label": "Order Wise",
-   "reqd": 1,
-   "unique": 1
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-05-14 12:00:41.678339",
+ "modified": "2024-05-14 13:39:37.354710",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Captable Round Type",
