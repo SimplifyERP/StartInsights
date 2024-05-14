@@ -26,6 +26,7 @@ def create_captable_managment(user,round_type,bridge_round_from,bridge_round_to,
             new_captable.pre_money_valuation = pre_money_valuation
             new_captable.amount_raised = amount_raised
             new_captable.no_of_investor = no_of_investors
+            new_captable.no_of_founders = no_of_founders
             for invest in investors:
                 new_captable.append("investors_table", {
                     "investor_name": invest.get("investor_name"),
