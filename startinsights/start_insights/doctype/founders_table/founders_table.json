@@ -1,0 +1,52 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-05-13 17:20:41.189345",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "founder_name",
+  "amount",
+  "shareholding",
+  "no_of_shares_alloted"
+ ],
+ "fields": [
+  {
+   "fieldname": "founder_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Founder Name"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Amount"
+  },
+  {
+   "fieldname": "shareholding",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
+   "label": "Shareholding"
+  },
+  {
+   "fieldname": "no_of_shares_alloted",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "No of Shares Alloted"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-05-13 17:21:51.669881",
+ "modified_by": "Administrator",
+ "module": "START INSIGHTS",
+ "name": "Founders Table",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
