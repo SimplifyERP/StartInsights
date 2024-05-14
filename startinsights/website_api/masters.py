@@ -45,7 +45,7 @@ def get_captable_masters():
 
 def get_captable_round_type_masters():
     captable_round_type = []
-    get_round_type_masters = frappe.db.get_all("Captable Round Type",{"disabled":0},["round_type"])
+    get_round_type_masters = frappe.db.get_all("Captable Round Type",{"disabled":0},["round_type",],order_by="order_wise ASC")
     if get_round_type_masters:
         captable_round_type = get_round_type_masters
     else:
