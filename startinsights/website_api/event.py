@@ -39,7 +39,8 @@ def get_events(user_id):
                     "event_end_time":end_time_change,
                     "is_registered":is_registered,
                     "description":event.live_event_description,
-                    "event_speakers":speakers_table
+                    "event_speakers":speakers_table,
+                    "register_link":event.register
                 }
                 live_event_list.append(live_event)
                 status = True

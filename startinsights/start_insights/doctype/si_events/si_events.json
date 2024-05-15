@@ -16,6 +16,7 @@
   "column_break_ybxj",
   "live_event_title",
   "event_end_date_time",
+  "register",
   "section_break_tyhg",
   "live_event_speakers",
   "section_break_sgxr",
@@ -126,11 +127,17 @@
    "fieldname": "event_start_date_time",
    "fieldtype": "Datetime",
    "label": "Event Start Date Time"
+  },
+  {
+   "fieldname": "register",
+   "fieldtype": "Data",
+   "label": "Register",
+   "options": "URL"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-25 15:41:17.089138",
+ "modified": "2024-05-14 17:03:38.371639",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "SI Events",

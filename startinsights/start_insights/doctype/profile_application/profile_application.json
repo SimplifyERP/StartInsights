@@ -6,22 +6,51 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "profile_details_tab",
   "profile_details_section",
   "user_id",
-  "email_id",
-  "phone_no",
-  "linkedin",
   "login_type",
-  "disabled",
+  "customer_group",
   "profile_password",
-  "auth_code",
+  "disabled",
   "column_break_fedy",
   "full_name",
   "designation",
-  "customer_group",
+  "profile_image",
+  "auth_code",
+  "tab_2_tab",
   "company_name",
+  "founding_team_size",
+  "phone_no",
+  "date_of_inc",
+  "gst",
+  "business_model",
+  "column_break_lihf",
+  "founder_name",
+  "email_id",
+  "hq",
+  "legal_entity",
+  "others",
+  "sector",
+  "section_break_opet",
+  "do_you_have_any_ips",
+  "avg_employee_salary",
+  "current_funding_stage",
+  "others_funding_stage",
+  "funded_organization",
+  "annual_revenue_fy2324",
+  "column_break_hjea",
+  "employee_count",
+  "grant_raised",
+  "fund_raised",
+  "revenue_stage",
+  "valuation",
+  "social_links_section",
   "website",
-  "profile_image"
+  "facebook",
+  "column_break_lezx",
+  "linkedin",
+  "instagram"
  ],
  "fields": [
   {
@@ -36,7 +65,8 @@
   {
    "fieldname": "linkedin",
    "fieldtype": "Data",
-   "label": "Linkedin"
+   "label": "Linkedin",
+   "options": "URL"
   },
   {
    "fieldname": "company_name",
@@ -109,6 +139,156 @@
    "fieldname": "auth_code",
    "fieldtype": "Data",
    "label": " Auth Code"
+  },
+  {
+   "fieldname": "tab_2_tab",
+   "fieldtype": "Tab Break",
+   "label": "Master Data"
+  },
+  {
+   "fieldname": "founder_name",
+   "fieldtype": "Data",
+   "label": "Founder Name"
+  },
+  {
+   "fieldname": "hq",
+   "fieldtype": "Data",
+   "label": "HQ"
+  },
+  {
+   "fieldname": "date_of_inc",
+   "fieldtype": "Date",
+   "label": "Date of Inc"
+  },
+  {
+   "fieldname": "legal_entity",
+   "fieldtype": "Select",
+   "label": "Legal Entity",
+   "options": "\nPrivate Limited\nLLP\nRegistered Partnership\nProprietorship\nOther"
+  },
+  {
+   "depends_on": "eval:doc.legal_entity == \"Other\"",
+   "fieldname": "others",
+   "fieldtype": "Data",
+   "label": "Others"
+  },
+  {
+   "fieldname": "gst",
+   "fieldtype": "Data",
+   "label": "GST"
+  },
+  {
+   "fieldname": "sector",
+   "fieldtype": "Data",
+   "label": "Sector"
+  },
+  {
+   "fieldname": "social_links_section",
+   "fieldtype": "Section Break",
+   "label": "Social Links"
+  },
+  {
+   "fieldname": "column_break_lezx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "facebook",
+   "fieldtype": "Data",
+   "label": "Facebook",
+   "options": "URL"
+  },
+  {
+   "fieldname": "instagram",
+   "fieldtype": "Data",
+   "label": "Instagram",
+   "options": "URL"
+  },
+  {
+   "fieldname": "column_break_lihf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "do_you_have_any_ips",
+   "fieldtype": "Select",
+   "label": "Do you have any IP's",
+   "options": "\nYes\nNo"
+  },
+  {
+   "fieldname": "employee_count",
+   "fieldtype": "Int",
+   "label": "Employee Count"
+  },
+  {
+   "fieldname": "avg_employee_salary",
+   "fieldtype": "Currency",
+   "label": "Avg Employee Salary"
+  },
+  {
+   "fieldname": "grant_raised",
+   "fieldtype": "Currency",
+   "label": "Grant Raised"
+  },
+  {
+   "fieldname": "current_funding_stage",
+   "fieldtype": "Select",
+   "label": "Current Funding Stage",
+   "options": "\nBootsrapped\nFriends & Family\nPre-Seed\nSeed\nPre-Series\nSeries A\nOther"
+  },
+  {
+   "fieldname": "fund_raised",
+   "fieldtype": "Currency",
+   "label": "Fund Raised"
+  },
+  {
+   "fieldname": "funded_organization",
+   "fieldtype": "Data",
+   "label": "Funded Organization"
+  },
+  {
+   "fieldname": "revenue_stage",
+   "fieldtype": "Data",
+   "label": "Revenue Stage"
+  },
+  {
+   "fieldname": "annual_revenue_fy2324",
+   "fieldtype": "Data",
+   "label": "Annual Revenue FY23/24"
+  },
+  {
+   "fieldname": "valuation",
+   "fieldtype": "Currency",
+   "label": "Valuation"
+  },
+  {
+   "fieldname": "founding_team_size",
+   "fieldtype": "Select",
+   "label": "Founding Team Size",
+   "options": "\n1\n1-3\n>3\n>5"
+  },
+  {
+   "fieldname": "business_model",
+   "fieldtype": "Select",
+   "label": "Business Model",
+   "options": "\nB2B\nB2C\nB2G\nB2B2C\nD2C"
+  },
+  {
+   "fieldname": "section_break_opet",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_hjea",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "profile_details_tab",
+   "fieldtype": "Tab Break",
+   "label": "Profile Details"
+  },
+  {
+   "depends_on": "eval:doc.current_funding_stage == \"Other\"",
+   "fieldname": "others_funding_stage",
+   "fieldtype": "Data",
+   "label": "Others Funding Stage"
   }
  ],
  "image_field": "profile_image",
@@ -119,7 +299,7 @@
    "link_fieldname": "custom_profile_id"
   }
  ],
- "modified": "2024-03-13 10:42:54.218369",
+ "modified": "2024-05-14 20:58:49.649013",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Profile Application",

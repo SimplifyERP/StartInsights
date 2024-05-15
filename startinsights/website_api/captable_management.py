@@ -4,12 +4,15 @@ import random
 import base64
 from startinsights.custom import get_domain_name
 from frappe.utils import now, getdate, today, format_date
+import json
 
 
 
 @frappe.whitelist()
 def create_captable_managment(user,round_type,bridge_round_from,bridge_round_to,instrument,floor_cn,ceiling_cn,pre_money_valuation,amount_raised,no_of_investors,investors,no_of_founders,founders):
     try:
+        decode_json_investors = json.loads(investors)
+        decode_json_founders = json.loads(founders)
         captable_list = []
         if int(no_of_founders) > 0 and int(no_of_investors) > 0:
             new_captable = frappe.new_doc("Captable Management")
@@ -27,12 +30,12 @@ def create_captable_managment(user,round_type,bridge_round_from,bridge_round_to,
             new_captable.amount_raised = amount_raised
             new_captable.no_of_investor = no_of_investors
             new_captable.no_of_founders = no_of_founders
-            for invest in investors:
+            for invest in decode_json_investors:
                 new_captable.append("investors_table", {
                     "investor_name": invest.get("investor_name"),
                     "invested_amount": invest.get("amount")
                 })
-            for founder in founders:    
+            for founder in decode_json_founders:    
                 new_captable.append("founders_details_table",{
                     "founder_name":founder.get("founder_name"),
                     "amount":founder.get("amount")
@@ -77,12 +80,13 @@ def captable_management_list(user_id,type_of_round):
                 "post_money_valuation":formated_post_money_valuation or 0,
                 "dilution_for_the_round":formated_dilution_for_the_round + "%" or 0,
                 "no_of_investor":int(management.no_of_investor or 0),
-                "investors":[]
+                "investors":[],
+                "founders":[]
             }
             get_investors_table = frappe.db.get_all("Investor Table",{"parent":management.name},["investor_name","invested_amount","_shareholding","no_of_shares_alloted"],order_by='idx ASC')
             for investors in get_investors_table:
                 formated_invested_amount = "{:,.0f}".format(investors.invested_amount)
-                formated_shareholding = "{:,.0f}".format(investors.invested_amount)
+                formated_shareholding = "{:,.0f}".format(investors._shareholding)
                 formated_no_of_shares_alloted = "{:,.0f}".format(investors.no_of_shares_alloted)
                 captable_data["investors"].append({
                     "investor_name":investors.investor_name or "",
@@ -90,6 +94,17 @@ def captable_management_list(user_id,type_of_round):
                     "shareholding":formated_shareholding or 0,
                     "no_of_shares_alloted":formated_no_of_shares_alloted or 0
                 })
+            get_founders_table = frappe.db.get_all("Founders Table",{"parent":management.name},["founder_name","amount","shareholding","no_of_shares_alloted"],order_by='idx ASC')
+            for founders in get_founders_table:
+                formated_amount = "{:,.0f}".format(founders.amount)
+                formated_shareholding = "{:,.0f}".format(founders.shareholding)
+                formated_no_of_shares_alloted = "{:,.0f}".format(founders.no_of_shares_alloted)
+                captable_data["founders"].append({
+                    "founder_name":founders.investor_name or "",
+                    "amount":formated_amount or 0,
+                    "shareholding":formated_shareholding or 0,
+                    "no_of_shares_alloted":formated_no_of_shares_alloted or 0
+                })    
             captable_list.append(captable_data)
         return {"status":True,"captable_list":captable_list,"graph_data":get_graph_data(user_id,type_of_round)}
     except Exception as e:
@@ -104,13 +119,13 @@ def get_graph_data(user_id,type_of_round):
                 get_investors_table = frappe.db.get_all("Investor Table",{"parent":captable.name},["investor_name","invested_amount","_shareholding","no_of_shares_alloted"],order_by='idx ASC')
                 for investors in get_investors_table:
                     formated_invested_amount = "{:,.0f}".format(investors.invested_amount)
-                    formated_shareholding = "{:,.0f}".format(investors.invested_amount)
+                    formated_shareholding = "{:,.0f}".format(investors._shareholding)
                     formated_no_of_shares_alloted = "{:,.0f}".format(investors.no_of_shares_alloted)
                     captable_data = {
                         "color_code":captable.color_code or "",
                         "investor_name":investors.investor_name or "",
                         "invested_amount":formated_invested_amount or 0,
-                        "shareholding":formated_shareholding or 0,
+                        "shareholding":formated_shareholding  or 0,
                         "no_of_shares_alloted":formated_no_of_shares_alloted or 0
                     }
                     captable_list_graph.append(captable_data)
@@ -121,13 +136,13 @@ def get_graph_data(user_id,type_of_round):
                 get_investors_table = frappe.db.get_all("Investor Table",{"parent":get_captable_management[0]},["investor_name","invested_amount","_shareholding","no_of_shares_alloted"],order_by='idx ASC')
                 for investors in get_investors_table:
                     formated_invested_amount = "{:,.0f}".format(investors.invested_amount)
-                    formated_shareholding = "{:,.0f}".format(investors.invested_amount)
+                    formated_shareholding = "{:,.0f}".format(investors._shareholding)
                     formated_no_of_shares_alloted = "{:,.0f}".format(investors.no_of_shares_alloted)
                     captable_data = {
                         "color_code":get_captable_management[3] or "",
                         "investor_name":investors.investor_name or "",
                         "invested_amount":formated_invested_amount or 0,
-                        "shareholding":formated_shareholding or 0,
+                        "shareholding":formated_shareholding  or 0,
                         "no_of_shares_alloted":formated_no_of_shares_alloted or 0
                     }
                     captable_list_graph.append(captable_data)
