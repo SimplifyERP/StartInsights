@@ -181,7 +181,7 @@ def remove_favourites_investors(user_id,investor_id,status):
 
 
 @frappe.whitelist()
-def get_recommended_search_investors():
+def get_recommended_search_investors(user):
     search_investors = []
     fund_rasing = []
     try:
@@ -195,6 +195,7 @@ def get_recommended_search_investors():
             min_formated_currency = "{:,.0f}".format(investors_details.min_check_size)
             max_formated_currency = "{:,.0f}".format(investors_details.max_check_size)
             investors_list = {
+                "profile_image":get_profile_image(user),
                 "id":investors_details.name,
                 "name":investors_details.name,
                 "title":investors_details.investor_title or "",
@@ -216,6 +217,16 @@ def get_recommended_search_investors():
     except Exception as e:
         return {"status":False,"message":e}
     
+
+def get_profile_image(user):
+    profile_image = ""
+    get_profile = frappe.db.get_value("Profile Application",{"name":user},["profile_image"])
+    if get_profile:
+        profile_image = get_domain_name() + get_profile
+    else:
+        profile_image = ""
+    return profile_image        
+
 
 # @frappe.whitelist()
 # def get_search_investors_serach_bar(page_no,funding_stage,search_key,user_id):
