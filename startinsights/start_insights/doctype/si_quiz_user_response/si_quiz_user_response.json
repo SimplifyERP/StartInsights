@@ -6,16 +6,24 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "details_section",
   "user",
   "full_name",
   "company",
+  "quiz_completed",
   "column_break_jxfw",
   "customer_group",
   "quiz_name",
   "total_quiz_marks",
   "disabled",
-  "section_break_bxeb",
-  "response"
+  "response_table_tab",
+  "user_response_table_section",
+  "response",
+  "score_card_table_tab",
+  "user_score_card_table_section",
+  "score_card_table",
+  "score_card_review_tab",
+  "review_statement"
  ],
  "fields": [
   {
@@ -29,10 +37,6 @@
    "fieldtype": "Link",
    "label": "Customer group",
    "options": "Customer Group"
-  },
-  {
-   "fieldname": "section_break_bxeb",
-   "fieldtype": "Section Break"
   },
   {
    "fieldname": "column_break_jxfw",
@@ -72,11 +76,58 @@
    "fieldtype": "Link",
    "label": "Quiz Name",
    "options": "Quiz Name"
+  },
+  {
+   "fieldname": "details_section",
+   "fieldtype": "Section Break",
+   "label": "Details"
+  },
+  {
+   "fieldname": "response_table_tab",
+   "fieldtype": "Tab Break",
+   "label": "Response Table"
+  },
+  {
+   "fieldname": "user_response_table_section",
+   "fieldtype": "Section Break",
+   "label": "User Response Table"
+  },
+  {
+   "fieldname": "score_card_table_tab",
+   "fieldtype": "Tab Break",
+   "label": "Score Card Table"
+  },
+  {
+   "fieldname": "user_score_card_table_section",
+   "fieldtype": "Section Break",
+   "label": "User Score Card Table"
+  },
+  {
+   "fieldname": "score_card_table",
+   "fieldtype": "Table",
+   "label": "Score Card Table",
+   "options": "Score Card Table"
+  },
+  {
+   "fieldname": "score_card_review_tab",
+   "fieldtype": "Tab Break",
+   "label": "Score Card Review"
+  },
+  {
+   "fieldname": "review_statement",
+   "fieldtype": "Small Text",
+   "label": "Review Statement"
+  },
+  {
+   "default": "0",
+   "fieldname": "quiz_completed",
+   "fieldtype": "Check",
+   "label": "Quiz Completed"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-05-16 17:25:17.032257",
+ "modified": "2024-05-17 14:31:17.115727",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "SI Quiz User Response",

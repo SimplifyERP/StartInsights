@@ -29,13 +29,13 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Options",
-   "options": "\nAny Option\nFirst Option\nSecond Option\nThird Option\nFourth Option\nFifth Option\nSixth Option"
+   "options": "\nFirst Option\nSecond Option\nThird Option\nFourth Option\nFifth Option\nSixth Option"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-05-17 10:36:44.837363",
+ "modified": "2024-05-17 18:07:58.226949",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Score Card Table",

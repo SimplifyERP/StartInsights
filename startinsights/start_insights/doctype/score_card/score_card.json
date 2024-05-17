@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "SCORE-CARD-.####",
  "creation": "2024-05-16 17:45:24.964785",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -58,13 +59,13 @@
    "label": "Review Statement"
   }
  ],
- "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-05-17 10:38:45.192746",
+ "modified": "2024-05-17 20:26:17.177833",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Score Card",
+ "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
   {
