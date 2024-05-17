@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class FundabilityQuizFlowTable(Document):
+class SIQuizFlowTable(Document):
 	pass
