@@ -74,7 +74,7 @@ doctype_list_js = {
 # ------------
 
 # before_install = "startinsights.install.before_install"
-# after_install = "startinsights.install.after_install"
+after_install = "startinsights.install.create_startups_customer_group"
 
 # Uninstallation
 # ------------
