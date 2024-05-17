@@ -1,9 +1,9 @@
 # Copyright (c) 2024, Suriya and contributors
 # For license information, please see license.txt
 
-# import frappe
+import frappe
 from frappe.model.document import Document
 
 
-class FundabilityQuizUserResponse(Document):
+class SIQuiz(Document):
 	pass

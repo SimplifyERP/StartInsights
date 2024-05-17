@@ -1,0 +1,47 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-05-17 09:16:55.961327",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "question_id",
+  "question_name",
+  "options"
+ ],
+ "fields": [
+  {
+   "fieldname": "question_id",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Question ID",
+   "options": "SI Quiz"
+  },
+  {
+   "fetch_from": "question_id.question",
+   "fieldname": "question_name",
+   "fieldtype": "Text Editor",
+   "label": "Question Name"
+  },
+  {
+   "fieldname": "options",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Options",
+   "options": "\nAny Option\nFirst Option\nSecond Option\nThird Option\nFourth Option\nFifth Option\nSixth Option"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-05-17 10:36:44.837363",
+ "modified_by": "Administrator",
+ "module": "START INSIGHTS",
+ "name": "Score Card Table",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

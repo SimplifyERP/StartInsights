@@ -9,6 +9,7 @@
   "section_break_llpz",
   "customer_group",
   "column_break_yhbw",
+  "quiz_name",
   "disabled",
   "section_break_omau",
   "quiz_flow_table"
@@ -22,7 +23,7 @@
    "fieldname": "quiz_flow_table",
    "fieldtype": "Table",
    "label": "Quiz Flow Table",
-   "options": "Fundability Quiz Flow Table"
+   "options": "SI Quiz Flow Table"
   },
   {
    "fieldname": "customer_group",
@@ -43,15 +44,22 @@
    "fieldname": "disabled",
    "fieldtype": "Check",
    "label": "Disabled"
+  },
+  {
+   "depends_on": "eval:doc.customer_group",
+   "fieldname": "quiz_name",
+   "fieldtype": "Link",
+   "label": "Quiz Name",
+   "options": "Quiz Name"
   }
  ],
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-04-26 17:31:42.242230",
+ "modified": "2024-05-16 16:35:29.208751",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
- "name": "Fundability Quiz Flow",
+ "name": "SI Quiz Flow",
  "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [

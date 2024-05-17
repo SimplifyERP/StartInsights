@@ -5,5 +5,5 @@
 from frappe.tests.utils import FrappeTestCase
 
 
-class TestFundabilityQuiz(FrappeTestCase):
+class TestSIQuizFlow(FrappeTestCase):
 	pass

@@ -11,6 +11,7 @@
   "question",
   "section_break_hyjj",
   "type",
+  "quiz_name",
   "column_break_jsme",
   "customer_group",
   "disabled",
@@ -190,14 +191,20 @@
    "fieldtype": "Link",
    "label": "Customer Group",
    "options": "Customer Group"
+  },
+  {
+   "fieldname": "quiz_name",
+   "fieldtype": "Link",
+   "label": "Quiz Name",
+   "options": "Quiz Name"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-05-09 13:28:56.406849",
+ "modified": "2024-05-16 16:24:31.954345",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
- "name": "Fundability Quiz",
+ "name": "SI Quiz",
  "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [

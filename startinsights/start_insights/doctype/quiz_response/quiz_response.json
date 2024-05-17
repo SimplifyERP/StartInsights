@@ -32,7 +32,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Question ID",
-   "options": "Fundability Quiz"
+   "options": "SI Quiz"
   },
   {
    "fetch_from": "question_id.question",
@@ -93,7 +93,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-05-08 17:38:16.010156",
+ "modified": "2024-05-16 13:16:00.973731",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Quiz Response",

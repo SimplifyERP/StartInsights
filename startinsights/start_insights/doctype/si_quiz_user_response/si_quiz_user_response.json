@@ -8,9 +8,12 @@
  "field_order": [
   "user",
   "full_name",
+  "company",
   "column_break_jxfw",
   "customer_group",
+  "quiz_name",
   "total_quiz_marks",
+  "disabled",
   "section_break_bxeb",
   "response"
  ],
@@ -51,14 +54,32 @@
    "fieldname": "total_quiz_marks",
    "fieldtype": "Int",
    "label": "Total Quiz Marks"
+  },
+  {
+   "fetch_from": "user.company_type",
+   "fieldname": "company",
+   "fieldtype": "Data",
+   "label": "Company"
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
+  },
+  {
+   "fieldname": "quiz_name",
+   "fieldtype": "Link",
+   "label": "Quiz Name",
+   "options": "Quiz Name"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-05-09 21:48:30.286461",
+ "modified": "2024-05-16 17:25:17.032257",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
- "name": "Fundability Quiz User Response",
+ "name": "SI Quiz User Response",
  "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
