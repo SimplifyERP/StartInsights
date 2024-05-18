@@ -15,6 +15,7 @@
   "designation",
   "pricing",
   "expert_mail_id",
+  "calendly_url",
   "disabled",
   "description_section",
   "short_description",
@@ -190,6 +191,11 @@
    "fieldtype": "Attach",
    "label": "Expert Image",
    "reqd": 1
+  },
+  {
+   "fieldname": "calendly_url",
+   "fieldtype": "Data",
+   "label": "Calendly URL"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -200,7 +206,7 @@
    "link_fieldname": "fundraising_experts"
   }
  ],
- "modified": "2024-04-25 14:34:04.240838",
+ "modified": "2024-05-18 10:43:31.037436",
  "modified_by": "Administrator",
  "module": "START INSIGHTS",
  "name": "Fundraising Experts",
