@@ -103,6 +103,7 @@ def get_fundraising_experts():
                 "attach_image":image_url,
                 "designation":expert.designation or "",
                 "mail_id":expert.expert_mail_id or "",
+                "calendly_url":expert.calendly_url or "",
                 "price":frappe.utils.fmt_money(expert.pricing),
                 "short_description":description,
                 "description":expert_description
