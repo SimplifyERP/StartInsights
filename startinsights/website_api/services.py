@@ -381,7 +381,7 @@ def my_services_doc_upload(my_service_id,upload_doc):
 # @frappe.whitelist()
 def get_chat_conversation(service_id,doctype):
 	chat = []
-	user_conversation = frappe.db.get_all("Comment",filters={"reference_name":service_id,"reference_doctype":doctype,"comment_type":"Comment"},fields=['*'], order_by="creation ASC")
+	user_conversation = frappe.db.get_all("Comment",filters={"reference_name":service_id,"reference_doctype":doctype,"comment_type":"Comment"},fields=['*'], order_by="creation DESC")
 	for comment in user_conversation:
 		content = comment.get('content')
 		custom_user = comment.get('custom_user')
