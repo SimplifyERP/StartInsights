@@ -328,7 +328,20 @@ def get_quiz_score(quiz_response_id,user_id,first_name,last_name,company,passwor
                 "review":get_score.score_review_statement
             }
             score_card_list.append(score_card)
-        return {"status":True,"score_card":score_card_list}    
+            status = True
+        else:
+            get_score = frappe.get_doc("Quiz User Response",quiz_response_id)
+            if get_score:
+                score_card = {
+                    "score":get_score.total_score,
+                    "review":get_score.score_review_statement
+                }
+                score_card_list.append(score_card)
+                status = True
+            else:
+                status = False
+                score_card_list = []  
+        return {"status":status,"score_card":score_card_list}    
     except Exception as e:
         return {"status":False,"message":e}
 
