@@ -95,11 +95,11 @@ def create_i_frame_quiz(user_id,question_id,option,attempt_status,type_of_questi
                     "options": options_dict,                  
                 }
                 quiz_list.append(quiz_details) 
-                quiz_response = create_quiz_user_response(question_id,option,attempt_status,type_of_question,quiz_response_id)
+                quiz_response = create_quiz_user_response(question_id,option,attempt_status,type_of_question,quiz_response_id,quiz_completed)
                 quiz_count = get_quiz_count()
             else:
                 if quiz_completed == 1:
-                    quiz_response = create_quiz_user_response(question_id,option,attempt_status,type_of_question,quiz_response_id)
+                    quiz_response = create_quiz_user_response(question_id,option,attempt_status,type_of_question,quiz_response_id,quiz_completed)
                     get_total_score(quiz_completed,quiz_response_id)
                     quiz_count = [] 
                     quiz_list = [] 
@@ -123,7 +123,7 @@ def get_quiz_count():
             seen.add(quiz_question_id)
     return len(unique_quiz_question_flow)
 
-def create_quiz_user_response(question_id,option,attempt_status,type_of_question,quiz_response_id):
+def create_quiz_user_response(question_id,option,attempt_status,type_of_question,quiz_response_id,quiz_completed):
     if not option == "":
         if type_of_question == "Single":
             deocde_list = [int(option)]
@@ -175,8 +175,9 @@ def create_quiz_user_response(question_id,option,attempt_status,type_of_question
             get_quiz_completed = frappe.db.get_value("Quiz User Response",{"name":quiz_response_id},["quiz_completed_status"])
             if get_quiz_completed == 0:
                 if frappe.db.exists("Quiz User Response",{"name":quiz_response_id}):
-                    update_quiz_response = frappe.get_doc("Quiz User Response",quiz_response_id)  
-                    update_quiz_response.quiz_completed_status = 1   
+                    update_quiz_response = frappe.get_doc("Quiz User Response",quiz_response_id) 
+                    if quiz_completed == 1:
+                        update_quiz_response.quiz_completed_status = 1   
                     response_dict = {
                         "quiz_question_id": question_id,
                         "response_option": option[0],
@@ -250,7 +251,8 @@ def create_quiz_user_response(question_id,option,attempt_status,type_of_question
                 if get_quiz_completed == 0:
                     if frappe.db.exists("Quiz User Response",{"name":quiz_response_id}):
                         update_quiz_response = frappe.get_doc("Quiz User Response",quiz_response_id)
-                        update_quiz_response.quiz_completed_status = 1
+                        if quiz_completed == 1:
+                            update_quiz_response.quiz_completed_status = 1   
                         for selected_option in deocde_list:
                             option_text = frappe.db.get_value("Quiz", {"name": question_id}, "option_" + str(selected_option))
                             mark = frappe.db.get_value("Quiz", {"name": question_id}, "mark_" + str(selected_option))
