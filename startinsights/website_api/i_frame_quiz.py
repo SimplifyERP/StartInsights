@@ -98,15 +98,15 @@ def create_i_frame_quiz(user_id,question_id,option,attempt_status,type_of_questi
                 quiz_response = create_quiz_user_response(question_id,option,attempt_status,type_of_question,quiz_response_id,quiz_completed)
                 quiz_count = get_quiz_count()
             else:
-                if quiz_completed == 1:
+                if int(quiz_completed) == 1:
                     quiz_response = create_quiz_user_response(question_id,option,attempt_status,type_of_question,quiz_response_id,quiz_completed)
                     get_total_score(quiz_completed,quiz_response_id)
-                    quiz_count = [] 
+                    quiz_count = get_quiz_count()
                     quiz_list = [] 
                     score = []
 
 
-        return {"status":True,"message":"Sucessfully Completed QUIZ","user_status":get_quiz_user_status(user_id),"quiz_id_count":quiz_count,"fundability_details":quiz_list,"fundability_id":quiz_response,"score":score or []}
+        return {"status":True,"message":"Sucessfully Completed QUIZ","user_status":get_quiz_user_status(user_id),"quiz_id_count":quiz_count,"fundability_details":quiz_list,"fundability_id":quiz_response or "","score":score or []}
     except Exception as e:
         return {"status":False,"message":e}
 
@@ -176,7 +176,7 @@ def create_quiz_user_response(question_id,option,attempt_status,type_of_question
             if get_quiz_completed == 0:
                 if frappe.db.exists("Quiz User Response",{"name":quiz_response_id}):
                     update_quiz_response = frappe.get_doc("Quiz User Response",quiz_response_id) 
-                    if quiz_completed == 1:
+                    if int(quiz_completed) == 1:
                         update_quiz_response.quiz_completed_status = 1   
                     response_dict = {
                         "quiz_question_id": question_id,
@@ -251,7 +251,7 @@ def create_quiz_user_response(question_id,option,attempt_status,type_of_question
                 if get_quiz_completed == 0:
                     if frappe.db.exists("Quiz User Response",{"name":quiz_response_id}):
                         update_quiz_response = frappe.get_doc("Quiz User Response",quiz_response_id)
-                        if quiz_completed == 1:
+                        if int(quiz_completed) == 1:
                             update_quiz_response.quiz_completed_status = 1   
                         for selected_option in deocde_list:
                             option_text = frappe.db.get_value("Quiz", {"name": question_id}, "option_" + str(selected_option))
@@ -273,7 +273,7 @@ def create_quiz_user_response(question_id,option,attempt_status,type_of_question
 
 def get_total_score(quiz_completed,quiz_response_id):
     score_card_list = []
-    if quiz_completed == 1:
+    if int(quiz_completed) == 1:
         total_marks = frappe.db.sql("""
             SELECT SUM(fs.response_marks) AS total_marks,si.score_review_statement as review_statement
             FROM `tabQuiz User Response` si  
@@ -333,8 +333,8 @@ def get_quiz_score(quiz_response_id,user_id,first_name,last_name,company,passwor
             get_score = frappe.get_doc("Quiz User Response",quiz_response_id)
             if get_score:
                 score_card = {
-                    "score":get_score.total_score,
-                    "review":get_score.score_review_statement
+                    "score":get_score.total_score or 0,
+                    "review":get_score.score_review_statement or ""
                 }
                 score_card_list.append(score_card)
                 status = True
@@ -361,8 +361,8 @@ def get_score_as_login(user_id,password,quiz_response_id):
             frappe.db.commit()
 
             score_card = {
-                "score":get_score.total_score,
-                "review":get_score.score_review_statement
+                "score":get_score.total_score or 0,
+                "review":get_score.score_review_statement or ""
             }
             score_card_list.append(score_card)
         return {"status":True,"score_card":score_card_list}
