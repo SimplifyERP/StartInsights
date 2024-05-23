@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class QuizTable(Document):
+class SIUserResponseTable(Document):
 	pass

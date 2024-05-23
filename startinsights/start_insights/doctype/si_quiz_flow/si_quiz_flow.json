@@ -1,0 +1,82 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{FUND}-{QUIZ}-{customer_group}-{####}",
+ "creation": "2024-05-23 17:38:49.597460",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_llpz",
+  "customer_group",
+  "column_break_yhbw",
+  "quiz_name",
+  "disabled",
+  "section_break_omau",
+  "quiz_flow_table"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_llpz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "customer_group",
+   "fieldtype": "Link",
+   "label": "Customer Group",
+   "options": "Customer Group"
+  },
+  {
+   "fieldname": "column_break_yhbw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.customer_group",
+   "fieldname": "quiz_name",
+   "fieldtype": "Link",
+   "label": "Quiz Name",
+   "options": "Quiz Name"
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
+  },
+  {
+   "fieldname": "section_break_omau",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "quiz_flow_table",
+   "fieldtype": "Table",
+   "label": "Quiz Flow Table",
+   "options": "SI Quiz Flow Table"
+  }
+ ],
+ "hide_toolbar": 1,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-05-23 17:38:49.597460",
+ "modified_by": "Administrator",
+ "module": "START INSIGHTS",
+ "name": "SI Quiz Flow",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

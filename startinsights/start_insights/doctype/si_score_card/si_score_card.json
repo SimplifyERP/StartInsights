@@ -1,0 +1,90 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-05-23 18:52:07.048955",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "si_quiz_filters_section",
+  "customer_group",
+  "column_break_ojto",
+  "quiz_name",
+  "quiz_question_match_tab",
+  "table_iovi",
+  "quiz_statement_tab",
+  "statement_section",
+  "small_text_weav"
+ ],
+ "fields": [
+  {
+   "fieldname": "si_quiz_filters_section",
+   "fieldtype": "Section Break",
+   "label": "SI Quiz Filters"
+  },
+  {
+   "fieldname": "customer_group",
+   "fieldtype": "Link",
+   "label": "Customer Group",
+   "options": "Customer Group"
+  },
+  {
+   "fieldname": "column_break_ojto",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "quiz_name",
+   "fieldtype": "Link",
+   "label": "Quiz Name",
+   "options": "Quiz Name"
+  },
+  {
+   "fieldname": "quiz_question_match_tab",
+   "fieldtype": "Tab Break",
+   "label": "Quiz Question Match"
+  },
+  {
+   "fieldname": "table_iovi",
+   "fieldtype": "Table",
+   "options": "Score Card Table"
+  },
+  {
+   "fieldname": "quiz_statement_tab",
+   "fieldtype": "Tab Break",
+   "label": "Quiz Statement"
+  },
+  {
+   "fieldname": "statement_section",
+   "fieldtype": "Section Break",
+   "label": "Statement"
+  },
+  {
+   "fieldname": "small_text_weav",
+   "fieldtype": "Small Text",
+   "label": "Review Statement"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-05-23 19:04:28.842658",
+ "modified_by": "Administrator",
+ "module": "START INSIGHTS",
+ "name": "SI Score Card",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
