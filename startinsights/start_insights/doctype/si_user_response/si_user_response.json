@@ -1,0 +1,165 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-05-23 17:54:55.090957",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "user_details_section",
+  "user_id",
+  "full_name",
+  "column_break_eloj",
+  "company",
+  "quiz_filters_section",
+  "customer_group",
+  "column_break_peru",
+  "quiz_name",
+  "user_response_tab",
+  "response_section",
+  "response_table",
+  "score_card_tab",
+  "score_card_table",
+  "score_and_review_tab",
+  "statement_section",
+  "review_statement",
+  "section_break_ncne",
+  "si_total_marks",
+  "column_break_oumc",
+  "si_completed_status"
+ ],
+ "fields": [
+  {
+   "fieldname": "user_details_section",
+   "fieldtype": "Section Break",
+   "label": "User Details"
+  },
+  {
+   "fieldname": "user_id",
+   "fieldtype": "Link",
+   "label": "User ID",
+   "options": "Profile Application"
+  },
+  {
+   "fetch_from": "user_id.full_name",
+   "fieldname": "full_name",
+   "fieldtype": "Data",
+   "label": "Full Name"
+  },
+  {
+   "fieldname": "column_break_eloj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "quiz_filters_section",
+   "fieldtype": "Section Break",
+   "label": "Quiz Filters"
+  },
+  {
+   "fieldname": "customer_group",
+   "fieldtype": "Link",
+   "label": "Customer Group",
+   "options": "Customer Group"
+  },
+  {
+   "fieldname": "column_break_peru",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "quiz_name",
+   "fieldtype": "Link",
+   "label": "Quiz Name",
+   "options": "Quiz Name"
+  },
+  {
+   "fieldname": "user_response_tab",
+   "fieldtype": "Tab Break",
+   "label": "User Response"
+  },
+  {
+   "fieldname": "response_section",
+   "fieldtype": "Section Break",
+   "label": "Response"
+  },
+  {
+   "fieldname": "response_table",
+   "fieldtype": "Table",
+   "label": "Response Table",
+   "options": "SI User Response Table"
+  },
+  {
+   "fieldname": "score_card_tab",
+   "fieldtype": "Tab Break",
+   "label": "Score Card"
+  },
+  {
+   "fieldname": "score_card_table",
+   "fieldtype": "Table",
+   "label": "Score Card Table",
+   "options": "Score Card Table"
+  },
+  {
+   "fieldname": "score_and_review_tab",
+   "fieldtype": "Tab Break",
+   "label": "Score and Review"
+  },
+  {
+   "fieldname": "statement_section",
+   "fieldtype": "Section Break",
+   "label": "Statement"
+  },
+  {
+   "fieldname": "review_statement",
+   "fieldtype": "Small Text",
+   "label": "Review Statement"
+  },
+  {
+   "fieldname": "section_break_ncne",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "si_total_marks",
+   "fieldtype": "Int",
+   "label": "SI Total Marks"
+  },
+  {
+   "fieldname": "column_break_oumc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "si_completed_status",
+   "fieldtype": "Check",
+   "label": "SI Completed Status"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-05-23 18:32:10.701776",
+ "modified_by": "Administrator",
+ "module": "START INSIGHTS",
+ "name": "SI User Response",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
